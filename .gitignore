@@ -11,4 +11,8 @@ application/logs/*
 /*.bak
 /*.swp
 /whitepaper
+/.*
+!/.gitignore
+!/.gitconfig
+!/.gitmodules
 
