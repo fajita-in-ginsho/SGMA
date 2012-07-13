@@ -1,0 +1,32 @@
+body{
+	background: #b6b6b6;
+	margin: 0;
+	padding: 0;
+	font-family: arial;
+}
+
+#login_form {
+	width: 300px;
+	background: #f0f0f0 url(../img/login_bg.jpg)
+	border: 1px solid white;
+	margin: 250px auto 0;
+	padding: 1em;
+	-moz-border-radius: 3px;
+	-webkit-border-radius: 3px;
+}
+
+#login_error {
+	color: red;
+}
+
+h1, h2, h3, h4, h5 {
+	margin-top: 0;
+	font-family: arial black, arial;
+	text-align: center;
+}
+
+.footer{
+	height: 30px;  
+	position: absolute;  
+	bottom: 0;  
+}

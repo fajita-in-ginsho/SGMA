@@ -70,6 +70,17 @@
 	<h1>Welcome to CodeIgniter!</h1>
 
 	<h2>SGMA stands for Shogi Game Management Application</h2>
+	<select name="age" id="age">
+	<?php
+	$i = 1;
+	while($i<10){
+		echo "hello world";
+		print('<option value="' . $i . '">' . $i . 'old</option>');
+		$i++;
+	}
+	?>
+	</select>
+	
 	<div id="body">
 		<p>The page you are looking at is being generated dynamically by CodeIgniter.</p>
 

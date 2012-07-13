@@ -51,8 +51,8 @@ $autoload['packages'] = array();
 |
 |	$autoload['libraries'] = array('database', 'session', 'xmlrpc');
 */
-
-$autoload['libraries'] = array();
+$autoload['libraries'] = array('database', 'session');
+//$autoload['libraries'] = array();
 
 
 /*
@@ -64,7 +64,7 @@ $autoload['libraries'] = array();
 |	$autoload['helper'] = array('url', 'file');
 */
 
-$autoload['helper'] = array();
+$autoload['helper'] = array('form', 'url');
 
 
 /*
@@ -109,7 +109,11 @@ $autoload['language'] = array();
 |
 */
 
-$autoload['model'] = array();
+$autoload['model'] = array(
+		'users_model',
+		'tournaments_model',
+		'participants_model'
+);
 
 
 /* End of file autoload.php */
