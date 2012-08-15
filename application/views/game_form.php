@@ -16,15 +16,22 @@
 	    } 
 	?>
 	</div>
-	<div id="username_of_selected_row">
+	<div id="username_of_selected_row" title="<?php echo $username_of_selected_row; ?>">
 	<?php
-	    echo '<p>username : ';
-	    if(isset($username)){
-	        echo $username;
+	    if(isset($username_of_selected_row)){
+	        echo $username_of_selected_row;
 	    }else{
 	        echo "unknown";
 	    }
-	    echo '</p>';
+	?>
+	</div>
+	<div id="username_of_selected_column" title="<?php echo $username_of_selected_column; ?>">
+	<?php
+	    if(isset($username_of_selected_column)){
+	        echo $username_of_selected_column;
+	    }else{
+	        echo "unknown";
+	    }
 	?>
 	</div>
 	<div id="kifuId"><p>kifuId : <?php echo $game->kifuId; ?></p></div>
@@ -43,27 +50,11 @@
     <button dojoType="dijit.form.Button" type="button" onClick="onClickKifu(event, <?php echo $game->kifuId; ?>);">
             Kifu
     </button>
+    
+    <div id="game_result_dialog" dojoType="dijit.Dialog"></div>
     <br>
     <br>
 	
 </div>
-
-
-<script type="text/javascript">
-//TODO: あたらしいページで開くときは、うまくいってないので、
-//<script type="text/javascript" src="event_dialog_button.js" 的なことをしましょう。>
-
-// ajaxがオンの場合、（たいていのばあdialogで表示されるんで、addOnLoadは呼ばれない。
-/*
-var isAjax = eval("<?php echo $isAjax;?>");
-if(isAjax==false){
-	dojo.addOnLoad(function(){
-	    dojo.connect(dojo.byId("game_result"), "onclick", null,  onClickGameResult);
-	    dojo.connect(dojo.byId("history_button"), "onclick", null,  onClickHistory);
-	    dojo.connect(dojo.byId("kifu_button"), "onclick", null,  onClickKifu);
-	});
-}
-*/
-</script>
 
 

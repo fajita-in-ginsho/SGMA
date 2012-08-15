@@ -7,7 +7,7 @@ class Site extends CI_Controller{
 		$this->isLoggedIn();
 	}
 	
-	function goToHome(){
+	function home(){
 		$data['main_content'] = 'home_page';
 		$data['title'] = 'Home';
 		$data['username'] = $this->session->userdata('username');
@@ -17,7 +17,7 @@ class Site extends CI_Controller{
 		$this->load->view('includes/template', $data);
 	}
 	
-	function goToTournament(){
+	function tournament(){
 		$data['tournament_name'] = $this->uri->segment(3);
 		
 		// get tournament id

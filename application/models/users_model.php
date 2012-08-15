@@ -32,6 +32,7 @@ class Users_Model extends My_IDModel {
 			return $query->row(0)->id;
 		}
 	}	
+	
 }
 
 ?>

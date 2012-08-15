@@ -24,7 +24,7 @@ class Tournament extends My_UserSessionController{
 		    if(isset($_GET['cup'])){
 		        $cup_name = $_GET['cup'];
 		    }
-		    if(isset($_GET['cup'])){
+		    if(isset($_GET['tournament'])){
 		        $tournament_name = $_GET['tournament'];
 		    }
 		    
@@ -63,7 +63,7 @@ class Tournament extends My_UserSessionController{
 			    }else if($data['tournament']->type == "Knock-out"){
 			        $data['main_content'] = 'tournaments/gruop_tournament_form';
 			    }else{
-			        redirect("site/goToHome");
+			        redirect("site/home");
 			    }
 			    $data['title'] = $cup_name . $tournament_name;
 			    $this->load->view('includes/template', $data);
@@ -71,18 +71,12 @@ class Tournament extends My_UserSessionController{
 			
 		}else{
 		    if($is_ajax_request){
-		        redirect("site/goToHome");
+		        redirect("site/home");
 		    }
 		}
 		
 	}
 	
-	function game($gameId){
-	    $retrieved_gameId = urldecode($this->uri->segment(3));
-	    echo "get the $gameId information and returned!";
-	}
-
 }
-
 
 ?>	

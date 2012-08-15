@@ -22,7 +22,7 @@ class Login extends CI_Controller {
 			);
 			$this->session->set_userdata($data);
 			
-			redirect('site/goToHome'); 
+			redirect('site/home'); 
 		}else{
 			$this->index(true);
 		}

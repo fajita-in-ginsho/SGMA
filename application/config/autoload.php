@@ -114,6 +114,7 @@ $autoload['model'] = array(
 	  , 'tournaments_model'
 	  ,	'participants_model'
 	  ,	'games_model'
+      ,	'gameresult_model'
       ,	'players_model'
 );
 

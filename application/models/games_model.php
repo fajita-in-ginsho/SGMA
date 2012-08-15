@@ -98,7 +98,7 @@ class Games_Model extends My_IDModel {
 	        return $query->row();
 	    }
 	}
-
+    
 }
 
 ?>
