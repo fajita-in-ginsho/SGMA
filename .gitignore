@@ -11,8 +11,14 @@ application/logs/*
 /*.bak
 /*.swp
 /whitepaper
+# ignore all config folder and file starting with . except for items listed right below with ! mark.
 /.*
 !/.gitignore
 !/.gitconfig
 !/.gitmodules
+
+# download dojo yourself.(as of July2012, ver 1.7.4) 
+/js/dijit
+/js/dojo
+/js/dojox
 

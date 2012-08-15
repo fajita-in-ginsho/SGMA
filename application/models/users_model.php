@@ -1,4 +1,5 @@
 <?php
+require_once(APPPATH .'/core/my_idmodel.php');
 
 class Users_Model extends My_IDModel {
 	

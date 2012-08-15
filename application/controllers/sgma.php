@@ -23,9 +23,12 @@ Coding RULEs
 
 /*
 TODO
-emailaccount table was delted, so modify create account
-jump to login successful page, then anchor to login.
-create home page. list of tournaments.
+Date		Status		Description
+0000-00-00	Done		emailaccount table was delted, so modify create account
+0000-00-00	Done		jump to login successful page, then anchor to login.
+0000-00-00	Done		create home page. list of tournaments.
+2012-07-20	New			dojo.xhrGet url is not what I want. study and understand folder accessability.
+
 */
 
 ?>

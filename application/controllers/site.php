@@ -13,6 +13,7 @@ class Site extends CI_Controller{
 		$data['username'] = $this->session->userdata('username');
 		$userId = $this->users_model->getIdByUsername($this->session->userdata('username'));
 		$data['tournaments'] = $this->tournaments_model->getByUserId($userId);
+		$data['tournaments_json'] = json_encode($data['tournaments']);
 		$this->load->view('includes/template', $data);
 	}
 	

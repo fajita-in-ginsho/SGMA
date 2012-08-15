@@ -16,17 +16,20 @@ class Participants_Model extends My_IDModel {
 	 * 
 	 */
 	function getByTournamentId($tournamentId){
+		$stmt = "
+		select 
+			p.userId as `userId`
+		  , u.username as `username`
+		from 
+		    participants as p
+		  , users as u
+		where 
+			p.userId = u.id and
+			p.tournamentId = $tournamentId
+		;";
 		
-		$query = $this->db->query(
-			   "select 
-					p.userId as `userId`
-				  , u.username as `username`
-				from 
-				    participants as p
-				  , users as u
-				where 
-					p.tornamentId = $tournamentId;"
-		);
+		$query = $this->db->query($stmt);
+			   
 		$participants = array();
 		if($query->num_rows() > 0){
 			$participants = $query->result();

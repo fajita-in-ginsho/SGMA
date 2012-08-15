@@ -110,9 +110,11 @@ $autoload['language'] = array();
 */
 
 $autoload['model'] = array(
-		'users_model',
-		'tournaments_model',
-		'participants_model'
+		'users_model'
+	  , 'tournaments_model'
+	  ,	'participants_model'
+	  ,	'games_model'
+      ,	'players_model'
 );
 
 

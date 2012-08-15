@@ -48,6 +48,7 @@ class Tournament_Model extends My_IDModel {
 		if($query->num_rows() == 1){
 			$this->data = array_merge($this->data, $query->row_array());
 			$this->data['participants'] = $this->participants_model->getByTournamentId($this->data['id']);
+			$this->data['games'] = $this->games_model->getByTournamentId($this->data['id']);
 		}else{
 			log_message('info', $stmt);
 			show_error($stmt);

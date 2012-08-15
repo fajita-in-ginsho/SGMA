@@ -1,4 +1,5 @@
 <?php 
+require_once(BASEPATH . '/core/Model.php');
 
 class My_Model extends CI_Model {
 	
@@ -26,6 +27,4 @@ class My_Model extends CI_Model {
 
 }
 
-
-require(APPPATH.'core/My_IDModel.php');
 ?>
