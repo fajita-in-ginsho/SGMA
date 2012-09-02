@@ -17,6 +17,21 @@ class My_IDModel extends My_Model {
 		$this->db->replace($this->table, $data);
 		return $this->db->result_id;
 	}
+	
+	function getById($id){
+	    if(!isset($id)) return;
+	    
+	    $stmt = "
+	    SELECT * FROM `$this->table`
+	    WHERE `id` = $id
+	    ;
+	    ";
+	     
+	    $query = $this->db->query($stmt);
+	    if($query->num_rows() == 1){
+	        return $query->row();
+	    }
+	}
 }
 
 ?>

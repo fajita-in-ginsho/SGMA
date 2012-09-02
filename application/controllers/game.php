@@ -58,10 +58,23 @@ class Game extends My_UserSessionController{
 	    }
 	    if(isset($_GET['username_of_selected_row'])){
 	        $data['username_of_selected_row'] = $_GET['username_of_selected_row'];
+	        $data['userId_of_selected_row'] = $this->users_model->getIdByUsername($data['username_of_selected_row']);
 	    }
 	    if(isset($_GET['username_of_selected_column'])){
 	        $data['username_of_selected_column'] = $_GET['username_of_selected_column'];
+	        $data['userId_of_selected_column'] = $this->users_model->getIdByUsername($data['username_of_selected_column']);
 	    }
+	    
+	    if($this->session->userdata('userId') == $data['userId_of_selected_row'] ||
+	       $this->session->userdata('userId') == $data['userId_of_selected_column']
+	     /* || $this->organizers_model->isAuthorized($this->session->userdata('userId'), $tournamentId)*/ ){
+	     
+	    }else{
+	        echo "you don't have permission to change the result of this game!";
+	        return;
+	    }
+	    
+	    
 	    $game = $this->games_model->getById($gameId);
 	    $players = $this->players_model->getByGameId($gameId);
 	    $tournament = $this->tournaments_model->getById($game->tournamentId);
@@ -106,6 +119,7 @@ class Game extends My_UserSessionController{
 	    }
 	    
 	    echo $this->players_model->updateGameResult($gameId, $userId_of_selected_row, $gameResultId);
+	    
 	}
 }
 

@@ -34,11 +34,12 @@
 	    }
 	?>
 	</div>
-	<div id="kifuId"><p>kifuId : <?php echo $game->kifuId; ?></p></div>
-	<div id="tournament_name"><p><?php echo $tournament->name; ?></p></div>
-	<div id="gameId"><p><?php echo $game->gameId; ?></p></div>
-	<div id="game_date"><p><?php echo $game->date; ?></p></div>
-    <div id="isAjax"><p>Ajax : <?php echo $isAjax; ?></p></div>
+	<div id="kifuId" title="<?php echo $game->kifuId; ?>"><p>kifuId : <?php echo $game->kifuId; ?></p></div>
+	<div id="threadId" title="<?php echo $game->threadId; ?>"><p>threadId : <?php echo $game->threadId; ?></p></div>
+	<div id="tournament_name" title="<?php echo $tournament->name; ?>"><p><?php echo $tournament->name; ?></p></div>
+	<div id="gameId" title="<?php echo $game->gameId; ?>"><p><?php echo $game->gameId; ?></p></div>
+	<div id="game_date" title="<?php echo $game->date; ?>"><p><?php echo $game->date; ?></p></div>
+    <div id="isAjax" title="<?php echo $isAjax; ?>"><p>Ajax : <?php echo $isAjax; ?></p></div>
     
 	
 	<button dojoType="dijit.form.Button" type="button" onClick="onClickGameResult(event, <?php echo $game->gameId;?>);">
@@ -52,6 +53,10 @@
     </button>
     
     <div id="game_result_dialog" dojoType="dijit.Dialog"></div>
+    <div id="thread_dialog" dojoType="dijit.Dialog"></div>
+    <div id="thread_change_date_dialog" dojoType="dijit.Dialog"></div>
+    
+    
     <br>
     <br>
 	

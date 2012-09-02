@@ -116,6 +116,8 @@ $autoload['model'] = array(
 	  ,	'games_model'
       ,	'gameresult_model'
       ,	'players_model'
+      ,	'thread_model'
+      ,	'comments_model'
 );
 
 

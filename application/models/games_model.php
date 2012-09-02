@@ -99,6 +99,35 @@ class Games_Model extends My_IDModel {
 	    }
 	}
     
+	/*
+	 * updateFor
+	 * update the context given by the $update_context for the give gameId in games table.
+	 * $update_context is an array contains key as colum and value as its value. like below.
+	 * $update_context = array(
+               'title' => $title,
+               'name' => $name,
+               'date' => $date
+            );
+       
+	 */
+	function updateForId($gameId, $update_context){
+	    $this->db->where('id', $gameId);
+	    $succeeded = $this->db->update($this->table, $update_context);
+	    return $succeeded;
+	}
+	
+	function getDate($gameId){
+	 $stmt = "
+	    SELECT g.`date` AS `date` FROM `games` AS g
+        WHERE g.id = $gameId;
+	    ";
+	    $query = $this->db->query($stmt);
+	    if($query->num_rows() == 1){
+	        $a = $query->row();
+	        return $a->date;
+	    }
+	}
+	
 }
 
 ?>

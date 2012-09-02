@@ -18,6 +18,7 @@ class Login extends CI_Controller {
 		if($this->users_model->validate()){
 			$data = array(
 			    'username'=> $this->input->post('username')
+			  , 'userId' => $this->users_model->getIdByUsername($this->input->post('username'))    
 			  , 'is_logged_in' => true
 			);
 			$this->session->set_userdata($data);

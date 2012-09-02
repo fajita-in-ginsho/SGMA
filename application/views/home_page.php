@@ -3,8 +3,17 @@
 
 <?php
 echo '<h2>Welcom to SGMA, ' . $username . ' !!</h2>'; 
-echo anchor('login/logout', 'Logout'); 
+echo anchor('login/logout', 'Logout');
+
+echo '<br>';
+echo anchor('tournament/create', 'Create a new Tournament');
+echo '<br>';
+echo anchor('cup/create', 'Create a new Cup');
 ?>
+
+
+
+
 
 
 <div id="tournament_list">

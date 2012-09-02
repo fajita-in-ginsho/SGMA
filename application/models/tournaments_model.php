@@ -56,8 +56,7 @@ class Tournaments_Model extends My_IDModel {
 	function getById($id){
 		$stmt = "
 		select
-		  t.id as `id`
-		, t.name as `name`
+		  t.*
 		, type.name as `type`
 		, c.id as `cup_id`
 		, c.name as `cup_name`
