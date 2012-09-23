@@ -10,3 +10,4 @@ dojo.require("dijit.Calendar");
 dojo.require("dojo.date.locale");
 dojo.require("dijit.form.DateTextBox");
 dojo.require("dijit.form.TimeTextBox");
+dojo.require("dojox.widget.Toaster");

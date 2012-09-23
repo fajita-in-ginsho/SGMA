@@ -41,6 +41,8 @@ Date		Status		Description
 2012-08-22  Task        create tournament create form. cup create form.
 2012-08-22  Task        release.
 2012-08-22  Task        improve appearance/ improve home.
+2012-09-07  Done        add URL link in the sent email as change date requested.
+2012-09-12  Task        use dojo.widget.toast to warn if date/time is not selected in chagne date.
 */
 
 ?>

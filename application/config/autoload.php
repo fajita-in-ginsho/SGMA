@@ -118,6 +118,8 @@ $autoload['model'] = array(
       ,	'players_model'
       ,	'thread_model'
       ,	'comments_model'
+      ,	'cups_model'
+      ,	'tournamenttype_model'
 );
 
 

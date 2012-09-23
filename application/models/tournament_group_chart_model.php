@@ -28,8 +28,13 @@ class Tournament_Group_Chart_Model extends My_IDModel {
 		array_push($this->columns, array("name"=>"Loss", "field"=>"loss", "width"=>"30px"));
 		array_push($this->columns, array("name"=>"Points", "field"=>"points", "width"=>"50px"));
 		foreach($this->participants as $participant){
-			array_push($this->columns, array("name"=> $participant->username, "field"=>$participant->username
-			        , "width"=>"50px"));
+			array_push($this->columns
+			        , array("name"=> $participant->username
+			              , "field"=>$participant->username
+			              , "width"=>"50px"
+			              , "formatter"=>"imageFormatter"
+			          )
+			        );
 		}
 		array_push($this->columns, array("name"=>"Note", "field"=>"note"));
 		
@@ -55,7 +60,20 @@ class Tournament_Group_Chart_Model extends My_IDModel {
 					    // eg. kunio_gameId is the column name and its value is gameId. 
 					    $row[$participant->username . "_gameId"] = $gameId;
 					}
-					$row[$participant->username] = $companionGameResult;
+					//$row[$participant->username] = $companionGameResult;
+					if($companionGameResult == -1){
+					    $row[$participant->username] = base_url("images/notyetplayed.png");
+					}else if($companionGameResult == 0){
+					    $row[$participant->username] = base_url("images/win.png");
+					}else if($companionGameResult == 1){
+					    $row[$participant->username] = base_url("images/lose.png");
+					}else if($companionGameResult == 2){
+					    $row[$participant->username] = base_url("images/draw.png");
+					}else if($companionGameResult == 3){
+					    $row[$participant->username] = base_url("images/defaultwin.png");
+					}else{
+					    $row[$participant->username] = base_url("images/unknown.png");
+					}
 					
 				}
 			}

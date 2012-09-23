@@ -80,8 +80,7 @@ class Tournaments_Model extends My_IDModel {
 		}
 		return $result;
 	}
-	
-	
+		
 }
 
 ?>

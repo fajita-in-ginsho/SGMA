@@ -93,6 +93,49 @@ class Players_Model extends My_IDModel {
 	    }
 	    return $opponents;
 	}
+	
+	function getGamesByUserId($userId, $whereClause){
+	    // WORKAROUND: if name are same in multi tables, it overwrite the value with the last attribute.
+	    // therefore, it explicitly specify the name with AS clause.
+	    $stmt = "
+	    SELECT 
+          p.gameId AS `p_gameId`
+        , p.userId AS `p_userId`
+        , p.gameResultId AS `p_gameResultId`
+        , g.id AS `g_id`
+        , g.name AS `g_name`
+        , g.tournamentId AS `g_tournamentId`
+        , g.gameTypeId AS `g_gameTypeId`
+        , g.`date` AS `g_date`
+        , g.`threadId` AS `g_threadId`
+        , g.`gameInfoId` AS `g_gameInfoId`
+        , r.`id` AS `r_id`
+        , r.`description` AS `r_description`
+        , t.`id` AS `t_id`
+        , t.`name` AS `t_name`
+        , t.`tournamentTypeId` AS `t_tournamentTypeId`
+        , t.`cupId` AS `t_cupId`
+        , t.`createdBy` AS `t_createdBy`
+        , t.`createdOn` AS `t_createdOn`
+         FROM `players` AS p
+        , `games` AS g
+        , `gameresult` AS r
+        , `tournaments` AS t
+        WHERE p.userId = $userId
+        AND g.id = p.gameId
+        AND r.id = p.gameResultId
+        AND t.id = g.tournamentId 
+	    ";
+	    
+	    if(isset($whereClause)){
+	        $stmt .= $whereClause;  
+	    }
+	    
+	    error_log("stmt = $stmt");
+	    $query = $this->db->query($stmt);
+	    if($query->num_rows() > 0){
+	        return $query->result();
+	    }
+    }
 }
-
 ?>

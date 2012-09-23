@@ -15,9 +15,11 @@ class Comments_Model extends My_IDModel {
         , `comments`.`threadId` AS `threadId`
         , `comments`.`comment` AS `comment`
         , `comments`.`createdBy` AS `createdBy`
+        , `users`.`username` AS `username`
         , `comments`.`createdOn` AS `createdOn`
-        FROM `comments`
-        WHERE `threadId` = $threadId
+        FROM `comments`, `users`
+        WHERE `comments`.`threadId` = $threadId
+        and `users`.`id` = `comments`.`createdBy`
 	    ;
 	    ";
 	    $query = $this->db->query($stmt);
@@ -36,8 +38,9 @@ class Comments_Model extends My_IDModel {
         );
 	    $this->db->set('createdOn', 'Now()', false);
 	    // write query such as update returns TRUE on success, FALSE if fails.
-	    $succeeded = $this->db->insert($this->table, $new_account_insert_data); 
-	    return $succeeded;
+	    if($this->db->insert($this->table, $new_account_insert_data)){
+	        return $this->db->insert_id();
+	    }
 	}
 }
 

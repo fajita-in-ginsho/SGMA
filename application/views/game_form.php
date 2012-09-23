@@ -1,7 +1,3 @@
-<script type="text/javascript" src="<?php echo base_url(); ?>/js/app/import_requirement.js" ></script>
-<script type="text/javascript" src="<?php echo base_url(); ?>/js/app/game_related_action.js"></script>
-<script type="text/javascript" src="<?php echo base_url(); ?>/js/app/home_action.js"></script>
-
 
 <div id="game_form">
 
@@ -43,14 +39,22 @@
     
 	
 	<button dojoType="dijit.form.Button" type="button" onClick="onClickGameResult(event, <?php echo $game->gameId;?>);">
-            Input Result
+    Input Result
     </button>
+    
     <button dojoType="dijit.form.Button" type="button" onClick="onClickHistory(event, <?php echo $game->threadId; ?>);">
-            History
+    History
     </button>
+    
+    <button dojoType="dijit.form.Button" type="button" onClick="onClickChangeDate(event);">
+    Change Date
+    </button>
+    
     <button dojoType="dijit.form.Button" type="button" onClick="onClickKifu(event, <?php echo $game->kifuId; ?>);">
-            Kifu
+    Kifu
     </button>
+    
+    
     
     <div id="game_result_dialog" dojoType="dijit.Dialog"></div>
     <div id="thread_dialog" dojoType="dijit.Dialog"></div>

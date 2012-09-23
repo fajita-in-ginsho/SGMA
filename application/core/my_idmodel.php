@@ -32,6 +32,18 @@ class My_IDModel extends My_Model {
 	        return $query->row();
 	    }
 	}
+	
+	function getAll(){
+	    $stmt = "
+	    SELECT * FROM `$this->table`
+	    ;
+	    ";
+	
+	    $query = $this->db->query($stmt);
+	    if($query->num_rows() > 0){
+	        return $query->result();
+	    }
+	}
 }
 
 ?>

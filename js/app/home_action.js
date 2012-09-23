@@ -1,23 +1,13 @@
-
-function onGridClick(event){
-	
-	//alert("cellIndex = " + event.cellIndex + "\n" + "rowIndex = " + event.rowIndex);
-	//var rowUsername = event.grid.getIdentifer();
+function onGridClickOnGame(event, item, gameId){
 	var columnName = event.cell.field;
-	var item = event.grid.getItem(event.rowIndex);
-	var gameId = -1;
-	try{
-		gameId = item[event.cell.field + "_gameId"][0];
-	}catch(e){
-	}
-	
 	var arguments = {
     	    "gameId" : gameId
 	   	  , "ajax" : true
 	};
+	
 	if(item != null){
-		if(typeof item.username !== "undefined")
-			arguments['username_of_selected_row'] = item.username;
+		if(typeof item.username[0] !== "undefined")
+			arguments['username_of_selected_row'] = item.username[0];
 	}
 	if(columnName != null){
 		arguments['username_of_selected_column'] = columnName;
@@ -45,6 +35,61 @@ function onGridClick(event){
 	}else{
 		//alert("can not retrieve the game information...");
 	}	
+}
+
+function onGridClickOnUsername(event, item){
+	var arguments = {
+	   	  "ajax" : true
+	};
+	
+	if(item != null){
+		if(typeof item.username[0] !== "undefined")
+			arguments['username'] = item.username[0];
+	}else{
+		return;
+	}
+	debugger;
+	dojo.xhrGet({
+
+	    url:"../user/open/" + arguments['username'], 
+	    handleAs: "text",
+	    content : arguments,  
+	    load : function(data){
+		    
+	    	myDialog = new dijit.Dialog({
+		        title: "User Information",
+		        content: data,
+		        style: "width: 300px"
+		    });
+		    myDialog.show();
+	    },
+	    error : function (error){
+	    	alert(data);
+	    }
+	});
+		
+}
+
+function onGridClick(event){
+	
+	//alert("cellIndex = " + event.cellIndex + "\n" + "rowIndex = " + event.rowIndex);
+	//var rowUsername = event.grid.getIdentifer();
+	var columnName = event.cell.field;
+	var item = event.grid.getItem(event.rowIndex);
+	
+	var gameId = -1;
+	try{
+		gameId = item[event.cell.field + "_gameId"][0];
+	}catch(e){
+	
+	}
+	
+	if(gameId != -1){
+		onGridClickOnGame(event, item, gameId);
+	}else if(columnName == "username"){
+		onGridClickOnUsername(event, item);
+	}
+	
 }
 
 
@@ -88,8 +133,21 @@ function getChart(context){
 	    },
 	    
 	    load: function(data){
+	      
     	  var itemdata = data.chart.rows;
 	      var structure = data.chart.columns;
+	      
+	      // if the colum has formatter attribute.
+	      // eval to have javascript to interpret it as a function. 
+	      for( var i=0; i<structure.length; i++){
+	    	  var col = structure[i];
+	    	  try{
+	    		col.formatter = eval(col.formatter);  
+	    	  }catch(e){
+	    		  
+	    	  }
+	      }
+	      
 	      var chart = new dojo.data.ItemFileReadStore( {data :{
 	    	  identifier: 'username', 
     	      items : itemdata 

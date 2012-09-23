@@ -1,5 +1,4 @@
 
-
 function onClickGameResult(event, gameId){
 	var username_of_selected_row = dojo.byId('username_of_selected_row');
 	var username_of_selected_column = dojo.byId('username_of_selected_column');
@@ -168,17 +167,16 @@ function onResultSubmit(event, gameId){
 function onClickThreadComment(event){
 	// TODO: new line char is inclided in innerHTML. put it in tilte instead.
 	// just like , arguments['username_of_selected_row'] = username_of_selected_row.title;
-	var gameId= dojo.attr(dojo.byId("gameId"), 'title'); 
 	
-	var threadId= dojo.attr(dojo.byId("threadId"), 'title');
 	var textarea = dijit.byId("comment_area");
 	var comment = textarea.get("value");
 	
 	if( (typeof(comment) !== "undefined") && comment != "" ){
 		var arguments = {
-			"gameId" : gameId
+			"gameId" : dojo.attr(dojo.byId("gameId"), 'title')
 		  , "ajax" : true
 		  , "comment" : comment
+		  , "threadId" : dojo.attr(dojo.byId("threadId"), 'title') 
 		};
 		dojo.xhrPost({
 
@@ -195,8 +193,14 @@ function onClickThreadComment(event){
 			    // it says, boolean_result, however, boolean is converted to 0 or 1 during serialization. i guess.
 		    	if(result['result'] == true){
 			    	console.log("adding the comment just inserted on success");
-			    	var comment = dojo.create('div', { id:'comment', innerHTML: "<p>" + result['comment'] + "</p>" });
-			    	debugger;
+			    	var comment = dojo.create(
+			    	    'div'
+			    	  , { id:'comment', innerHTML:
+			    		  "<p>" + result['username'] + " : " + result['commentOn'] + "</p>" + 
+			    		  "<p>" + result['comment'] + "</p>" 
+			    		}
+			    	);
+			    	
 			    	dojo.place(comment, dojo.byId('threads'), 'last');
 			    	// clear out the textarea.
 			    	var textarea = dijit.byId("comment_area");
@@ -223,6 +227,7 @@ function onClickChangeDate(event){
 	 */
 	var arguments = {
 	   	"ajax" : true
+	  ,	"gameId" : dojo.attr(dojo.byId("gameId"), 'title')
 	};
 	
 	dojo.xhrPost({
@@ -248,7 +253,6 @@ function onClickChangeDate(event){
 function onChangeCalendar(value){
 	var requesting_change_date = dojo.byId('requesting_change_date');
 	requesting_change_date.innerHTML = dojo.date.locale.format(value, {formatLength: 'full', selector:'date'});
-	debugger;
 }
 
 function onSubmitChangeDate(event){
@@ -262,15 +266,41 @@ function onSubmitChangeDate(event){
 	var gameId= dojo.attr(dojo.byId("gameId"), 'title');
 	var date = dijit.byId('requesting_date');
 	var date_value = dojo.attr(date, 'value');
+	var toast = dijit.byId("toast");
+	
 	if(date_value == "Invalid Date"){
-		showMessage("date is not entered!");
+		//showMessage("date is not entered!");
+		if(typeof toast !== "undefined"){
+			toast.setContent('Please specify the date.', "MESSAGE", 500);
+		}
 		return;
 	}
 	// TODO: how to use/send date in javascript to php. is it string? same question for time.
 	var time = dijit.byId('requesting_time');
 	var time_value = time.getValue();
+	
 	if(time_value == null){
-		showMessage("time is not entered!");
+		//showMessage("time is not entered!");
+		if(typeof toast !== "undefined"){
+			toast.setContent('Please specify the time.', "MESSAGE", 500);
+		}
+		return;
+	}
+	
+	
+	//valudate the entered value.
+	//if it's past! raise an error. if it's exactly same date and time as the default, let him know so.
+	var default_date = new Date(date._resetValue);
+	var default_time = new Date(time._resetValue);
+	if(date_value.getFullYear() == default_date.getFullYear() &&
+	   date_value.getMonth()    == default_date.getMonth()    &&
+	   date_value.getDate()     == default_date.getDate()     &&
+	   time_value.getHours()   == default_time.getHours()     &&
+	   time_value.getMinutes() == default_time.getMinutes()   ){
+	   // no need to check the second
+	    if(typeof toast !== "undefined"){
+		    toast.setContent('You have selected the same date.', "MESSAGE", 500);
+		}
 		return;
 	}
 	
@@ -289,6 +319,7 @@ function onSubmitChangeDate(event){
 	   	"ajax" : true
 	  , "gameId" : gameId
 	  , "datetime" : date_json
+	  , "threadId" : dojo.attr(dojo.byId("threadId"), 'title')
 	};
 	
 	
@@ -300,13 +331,23 @@ function onSubmitChangeDate(event){
 	    content : arguments,  
 	    load : function(result){
 		    // write the returned text in comment.
-	    	debugger;
+	    	
 	    },
 	    error : function (error){
 	    	alert(data);
 	    }
 	});
+	
+	dijit.byId("thread_change_date_dialog").hide();
 }
+
+
+
+function onResetChangeDate(event){
+	dijit.byId("requesting_date").reset();
+	dijit.byId("requesting_time").reset();
+}
+
 
 function onCancelChangeDate(event){
 	dijit.byId("thread_change_date_dialog").hide();

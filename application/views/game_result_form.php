@@ -1,5 +1,3 @@
-<script type="text/javascript" src="<?php echo base_url(); ?>/js/app/import_requirement.js" ></script>
-<script type="text/javascript" src="<?php echo base_url(); ?>/js/app/game_related_action.js"></script>
 
 <div id="game_result_form">
 

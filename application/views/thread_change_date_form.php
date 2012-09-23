@@ -1,8 +1,3 @@
-<script type="text/javascript" src="<?php echo base_url(); ?>/js/app/import_requirement.js" ></script>
-<script type="text/javascript" src="<?php echo base_url(); ?>/js/app/common.js"></script>
-<script type="text/javascript" src="<?php echo base_url(); ?>/js/app/game_related_action.js"></script>
-<script type="text/javascript" src="<?php echo base_url(); ?>/js/app/home_action.js"></script>
-
 
 <div id="thread_change_date_form">
 
@@ -12,11 +7,24 @@
     <!-- 
     <div data-dojo-type="dijit.Calendar" data-dojo-props="onValueSelected:onChangeCalendar, onChnage:onChangeCalendar"></div>
      -->
-	<div id="requesting_date" data-dojo-type="dijit.form.DateTextBox" data-dojo-props="onValueSelected:onChangeCalendar, onChnage:onChangeCalendar"></div>
-    <div id="requesting_time" data-dojo-type="dijit.form.TimeTextBox" data-dojo-props="onValueSelected:onChangeCalendar, onChnage:onChangeCalendar"></div>
+	<input 
+	id="requesting_date" 
+	data-dojo-type="dijit.form.DateTextBox" 
+	value="<?php echo date('Y-m-d', strtotime($current_date->date)); ?>" 
+	data-dojo-props="onValueSelected:onChangeCalendar, onChnage:onChangeCalendar"/>
+	
+	
+    <input
+    id="requesting_time" 
+    data-dojo-type="dijit.form.TimeTextBox"
+    value="T<?php echo date('H:i:s', strtotime($current_time->date)); ?>"
     
+    data-dojo-props="onValueSelected:onChangeCalendar, onChnage:onChangeCalendar"/>
+    
+      
 	<button dojoType="dijit.form.Button" type="button" onClick="onSubmitChangeDate(event);">OK</button>
-    <button dojoType="dijit.form.Button" type="button" onClick="onCancelChangeDate(event);">Cancel</button>
+	<button dojoType="dijit.form.Button" type="button" onClick="onCancelChangeDate(event);">Cancel</button>
+	<button dojoType="dijit.form.Button" type="button" onClick="onResetChangeDate(event);">Reset</button>
     
     
     <br>

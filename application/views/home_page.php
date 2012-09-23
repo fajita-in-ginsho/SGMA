@@ -1,4 +1,8 @@
-<script type="text/javascript" src="../../js/app/import_requirement.js"></script>
+<script type="text/javascript" src="<?php echo base_url(); ?>js/app/game_related_action.js"></script>
+<script type="text/javascript">
+var tournaments = eval(<?php echo $tournaments_json; ?>);
+</script>
+<script type="text/javascript" src="<?php echo base_url(); ?>js/app/home_action.js"></script>
 
 
 <?php
@@ -6,13 +10,10 @@ echo '<h2>Welcom to SGMA, ' . $username . ' !!</h2>';
 echo anchor('login/logout', 'Logout');
 
 echo '<br>';
-echo anchor('tournament/create', 'Create a new Tournament');
+echo anchor('tournament/createForm', 'Create a new Tournament');
 echo '<br>';
-echo anchor('cup/create', 'Create a new Cup');
+echo anchor('cup/createForm', 'Create a new Cup');
 ?>
-
-
-
 
 
 
@@ -50,23 +51,31 @@ if(isset($tournaments)){
 ?>
 </div>
 
-<script type="text/javascript" src="../../js/app/game_related_action.js"></script>
 
-<script type="text/javascript">
-var tournaments = eval(<?php echo $tournaments_json; ?>);
-</script>
-<script type="text/javascript" src="../../js/app/home_action.js"></script>
+<!--
+TODO
+I got to move the following elements to *_tornament_form.php
+so that those elements are to created on deamnd. not statically as
+it is created in home_page.php 
+ -->
+
+<div id="tournament"></div>
+<div id="participants"></div>
+<div id="games"></div>
+<!-- 
+<div id="tournament_chart"></div>
+<div style="width: 600px; height: 200px">
+<table class="claro" dojoType="dojox.grid.DataGrid" id="myDataGrid">
+</table>
+ -->
 
 
 <div id="tournament_chart" class="claro" >
-
     <div id="tournametChart" dojoType="dojox.grid.DataGrid"></div>
     <div id="cupOfCurrentDisplayedChart" title=""></div>
     <div id="tournamentOfCurrentDisplayedChart" title=""></div>
-    
 </div>
 
-
-
+<div dojoType="dojox.widget.Toaster" id="toast" positionDirection="tl-down"></div>
 
 
