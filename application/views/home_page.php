@@ -6,7 +6,7 @@ var tournaments = eval(<?php echo $tournaments_json; ?>);
 
 
 <?php
-echo '<h2>Welcom to SGMA, ' . $username . ' !!</h2>'; 
+echo '<h1>Welcom to SGMA, ' . $username . ' !!</h1>'; 
 echo anchor('login/logout', 'Logout');
 
 echo '<br>';
@@ -17,18 +17,21 @@ echo anchor('cup/createForm', 'Create a new Cup');
 
 
 
-<div id="tournament_list">
+<div align="left" id="tournament_list">
 <?php
-echo '<p>Tournaments I\'m in!</p>';
+echo '<h2><p>Tournaments I\'m in!</p></h2>';
 
 if(isset($tournaments)){
-	echo '<ul type="disc">';
+    
+	echo '<ul type="">';
+	/*
 	foreach($tournaments as $q_result){
 		echo '<li>' . 
 		anchor("tournament/open/$q_result->cup/$q_result->tournament"
 				, $q_result->cup . $q_result->tournament) .
 		 '</li>';
 	}
+	*/
 	/*
 	foreach($tournaments as $q_result){
 	    echo '<li><div id="' . $q_result->cup .$q_result->tournament .'">' .
@@ -46,7 +49,7 @@ if(isset($tournaments)){
 	echo '</ul>';
 	
 }else{
-	echo '<p>I\'m not particiated in any tournament.</p>';
+	echo '<p>I\'m not currently in any tournament.</p>';
 }
 ?>
 </div>
@@ -59,9 +62,20 @@ so that those elements are to created on deamnd. not statically as
 it is created in home_page.php 
  -->
 
-<div id="tournament"></div>
-<div id="participants"></div>
-<div id="games"></div>
+<div id="tournament_chart" class="claro" >
+    <div id="tournament"></div>
+    <div id="participants"></div>
+    <div id="games"></div>
+    <div id="tournametChart" dojoType="dojox.grid.DataGrid"></div>
+    
+    <div id="cupIdOfCurrentDisplayedChart" title=""></div>
+    <div id="cupNameOfCurrentDisplayedChart" title=""></div>
+    <div id="tournamentIdOfCurrentDisplayedChart" title=""></div>
+    <div id="tournamentNameOfCurrentDisplayedChart" title=""></div>
+</div>
+<div dojoType="dojox.widget.Toaster" id="toast" positionDirection="tl-down"></div>
+
+
 <!-- 
 <div id="tournament_chart"></div>
 <div style="width: 600px; height: 200px">
@@ -69,13 +83,5 @@ it is created in home_page.php
 </table>
  -->
 
-
-<div id="tournament_chart" class="claro" >
-    <div id="tournametChart" dojoType="dojox.grid.DataGrid"></div>
-    <div id="cupOfCurrentDisplayedChart" title=""></div>
-    <div id="tournamentOfCurrentDisplayedChart" title=""></div>
-</div>
-
-<div dojoType="dojox.widget.Toaster" id="toast" positionDirection="tl-down"></div>
 
 

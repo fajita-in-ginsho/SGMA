@@ -38,7 +38,7 @@ class Tournament extends My_UserSessionController{
 			$data['games'] = $this->games_model->getByTournamentId($tournament_id);
 			
 			$additionalColmns = array(
-			    array("name"=>"Additional", "field"=>"win", "width"=>"80px")
+			    array("name"=>"Additional", "field"=>"additional", "width"=>"80px")
 			);
 			$chart = new Tournament_Group_Chart_Model($tournament_id, $data['participants'], $additionalColmns);
 			$data['chart'] = $chart;

@@ -180,7 +180,7 @@ function onClickThreadComment(event){
 		};
 		dojo.xhrPost({
 
-		    url:"../thread/addComment/" + threadId, 
+		    url:"../thread/addComment/" + arguments["threadId"], 
 		    handleAs: "json",
 		    content : arguments,  
 		    load : function(result){
@@ -201,7 +201,7 @@ function onClickThreadComment(event){
 			    		}
 			    	);
 			    	
-			    	dojo.place(comment, dojo.byId('threads'), 'last');
+			    	dojo.place(comment, dojo.byId('threads'), 'first');
 			    	// clear out the textarea.
 			    	var textarea = dijit.byId("comment_area");
 			    	textarea.reset();

@@ -12,7 +12,7 @@ class Tournament_Group_Chart_Model extends My_IDModel {
 	public $height;
 	private $base_width= 120; // 12 px
 	private $header_height = 30; // 12 px
-	private $single_row_height = 20; // 12 px
+	private $single_row_height = 50; // 12 px
 	
 	function __construct($tournamentId, $participants, $additionalColmns=array()){
 		$this->tournamentId = $tournamentId;
@@ -25,8 +25,10 @@ class Tournament_Group_Chart_Model extends My_IDModel {
 		    $this->columns = array_merge($this->columns, $additionalColmns);
 		}
 		array_push($this->columns, array("name"=>"Win", "field"=>"win", "width"=>"30px"));
-		array_push($this->columns, array("name"=>"Loss", "field"=>"loss", "width"=>"30px"));
-		array_push($this->columns, array("name"=>"Points", "field"=>"points", "width"=>"50px"));
+		array_push($this->columns, array("name"=>"Lose", "field"=>"lose", "width"=>"30px"));
+		array_push($this->columns, array("name"=>"Draw", "field"=>"draw", "width"=>"30px"));
+		array_push($this->columns, array("name"=>"Rest", "field"=>"rest", "width"=>"30px"));
+		array_push($this->columns, array("name"=>"Points", "field"=>"points", "width"=>"50px", "editable"=>"true", "formatter"=>"onChangePoints"));
 		foreach($this->participants as $participant){
 			array_push($this->columns
 			        , array("name"=> $participant->username
@@ -36,7 +38,9 @@ class Tournament_Group_Chart_Model extends My_IDModel {
 			          )
 			        );
 		}
-		array_push($this->columns, array("name"=>"Note", "field"=>"note"));
+		
+		// if you are the owner of this tournament or cup, make this filed editable!!
+		array_push($this->columns, array("name"=>"Note", "field"=>"note", "width"=>"120px", "editable"=>"true", "formatter"=>"onChangeNotes"));
 		
 		// creating rows info
 		foreach($this->participants as $participant){
@@ -46,16 +50,24 @@ class Tournament_Group_Chart_Model extends My_IDModel {
 			$row = array();
 			if(count($games) > 0){
 				$row["username"] = $games[0]->companionUsername;
-				$row["win"] = 0;
-				$row["loss"] = 0;
 				$row["points"] = 0;
+				$row["win"] = 0;
+				$row["lose"] = 0;
+				$row["draw"] = 0;
+				$row["rest"] = 0;
 				$row["note"] = "";
+				
+				if(count($additionalColmns) > 0){
+				    foreach ($additionalColmns as $additonalColmn){
+				        $row[$additonalColmn["field"]] = "";
+				    }
+				}
 				
 				foreach($this->participants as $participant){
 					$companionGameResult = searchFromQueryResult($games, "opponentUsername", $participant->username, "companionGameResult");
 					$gameId = searchFromQueryResult($games, "opponentUsername", $participant->username, "gameId");
 					if(!isset($companionGameResult)){
-					    $companionGameResult = "-";
+					    $companionGameResult = -2;
 					}else{
 					    // eg. kunio_gameId is the column name and its value is gameId. 
 					    $row[$participant->username . "_gameId"] = $gameId;
@@ -65,12 +77,19 @@ class Tournament_Group_Chart_Model extends My_IDModel {
 					    $row[$participant->username] = base_url("images/notyetplayed.png");
 					}else if($companionGameResult == 0){
 					    $row[$participant->username] = base_url("images/win.png");
+					    $row["win"] += 1;
 					}else if($companionGameResult == 1){
 					    $row[$participant->username] = base_url("images/lose.png");
+					    $row["lose"] += 1;
 					}else if($companionGameResult == 2){
 					    $row[$participant->username] = base_url("images/draw.png");
+					    $row["draw"] += 1;
 					}else if($companionGameResult == 3){
 					    $row[$participant->username] = base_url("images/defaultwin.png");
+					    $row["win"] += 1;
+					}elseif($companionGameResult == -2){
+					    $row[$participant->username] = base_url("images/notavailable.png");
+					    $row["rest"] += 1;
 					}else{
 					    $row[$participant->username] = base_url("images/unknown.png");
 					}

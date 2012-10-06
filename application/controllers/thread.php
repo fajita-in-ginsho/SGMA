@@ -31,7 +31,7 @@ class Thread extends My_UserSessionController{
 	    
 	    $data['main_content'] = 'thread_form';
 	    $data['title'] = 'History Thread';
-	    $data['comments'] = $this->comments_model->getCommentsByThreadId($threadId);
+	    $data['comments'] = $this->comments_model->getCommentsByThreadId($threadId, "ORDER BY `createdOn` DESC ");
 	    $data['copyright'] = false; // see footer.php
 	    // in this case, return text.html response in both ajax and non-ajax request.
 	    if($is_ajax_request){

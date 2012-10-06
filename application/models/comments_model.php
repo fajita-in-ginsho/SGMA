@@ -7,7 +7,7 @@ class Comments_Model extends My_IDModel {
 	}
 	
 	// return object
-	function getCommentsByThreadId($threadId){
+	function getCommentsByThreadId($threadId, $additionalClause){
 	
 	    $stmt = "
 	    SELECT 
@@ -20,8 +20,12 @@ class Comments_Model extends My_IDModel {
         FROM `comments`, `users`
         WHERE `comments`.`threadId` = $threadId
         and `users`.`id` = `comments`.`createdBy`
-	    ;
 	    ";
+	    
+	    if(isset($additionalClause)){
+	        $stmt .= $additionalClause;
+	    }
+	    
 	    $query = $this->db->query($stmt);
 	    if($query->num_rows() > 0){
 	        return $query->result();

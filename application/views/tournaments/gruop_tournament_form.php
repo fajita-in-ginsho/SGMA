@@ -1,5 +1,6 @@
 
 
+
 <script type="text/javascript">
 dojo.addOnLoad(function (){
 
@@ -14,7 +15,6 @@ dojo.addOnLoad(function (){
 	      var itemdata = data.chart.rows;
 	      var structure = data.chart.columns;
 	      var chart = new dojo.data.ItemFileReadStore( {data :{ items : itemdata }});
-	      debugger;
 	      var grid = dijit.byId("tournametChart");
 	      grid.setStore(chart);
 	      grid.setStructure(structure);
