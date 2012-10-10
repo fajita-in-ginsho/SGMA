@@ -49,20 +49,6 @@ CREATE TABLE `cups` (
 
 insert  into `cups`(`id`,`name`,`createdBy`,`createdOn`) values (1,'Ginsho Cup',1,'2012-07-01 15:22:01'),(2,'81 dojo 6th Cup',1,'2012-07-10 16:28:30'),(3,'makoto cup',0,'2012-09-08 04:05:32'),(4,'Europe Shogi 5th Convension',0,'2012-09-24 09:06:52');
 
-/*Table structure for table `gameinfoshogi` */
-
-DROP TABLE IF EXISTS `gameinfoshogi`;
-
-CREATE TABLE `gameinfoshogi` (
-  `gameId` int(11) NOT NULL,
-  `gameTypeId` int(11) NOT NULL,
-  `kifuId` int(11) DEFAULT NULL,
-  PRIMARY KEY (`gameId`),
-  CONSTRAINT `gameID` FOREIGN KEY (`gameId`) REFERENCES `games` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
-/*Data for the table `gameinfoshogi` */
-
 /*Table structure for table `gameresult` */
 
 DROP TABLE IF EXISTS `gameresult`;
@@ -95,6 +81,22 @@ CREATE TABLE `games` (
 /*Data for the table `games` */
 
 insert  into `games`(`id`,`name`,`tournamentId`,`gameTypeId`,`date`,`threadId`,`gameInfoId`) values (1,'',1,0,'2012-07-31 16:28:46',17,1),(2,'',1,0,'2012-08-01 16:30:13',13,2),(3,'',1,0,'2012-08-01 16:30:13',20,3),(4,'',1,0,'2012-08-01 16:30:13',16,4),(5,'',1,0,'2012-08-02 16:30:13',15,5),(6,'',1,0,'0000-00-00 00:00:00',18,-1),(7,'',2,0,'2012-08-09 21:15:00',23,0);
+
+
+/*Table structure for table `gameinfoshogi` */
+
+DROP TABLE IF EXISTS `gameinfoshogi`;
+
+CREATE TABLE `gameinfoshogi` (
+  `gameId` int(11) NOT NULL,
+  `gameTypeId` int(11) NOT NULL,
+  `kifuId` int(11) DEFAULT NULL,
+  PRIMARY KEY (`gameId`),
+  CONSTRAINT `gameID` FOREIGN KEY (`gameId`) REFERENCES `games` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+/*Data for the table `gameinfoshogi` */
+
 
 /*Table structure for table `gametype` */
 
@@ -149,7 +151,7 @@ CREATE TABLE `participants` (
 
 /*Data for the table `participants` */
 
-insert  into `participants`(`userId`,`tournamentId`) values (0,1),(0,2),(1,1),(9,1),(9,2),(10,1);
+insert  into `participants`(`userId`,`tournamentId`) values (2,1),(2,2),(3,1),(4,1),(4,2),(5,1);
 
 /*Table structure for table `players` */
 
@@ -163,7 +165,7 @@ CREATE TABLE `players` (
 
 /*Data for the table `players` */
 
-insert  into `players`(`gameId`,`userId`,`gameResultId`) values (1,0,0),(1,1,1),(2,9,1),(2,0,0),(3,0,-1),(3,10,-1),(4,1,-1),(4,9,-1),(5,1,1),(5,10,1),(6,9,1),(6,10,3),(7,0,0),(7,9,1);
+insert  into `players`(`gameId`,`userId`,`gameResultId`) values (1,2,0),(1,3,1),(2,2,1),(2,4,0),(3,2,-1),(3,5,-1),(4,3,-1),(4,4,-1),(5,3,1),(5,5,1),(6,4,2),(6,5,2),(7,2,0),(7,4,1);
 
 /*Table structure for table `role` */
 
@@ -242,11 +244,11 @@ CREATE TABLE `users` (
   `createdOn` datetime NOT NULL,
   `modifiedOn` datetime NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
 
 /*Data for the table `users` */
 
-insert  into `users`(`id`,`first_name`,`last_name`,`username`,`password`,`email_address`,`roleId`,`createdOn`,`modifiedOn`) values (0,'kunio','yonenaga','kunio','kunio','kunio@ginsho.jp',2,'2012-08-16 21:46:40','2012-08-16 21:46:40'),(1,'yoshiharu','habu','habu','habu','habu@ginsho.jp',2,'2012-07-10 12:02:57','2012-07-10 12:02:57'),(2,'toshiyuki','moriuchi','moriuchi','moriuchi','yeele@ginsho.jp',2,'2012-07-10 12:02:57','2012-07-10 12:02:57'),(9,'kazuki','kimura','kimura','kimura','kimura@ginsho.jp',2,'0000-00-00 00:00:00','0000-00-00 00:00:00'),(10,'tokyo','tokyo','tokyo','tokyo','tokyo@tokyo',2,'0000-00-00 00:00:00','0000-00-00 00:00:00'),(11,'madoka','kitao','madoka','madoka','madoka@ginsho.jp',2,'0000-00-00 00:00:00','0000-00-00 00:00:00'),(12,'admin','admin','admin','admin','admin@ginsho.jp',0,'2012-08-16 21:46:40','2012-08-16 21:46:40');
+insert  into `users`(`id`,`first_name`,`last_name`,`username`,`password`,`email_address`,`roleId`,`createdOn`,`modifiedOn`) values (1,'admin','admin','admin','admin','admin@ginsho.jp',0,'2012-08-16 21:46:40','2012-08-16 21:46:40'),(2,'kunio','yonenaga','kunio','kunio','kunio@ginsho.jp',2,'2012-08-16 21:46:40','2012-08-16 21:46:40'),(3,'yoshiharu','habu','habu','habu','habu@ginsho.jp',2,'2012-07-10 12:02:57','2012-07-10 12:02:57'),(4,'toshiyuki','moriuchi','moriuchi','moriuchi','yeele@ginsho.jp',2,'2012-07-10 12:02:57','2012-07-10 12:02:57'),(5,'kazuki','kimura','kimura','kimura','kimura@ginsho.jp',2,'0000-00-00 00:00:00','0000-00-00 00:00:00'),(6,'tokyo','tokyo','tokyo','tokyo','tokyo@tokyo',2,'0000-00-00 00:00:00','0000-00-00 00:00:00'),(7,'madoka','kitao','madoka','madoka','madoka@ginsho.jp',2,'0000-00-00 00:00:00','0000-00-00 00:00:00');
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;

@@ -2,7 +2,7 @@
 function onClickGameResult(event, gameId){
 	var username_of_selected_row = dojo.byId('username_of_selected_row');
 	var username_of_selected_column = dojo.byId('username_of_selected_column');
-	
+	debugger;
 	var arguments = {
     	    "gameId" : gameId
 	   	  , "ajax" : true

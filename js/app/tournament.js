@@ -46,6 +46,7 @@ function onGridClickOnGame(event, item, gameId){
 	if(item != null){
 		if(typeof item.username[0] !== "undefined")
 			arguments['username_of_selected_row'] = item.username[0];
+		    //TODO　この時点でdivつくっといてここに登録しておく。登録先はtitleかvalueか？
 	}
 	if(columnName != null){
 		arguments['username_of_selected_column'] = columnName;
