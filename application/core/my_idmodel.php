@@ -1,7 +1,7 @@
-<?php require_once(APPPATH . 'core/my_model.php');
+<?php require_once(APPPATH . 'core/my_ci_model.php');
 
 
-class My_IDModel extends My_Model {
+class My_IDModel extends My_CI_Model {
 	
 	function __construct($table_name=""){
 		parent::__construct($table_name);

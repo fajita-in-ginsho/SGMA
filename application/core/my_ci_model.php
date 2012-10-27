@@ -1,7 +1,7 @@
 <?php 
 require_once(BASEPATH . '/core/Model.php');
 
-class My_Model extends CI_Model {
+class My_CI_Model extends CI_Model {
 	
 	protected $table = "";
 	
