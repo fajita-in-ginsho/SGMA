@@ -53,16 +53,18 @@ class Login extends CI_Controller {
 			$this->load->view('signup_form');
 		}else{
 			// insert data in users table.
-			
+			$now = date( 'Y-m-d H:i:s' );
 			$insert_data_users = array(
 				'first_name' => $this->input->post('first_name')
 			  , 'last_name' => $this->input->post('last_name')
 			  , 'username' => $this->input->post('username')
 			  , 'password' => $this->input->post('password')
 			  , 'email_address' => $this->input->post('email_address')
+			  , 'createdOn' => $now
+			  , 'modifiedOn' => $now
 			);
 			
-			$user_id = $this->users->insert($insert_data_users);
+			$user_id = $this->users_model->insert($insert_data_users);
 			
 			$data['main_content'] = 'signup_successful_page';
 			$data['title'] = 'Signup Succeeded!';
