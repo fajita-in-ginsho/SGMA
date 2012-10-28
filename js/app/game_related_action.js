@@ -137,11 +137,12 @@ function onResultSubmit(event, gameId){
 			    if(result == 1){
 			    	console.log("return successfully : " + result);
 			    	// chart update.
-					//var params = {
-			    	//    "cup" : dojo.attr(dojo.byId('cupOfCurrentDisplayedChart'), 'title')
-			    	//  , "tournament" : dojo.attr(dojo.byId('tournamentOfCurrentDisplayedChart'), 'title')
-			    	//};
+					var params = {
+			    	    "cup" : dojo.attr(dojo.byId('cupNameOfCurrentDisplayedChart'), 'title')
+			    	  , "tournament" : dojo.attr(dojo.byId('tournamentNameOfCurrentDisplayedChart'), 'title')
+			    	};
 			    	//dojo.hitch(params, getChart)();
+					getChart(params.cup, params.tournament);
 			    }else{
 			    	console.log("error detected!");
 			    }
