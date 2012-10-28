@@ -127,7 +127,22 @@ class Tournament extends My_UserSessionController{
 	    
 	}
 	
-	
+	function update(){
+	    $is_ajax_request = false;
+	    if(isset($_POST['ajax']) && $_POST['ajax']){
+	        if(isset($_POST['tournamentId'])){
+	            $tournamentId = $_POST['tournamentId'];
+	        }
+	        if(isset($_POST['field'])){
+	            $field = $_POST['field'];
+	        }
+	        if(isset($_POST['value'])){
+	            $field = $_POST['value'];
+	        }
+	        $is_ajax_request = true;
+	    }
+	    
+	}
 }
 
 ?>	

@@ -2,7 +2,7 @@
 function onClickGameResult(event, gameId){
 	var username_of_selected_row = dojo.byId('username_of_selected_row');
 	var username_of_selected_column = dojo.byId('username_of_selected_column');
-	debugger;
+	
 	var arguments = {
     	    "gameId" : gameId
 	   	  , "ajax" : true
@@ -16,7 +16,6 @@ function onClickGameResult(event, gameId){
 		return;
 	}
 
-	
 	if(gameId != -1){
 		dojo.xhrGet({
 
@@ -72,7 +71,7 @@ function onClickHistory(event, threadId){
 
 	    url:"../thread/open/" + threadId, 
 	    handleAs: "text",
-	    content : arguments,  
+	    postData : arguments,
 	    load : function(result){
 		    
 	    	var dialog = dijit.byId("thread_dialog");
@@ -86,9 +85,6 @@ function onClickHistory(event, threadId){
 	    	alert(data);
 	    }
 	});
-	
-	// close thread. 
-	
 }
 
 function onClickKifu(event, kifuId){
@@ -130,22 +126,22 @@ function onResultSubmit(event, gameId){
 		  , "username_of_selected_column" : username_of_selected_column.title
 		  , "gameResultDescription" : gameResultDescription
 		};
-		dojo.xhrPost({
+		dojo.xhrGet({
 
 		    url:"../game/inputResult/" + gameId, 
 		    handleAs: "text",
 		    content : arguments,  
 		    load : function(result){
-			    
+			    debugger;
 			    // it says, boolean_result, however, boolean is converted to 0 or 1 during serialization. i guess.
 			    if(result == 1){
 			    	console.log("return successfully : " + result);
 			    	// chart update.
-					var params = {
-					    "cup" : dojo.attr(dojo.byId('cupOfCurrentDisplayedChart'), 'title')
-					  , "tournament" : dojo.attr(dojo.byId('tournamentOfCurrentDisplayedChart'), 'title')
-					};
-					dojo.hitch(params, getChart)();
+					//var params = {
+			    	//    "cup" : dojo.attr(dojo.byId('cupOfCurrentDisplayedChart'), 'title')
+			    	//  , "tournament" : dojo.attr(dojo.byId('tournamentOfCurrentDisplayedChart'), 'title')
+			    	//};
+			    	//dojo.hitch(params, getChart)();
 			    }else{
 			    	console.log("error detected!");
 			    }
@@ -230,11 +226,12 @@ function onClickChangeDate(event){
 	  ,	"gameId" : dojo.attr(dojo.byId("gameId"), 'title')
 	};
 	
-	dojo.xhrPost({
+	dojo.xhrGet({
 
-	    url:"../thread/changeDateForm/", 
+	    url: "../thread/changeDateForm",
+	    //postData : arguments,
+	    content : arguments,
 	    handleAs: "text",
-	    content : arguments,  
 	    load : function(form){
 		    
 	    	var dialog = dijit.byId("thread_change_date_dialog");
@@ -324,11 +321,12 @@ function onSubmitChangeDate(event){
 	
 	
 	//window.open("../thread/requestChangeDate/" + "true/" + gameId + "/" + date_json);
-	dojo.xhrPost({
+	dojo.xhrGet({
 
 	    url:"../thread/requestChangeDate/", 
 	    handleAs: "text",
-	    content : arguments,  
+	    content : arguments,
+	    //content : arguments,  
 	    load : function(result){
 		    // write the returned text in comment.
 	    	

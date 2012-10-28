@@ -12,16 +12,16 @@ function onChangePoints(points){
 	
 	var arguments = {
     	    "tournamentId" : dojo.attr(dojo.byId('tournamentIdOfCurrentDisplayedChart'), 'title')
-    	  , "field" : "Points"
+    	  , "field" : "points"
     	  , "value" : points
 	   	  , "ajax" : true
 	};
 	
-	dojo.xhrGet({
+	dojo.xhrPost({
 		
 	    url:"../tournament/update/",
 	    handleAs: "text",
-	    content : arguments,  
+	    postData : arguments,  
 	    load : function(data){
 	    },
 	    error : function (error){
@@ -87,7 +87,7 @@ function onGridClickOnUsername(event, item){
 	}else{
 		return;
 	}
-	debugger;
+	
 	dojo.xhrGet({
 
 	    url:"../user/open/" + arguments['username'], 
@@ -157,6 +157,15 @@ function createTournamentElements(){
 		<div dojoType="dojox.widget.Toaster" id="toast" positionDirection="tl-down"></div>
 
      */
+	dojo.create("div", {id:"tournament"}, dojo.byId("tournament_area"), "first");
+	dojo.create("div", {id:"participants"}, dojo.byId("tournament"));
+	dojo.create("div", {id:"games"}, dojo.byId("tournament"));
+	dojo.create("dojox.grid.DataGrid", {id:"tournametChart"}, dojo.byId("tournament"));
+	dojo.create("div", {id:"cupIdOfCurrentDisplayedChart"}, dojo.byId("tournament"));
+	dojo.create("div", {id:"cupNameOfCurrentDisplayedChart"}, dojo.byId("tournament"));
+	dojo.create("div", {id:"tournamentIdOfCurrentDisplayedChart"}, dojo.byId("tournament"));
+	dojo.create("div", {id:"tournamentNameOfCurrentDisplayedChart"}, dojo.byId("tournament"));
+	dojo.create("dojox.widget.Toaster", {id:"toast"}, dojo.byId("tournament"));
 	
 }
 
@@ -184,7 +193,7 @@ function getChart(cup, tournament){
 	      
 	      // if the colum has formatter attribute.
 	      // eval to have javascript to interpret it as a function. 
-	      debugger;
+	      
 	      for( var i=0; i<structure.length; i++){
 	    	  var col = structure[i];
 	    	  try{

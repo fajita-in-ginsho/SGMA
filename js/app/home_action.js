@@ -1,7 +1,7 @@
 
 dojo.addOnLoad(function (){
     
-	createTournamentElements();
+	//createTournamentElements();
 	
     var grid = dijit.byId("tournametChart");
     dojo.connect(grid, "onClick", null, onGridClick);

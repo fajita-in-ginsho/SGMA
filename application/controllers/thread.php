@@ -16,17 +16,17 @@ class Thread extends My_UserSessionController{
 	    $retrieved_threadId = urldecode($this->uri->segment(3)); 
 	    
 	    $is_ajax_request = false;
-	    if(isset($_GET['ajax']) && $_GET['ajax']){
-	        if(isset($_GET['threadId'])){
-	            $threadId = $_GET['gameId'];
+	    if(isset($_POST['ajax']) && $_POST['ajax']){
+	        if(isset($_POST['threadId'])){
+	            $threadId = $_POST['gameId'];
 	        }
 	        $is_ajax_request = true;
 	    }
-	    if(isset($_GET['username_of_selected_row'])){
-	        $data['username_of_selected_row'] = $_GET['username_of_selected_row']; 
+	    if(isset($_POST['username_of_selected_row'])){
+	        $data['username_of_selected_row'] = $_POST['username_of_selected_row']; 
 	    }
-	    if(isset($_GET['username_of_selected_column'])){
-	        $data['username_of_selected_column'] = $_GET['username_of_selected_column'];
+	    if(isset($_POST['username_of_selected_column'])){
+	        $data['username_of_selected_column'] = $_POST['username_of_selected_column'];
 	    }
 	    
 	    $data['main_content'] = 'thread_form';
@@ -107,8 +107,8 @@ class Thread extends My_UserSessionController{
 	    if(isset($_GET['ajax']) && $_GET['ajax']){
 	        $is_ajax_request = true;
 	    }
-	    if(isset($_POST['gameId'])){
-	        $data['gameId'] = $_POST['gameId'];
+	    if(isset($_GET['gameId'])){
+	        $data['gameId'] = $_GET['gameId'];
 	    }
 	     
 	    $data['main_content'] = 'thread_change_date_form';
@@ -131,26 +131,26 @@ class Thread extends My_UserSessionController{
 	function requestChangeDate(){
 	
 	    $is_ajax_request = false;
-	    if(isset($_POST['ajax']) && $_POST['ajax']){
+	    if(isset($_GET['ajax']) && $_GET['ajax']){
 	        $is_ajax_request = true;
 	    }else{
 	        $data['ajax'] = urldecode($this->uri->segment(3));
 	        $data['gameId'] = urldecode($this->uri->segment(4));
 	        $data['datetime'] = urldecode($this->uri->segment(5));
-	        $data['datetime'] = ConvJsToPhp::jsDateToPhp(json_decode($_POST['datetime']));
+	        $data['datetime'] = ConvJsToPhp::jsDateToPhp(json_decode($_GET['datetime']));
 	    }
 	    
-	    if(isset($_POST['gameId'])){
-	        $data['gameId'] = $_POST['gameId'];
+	    if(isset($_GET['gameId'])){
+	        $data['gameId'] = $_GET['gameId'];
 	    }
 	    
-	    if(isset($_POST['datetime'])){
-	        $data['datetime'] = ConvJsToPhp::jsDateToPhp(json_decode($_POST['datetime']));
+	    if(isset($_GET['datetime'])){
+	        $data['datetime'] = ConvJsToPhp::jsDateToPhp(json_decode($_GET['datetime']));
 	        $requesting_date = $data['datetime'];
 	    }
 	    
-	    if(isset($_POST['threadId'])){
-	        $data['threadId'] = $_POST['threadId'];
+	    if(isset($_GET['threadId'])){
+	        $data['threadId'] = $_GET['threadId'];
 	    }
 	    
 	    $game = $this->games_model->getById($data['gameId']);

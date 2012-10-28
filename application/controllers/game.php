@@ -98,23 +98,23 @@ class Game extends My_UserSessionController{
 	function inputResult($gameId){
 	
 	    $is_ajax_request = false;
-	    if(isset($_POST['ajax']) && $_POST['ajax']){
-	        if(isset($_POST['gameId'])){
-	            $gameId = $_POST['gameId'];
+	    if(isset($_GET['ajax']) && $_GET['ajax']){
+	        if(isset($_GET['gameId'])){
+	            $gameId = $_GET['gameId'];
 	        }
 	        $is_ajax_request = true;
 	    }
 	    
-	    if(isset($_POST['username_of_selected_row'])){
-	        $username_of_selected_row = $_POST['username_of_selected_row'];
+	    if(isset($_GET['username_of_selected_row'])){
+	        $username_of_selected_row = $_GET['username_of_selected_row'];
 	        $userId_of_selected_row = $this->users_model->getIdByUsername($username_of_selected_row);
 	    }
-	    if(isset($_POST['username_of_selected_column'])){
-	        $username_of_selected_column = $_POST['username_of_selected_column'];
+	    if(isset($_GET['username_of_selected_column'])){
+	        $username_of_selected_column = $_GET['username_of_selected_column'];
 	        $userId_of_selected_column = $this->users_model->getIdByUsername($username_of_selected_column);
 	    }
-	    if(isset($_POST['gameResultDescription'])){
-	        $gameResultDescription = $_POST['gameResultDescription'];
+	    if(isset($_GET['gameResultDescription'])){
+	        $gameResultDescription = $_GET['gameResultDescription'];
 	        $gameResultId = $this->gameresult_model->getIdByDescription($gameResultDescription);
 	    }
 	    

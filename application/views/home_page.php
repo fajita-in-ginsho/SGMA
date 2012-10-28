@@ -62,7 +62,7 @@ so that those elements are to created on deamnd. not statically as
 it is created in home_page.php 
  -->
 
-<div id="tournament_chart" class="claro" >
+<div id="tournament_area" class="claro" >
     <div id="tournament"></div>
     <div id="participants"></div>
     <div id="games"></div>
@@ -72,8 +72,10 @@ it is created in home_page.php
     <div id="cupNameOfCurrentDisplayedChart" title=""></div>
     <div id="tournamentIdOfCurrentDisplayedChart" title=""></div>
     <div id="tournamentNameOfCurrentDisplayedChart" title=""></div>
+    
+    <div dojoType="dojox.widget.Toaster" id="toast" positionDirection="tl-down"></div>
 </div>
-<div dojoType="dojox.widget.Toaster" id="toast" positionDirection="tl-down"></div>
+
 
 
 <!-- 
