@@ -73,6 +73,9 @@ it is created in home_page.php
     <div id="tournamentIdOfCurrentDisplayedChart" title=""></div>
     <div id="tournamentNameOfCurrentDisplayedChart" title=""></div>
     
+    <div id="username_of_selected_row"></div>
+    <div id="username_of_selected_column"></div>
+    
     <div dojoType="dojox.widget.Toaster" id="toast" positionDirection="tl-down"></div>
 </div>
 

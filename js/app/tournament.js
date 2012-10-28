@@ -47,9 +47,11 @@ function onGridClickOnGame(event, item, gameId){
 		if(typeof item.username[0] !== "undefined")
 			arguments['username_of_selected_row'] = item.username[0];
 		    //TODO　この時点でdivつくっといてここに登録しておく。登録先はtitleかvalueか？
+			dojo.attr(dojo.byId('username_of_selected_row'), 'title', arguments['username_of_selected_row']);
 	}
 	if(columnName != null){
 		arguments['username_of_selected_column'] = columnName;
+		dojo.attr(dojo.byId('username_of_selected_column'), 'title', arguments['username_of_selected_column']);
 	}
 	
 	if(gameId != -1){
@@ -165,6 +167,10 @@ function createTournamentElements(){
 	dojo.create("div", {id:"cupNameOfCurrentDisplayedChart"}, dojo.byId("tournament"));
 	dojo.create("div", {id:"tournamentIdOfCurrentDisplayedChart"}, dojo.byId("tournament"));
 	dojo.create("div", {id:"tournamentNameOfCurrentDisplayedChart"}, dojo.byId("tournament"));
+	
+	dojo.create("div", {id:"username_of_selected_row"}, dojo.byId("tournament"));
+	dojo.create("div", {id:"username_of_selected_column"}, dojo.byId("tournament"));
+    
 	dojo.create("dojox.widget.Toaster", {id:"toast"}, dojo.byId("tournament"));
 	
 }
