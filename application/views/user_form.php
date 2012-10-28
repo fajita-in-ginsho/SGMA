@@ -2,7 +2,7 @@
 <div id="user_form">
 
 	<h1>User Information</h1>
-	<h2>User : <?php echo $user->username; ?></h2>
+	<h2>User : <?php echo html_escape($user->username); ?></h2>
 	
 	<?php
 	echo "<b>Games in the past<br></b>";
@@ -11,9 +11,9 @@
 	    foreach($games_past as $game){
 	        $count++;
 	        if($count > $no_games_past) break;
-	        echo "Game: " . $game->g_name . "&nbsp;&nbsp;";
-	        echo "Date: " . $game->g_date . "&nbsp;&nbsp;";
-	        echo "Tournament: " . $game->t_name;
+	        echo "Game: " . html_escape($game->g_name) . "&nbsp;&nbsp;";
+	        echo "Date: " . html_escape($game->g_date) . "&nbsp;&nbsp;";
+	        echo "Tournament: " . html_escape($game->t_name);
 	        echo "<br>";
 	    }
 	}
@@ -24,9 +24,9 @@
 	    foreach($games_future as $game){
 	        $count++;
 	        if($count > $no_games_past) break;
-	        echo "Game: " . $game->g_name . "&nbsp;&nbsp;";
-	        echo "Date: " . $game->g_date . "&nbsp;&nbsp;";
-	        echo "Tournament: " . $game->t_name;
+	        echo "Game: " . html_escape($game->g_name) . "&nbsp;&nbsp;";
+	        echo "Date: " . html_escape($game->g_date) . "&nbsp;&nbsp;";
+	        echo "Tournament: " . html_escape($game->t_name);
 	        echo "<br>";
 	    }
 	}

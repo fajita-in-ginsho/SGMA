@@ -3,8 +3,9 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
 <title>
-<?php if(isset($title)){echo $title;} else { echo "untitled";} ?>
+<?php if(isset($title)){echo html_escape($title);} else { echo "untitled";} ?>
 </title>
 <link rel="stylesheet" href="<?php echo base_url(); ?>css/style.css"
     type="text/css" 

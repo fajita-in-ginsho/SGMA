@@ -6,7 +6,7 @@ var tournaments = eval(<?php echo $tournaments_json; ?>);
 
 
 <?php
-echo '<h1>Welcom to SGMA, ' . $username . ' !!</h1>'; 
+echo '<h1>Welcom to SGMA, ' . html_escape($username) . ' !!</h1>'; 
 echo anchor('login/logout', 'Logout');
 
 echo '<br>';
@@ -41,9 +41,9 @@ if(isset($tournaments)){
 	*/
 	foreach($tournaments as $q_result){
 	    echo '<li><input type="button" id="';
-	    echo $q_result->cup . $q_result->tournament . '"';
-	    echo 'value="' . $q_result->cup . ' ' . $q_result->tournament . '"';
-	    echo 'name="' . $q_result->cup . '/' . $q_result->tournament . '"';
+	    echo html_escape($q_result->cup) . html_escape($q_result->tournament) . '"';
+	    echo 'value="' . html_escape($q_result->cup) . ' ' . html_escape($q_result->tournament) . '"';
+	    echo 'name="' . html_escape($q_result->cup) . '/' . html_escape($q_result->tournament) . '"';
 	    echo '></input></li>';
 	}
 	echo '</ul>';

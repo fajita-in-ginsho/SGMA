@@ -10,7 +10,8 @@
 	    foreach($comments as $comment_obj){
 	        echo "
 	        <div id='comment'>
-	            <p>$comment_obj->username&nbsp;:&nbsp;$comment_obj->createdOn</p>
+	            <p>" . html_escape($comment_obj->username) . "&nbsp;:&nbsp;" . 
+	            html_escape($comment_obj->createdOn) . "</p>
 	            <p>$comment_obj->comment</p>
 	        </div>
 	        ";
