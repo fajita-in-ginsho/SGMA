@@ -54,13 +54,6 @@
     Kifu
     </button>
     
-    
-    
-    <div id="game_result_dialog" dojoType="dijit.Dialog"></div>
-    <div id="thread_dialog" dojoType="dijit.Dialog"></div>
-    <div id="thread_change_date_dialog" dojoType="dijit.Dialog"></div>
-    
-    
     <br>
     <br>
 	

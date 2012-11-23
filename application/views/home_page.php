@@ -77,6 +77,10 @@ it is created in home_page.php
     <div id="username_of_selected_column"></div>
     
     <div dojoType="dojox.widget.Toaster" id="toast" positionDirection="tl-down"></div>
+    
+    <div id="game_result_dialog" dojoType="dijit.Dialog"></div>
+    <div id="thread_dialog" dojoType="dijit.Dialog"></div>
+    <div id="thread_change_date_dialog" dojoType="dijit.Dialog"></div>
 </div>
 
 

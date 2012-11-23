@@ -8,7 +8,7 @@ class Thread_Model extends My_IDModel {
 	
 	// return object
 	function getById($id){
-	
+	    /*
 	    $stmt = "
 	    SELECT 
          *
@@ -16,7 +16,11 @@ class Thread_Model extends My_IDModel {
         WHERE `id` = $id
 	    ;
 	    ";
-	    $query = $this->db->query($stmt);
+	    */
+	    $this->db->select('*');
+	    $this->db->from($this->table);
+	    $this->db->where("id = $id");
+	    $query = $this->db->get();
 	    if($query->num_rows() == 1){
 	        return $query->row();
 	    }
@@ -24,18 +28,23 @@ class Thread_Model extends My_IDModel {
 	
 	function create($userId){
 	    $id = -1;
-	    
+	    /*
 	    $stmt = "
 	    insert into `thread` (name, createdBy, createdOn)
 	    values ('', $userId, Now())
 	    ;
 	    ";
-	    
-	    if($this->db->query($stmt)){
-	        // if successfully inserted, return the id.
-	        $inserted_id = $this->db->insert_id();
-	        return $inserted_id;
+	    */
+	    $data = array(
+	            'name'    => '',
+	            'createdBy' => $userId,
+	            'createdOn' => date( 'Y-m-d H:i:s' )
+	    );
+	    if($this->db->insert($this->table, $data)){
+	        $id = $this->db->insert_id();
 	    }
+	    return $id;
+	    
 	}
     
 }

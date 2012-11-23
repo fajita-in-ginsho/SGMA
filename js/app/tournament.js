@@ -1,4 +1,4 @@
-//
+
 function imageFormatter(url){
     return "<img width='40' height='40' src='" + url + "'/>";
 };
@@ -61,7 +61,31 @@ function onGridClickOnGame(event, item, gameId){
 		    handleAs: "text",
 		    content : arguments,  
 		    load : function(data){
-			    
+			    /* TODO: fix the following error
+			     Error {status: 500, responseText: "
+↵	<!DOCTYPE html>↵<html lang="en">↵<head>↵<title>…		c.name = 'game';
+↵		</p>	</div>↵</body>↵</html>", xhr: XMLHttpRequest}
+arguments: undefined
+get stack: function () { [native code] }
+message: "Unable to load ../game/open/6?gameId=6&ajax=true&username_of_selected_row=moriuchi&username_of_selected_column=kimura status:500"
+responseText: "
+↵	<!DOCTYPE html>↵<html lang="en">↵<head>↵<title>Error</title>↵<style type="text/css">↵↵::selection{ background-color: #E13300; color: white; }↵::moz-selection{ background-color: #E13300; color: white; }↵::webkit-selection{ background-color: #E13300; color: white; }↵↵body {↵	background-color: #fff;↵	margin: 40px;↵	font: 13px/20px normal Helvetica, Arial, sans-serif;↵	color: #4F5155;↵}↵↵a {↵	color: #003399;↵	background-color: transparent;↵	font-weight: normal;↵}↵↵h1 {↵	color: #444;↵	background-color: transparent;↵	border-bottom: 1px solid #D0D0D0;↵	font-size: 19px;↵	font-weight: normal;↵	margin: 0 0 14px 0;↵	padding: 14px 15px 10px 15px;↵}↵↵code {↵	font-family: Consolas, Monaco, Courier New, Courier, monospace;↵	font-size: 12px;↵	background-color: #f9f9f9;↵	border: 1px solid #D0D0D0;↵	color: #002166;↵	display: block;↵	margin: 14px 0 14px 0;↵	padding: 12px 10px 12px 10px;↵}↵↵#container {↵	margin: 10px;↵	border: 1px solid #D0D0D0;↵	-webkit-box-shadow: 0 0 8px #D0D0D0;↵}↵↵p {↵	margin: 12px 15px 12px 15px;↵}↵</style>↵</head>↵<body>↵	<div id="container">↵		<h1>An Error Was Encountered</h1>↵		<p>
+↵			select
+↵				t.id as `id`
+↵			from
+↵				  tournaments as t
+↵				, cups as c
+↵			where
+↵				t.cupId = c.id and
+↵				t.name = 'open' and
+↵				c.name = 'game';
+↵		</p>	</div>↵</body>↵</html>"
+set stack: function () { [native code] }
+status: 500
+type: undefined
+xhr: XMLHttpRequest
+__proto__: d
+			     */
 		    	myDialog = new dijit.Dialog({
 			        title: "Game Information",
 			        content: data,
@@ -159,6 +183,7 @@ function createTournamentElements(){
 		<div dojoType="dojox.widget.Toaster" id="toast" positionDirection="tl-down"></div>
 
      */
+	// TODO: if not exist, create one. called from showChart. 
 	dojo.create("div", {id:"tournament"}, dojo.byId("tournament_area"), "first");
 	dojo.create("div", {id:"participants"}, dojo.byId("tournament"));
 	dojo.create("div", {id:"games"}, dojo.byId("tournament"));
@@ -193,38 +218,7 @@ function getChart(cup, tournament){
 	    },
 	    
 	    load: function(data){
-	      
-    	  var itemdata = data.chart.rows;
-	      var structure = data.chart.columns;
-	      
-	      // if the colum has formatter attribute.
-	      // eval to have javascript to interpret it as a function. 
-	      
-	      for( var i=0; i<structure.length; i++){
-	    	  var col = structure[i];
-	    	  try{
-	    		col.formatter = eval(col.formatter);  
-	    	  }catch(e){
-	    		
-	    	  }
-	      }
-	      
-	      var chart = new dojo.data.ItemFileWriteStore( {data :{
-	    	  identifier: 'username', 
-    	      items : itemdata 
-    	  }});
-	      
-	      dojo.attr(dojo.byId('cupIdOfCurrentDisplayedChart'), 'title', data.tournament.cup_id);
-	      dojo.attr(dojo.byId('cupNameOfCurrentDisplayedChart'), 'title', data.tournament.cup_name);
-	      dojo.attr(dojo.byId('tournamentIdOfCurrentDisplayedChart'), 'title', data.tournament.id);
-	      dojo.attr(dojo.byId('tournamentNameOfCurrentDisplayedChart'), 'title', data.tournament.name);
-	      
-	      var grid = dijit.byId("tournametChart");
-	      dojo.style(grid.domNode, "width", data.chart.width.toString() + "px");
-	      dojo.style(grid.domNode, "height", data.chart.height.toString() + "px");
-	      grid.setStore(chart);
-	      grid.setStructure(structure);
-	      
+	    	showChart(data);
 	    },
 	    error: function(error) {
 	      console.warn(new Error().stack);
@@ -232,3 +226,44 @@ function getChart(cup, tournament){
 	});
 }
 
+
+function showChart(data){
+    debugger;
+	var itemdata = data.chart.rows;
+    var structure = data.chart.columns;
+    
+    // if the colum has formatter attribute.
+    // eval to have javascript to interpret it as a function. 
+    
+    for( var i=0; i<structure.length; i++){
+  	  var col = structure[i];
+  	  try{
+  		col.formatter = eval(col.formatter);  
+  	  }catch(e){
+  		
+  	  }
+    }
+    
+    var chart = new dojo.data.ItemFileWriteStore( {data :{
+  	  identifier: 'username', 
+	      items : itemdata 
+	  }});
+    
+    //createTournamentElements();
+    
+    dojo.attr(dojo.byId('cupIdOfCurrentDisplayedChart'), 'title', data.tournament.cup_id);
+    dojo.attr(dojo.byId('cupNameOfCurrentDisplayedChart'), 'title', data.tournament.cup_name);
+    dojo.attr(dojo.byId('tournamentIdOfCurrentDisplayedChart'), 'title', data.tournament.id);
+    dojo.attr(dojo.byId('tournamentNameOfCurrentDisplayedChart'), 'title', data.tournament.name);
+    
+    var grid = dijit.byId("tournametChart");
+    dojo.style(grid.domNode, "width", data.chart.width.toString() + "px");
+    dojo.style(grid.domNode, "height", data.chart.height.toString() + "px");
+    grid.setStore(chart);
+    grid.setStructure(structure);
+}
+
+function connectOnGridClick(){
+	var grid = dijit.byId("tournametChart");
+    dojo.connect(grid, "onClick", null, onGridClick);
+}

@@ -1,11 +1,10 @@
 
 dojo.addOnLoad(function (){
-    
+    //debugger;
 	//createTournamentElements();
 	
-    var grid = dijit.byId("tournametChart");
-    dojo.connect(grid, "onClick", null, onGridClick);
-    
+	connectOnGridClick();
+	
     // tournaments is defined in home_page.php
     console.log("tournamets.length: " + tournaments.length);
     for(var key in tournaments){

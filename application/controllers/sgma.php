@@ -51,8 +51,11 @@ Date		Status		Description
 2012-10-03  Task        future feature. Notification email 1day before the game to players.
 2012-10-03  Task        Add scoreId in tournament, create ScoreId table, create Score table that has 
                         userId and score.
-2012-10-06  Bug         username_of_selected_row is not overwritten as game_form is created multitimes.
-2012-10-06  Bug         create_and_fill.sql. order to create tables causes an erorr saying foreign key doesn't exist. 
+2012-10-06  Bug Done    username_of_selected_row is not overwritten as game_form is created multitimes.
+2012-10-06  Bug Done    create_and_fill.sql. order to create tables causes an erorr saying foreign key doesn't exist. 
+2012-10-28  Task Done   XSS, CSRF vulnerability
+2012-10-28  Task        SQL-injection. use active records.
+2012-10-28  Bug         Rest in tournament chart shows wrong number. it is not updated.
 
 */
 

@@ -15,7 +15,8 @@ class Players_Model extends My_IDModel {
 	 *  return : array of object
 	 */
 	function getByGameId($gameId){
-	
+	    
+	    /*
 	    $stmt = "
 	    SELECT 
         `players`.`gameId` AS `gameId`
@@ -30,7 +31,17 @@ class Players_Model extends My_IDModel {
         AND `users`.id = `players`.`userId`
         AND `gameresult`.id = `players`.`gameResultId`
         ";
-	    $query = $this->db->query($stmt);
+	    */
+	    $this->db->select('`players`.`gameId` AS `gameId`
+        , `players`.`userId` AS `userId`
+        , `users`.`username` AS `username`
+        , `players`.`gameResultId` AS `gameResultId`
+        , `gameresult`.`description` AS `gameResult`', false);
+	    $this->db->from('players');
+	    $this->db->join('users', 'users.id = players.userId');
+	    $this->db->join('gameresult', 'gameresult.id = players.gameResultId');
+	    $this->db->where("players.gameId = $gameId");
+	    $query = $this->db->get();
 	    if($query->num_rows() > 0){
 	        return $query->result();
 	    }else{
@@ -65,6 +76,7 @@ class Players_Model extends My_IDModel {
 	}
 	
 	private function updateGameResultOfAUser($gameId, $userId, $gameResultId){
+	    /*
 	    $stmt = "
 	    UPDATE `players` AS ply SET
 	    ply.gameResultId = $gameResultId
@@ -73,16 +85,28 @@ class Players_Model extends My_IDModel {
 	    ";
 	    // write query such as update returns TRUE on success, FALSE if fails.
 	    return $this->db->query($stmt);
+	    */
+	    $data = array('gameResultId' =>$gameResultId);
+	    $this->db->where('gameId', $gameId);
+	    $this->db->where('userId', $userId);
+	    return $this->db->update('players', $data);
+	            
 	}
     
 	function getOpponentUserId($gameId, $userId){
-	$stmt = "
+	    /*
+	    $stmt = "
 	    SELECT 
         *
         FROM `players`
         WHERE `players`.`gameId` = $gameId
         ";
-	    $query = $this->db->query($stmt);
+	    */
+	    $this->db->select('*');
+	    $this->db->from('players');
+	    $this->db->where("players.gameId = $gameId");
+	    $query = $this->db->get();
+	    
 	    $opponents = array();
 	    if($query->num_rows() > 0){
 	        foreach($query->result() as $row){
@@ -97,6 +121,7 @@ class Players_Model extends My_IDModel {
 	function getGamesByUserId($userId, $whereClause){
 	    // WORKAROUND: if name are same in multi tables, it overwrite the value with the last attribute.
 	    // therefore, it explicitly specify the name with AS clause.
+	    /*
 	    $stmt = "
 	    SELECT 
           p.gameId AS `p_gameId`
@@ -126,12 +151,39 @@ class Players_Model extends My_IDModel {
         AND r.id = p.gameResultId
         AND t.id = g.tournamentId 
 	    ";
+	    */
+	    $this->db->select('
+	      p.gameId AS `p_gameId`
+        , p.userId AS `p_userId`
+        , p.gameResultId AS `p_gameResultId`
+        , g.id AS `g_id`
+        , g.name AS `g_name`
+        , g.tournamentId AS `g_tournamentId`
+        , g.gameTypeId AS `g_gameTypeId`
+        , g.`date` AS `g_date`
+        , g.`threadId` AS `g_threadId`
+        , g.`gameInfoId` AS `g_gameInfoId`
+        , r.`id` AS `r_id`
+        , r.`description` AS `r_description`
+        , t.`id` AS `t_id`
+        , t.`name` AS `t_name`
+        , t.`tournamentTypeId` AS `t_tournamentTypeId`
+        , t.`cupId` AS `t_cupId`
+        , t.`createdBy` AS `t_createdBy`
+        , t.`createdOn` AS `t_createdOn`
+	    ', false);
+	    $this->db->from('players AS p');
+	    $this->db->join('games AS g', 'g.id = p.gameId');
+	    $this->db->join('gameresult AS r', 'r.id = p.gameResultId');
+	    $this->db->join('tournaments AS t', 't.id = g.tournamentId');
+	    $this->db->where("p.userId = $userId");
 	    
 	    if(isset($whereClause)){
-	        $stmt .= $whereClause;  
+	        $this->db->where($whereClause);
 	    }
 	    
-	    error_log("stmt = $stmt");
+	    $query = $this->db->get();
+	    //error_log("stmt = $stmt");
 	    $query = $this->db->query($stmt);
 	    if($query->num_rows() > 0){
 	        return $query->result();

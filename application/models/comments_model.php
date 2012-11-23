@@ -7,26 +7,23 @@ class Comments_Model extends My_IDModel {
 	}
 	
 	// return object
-	function getCommentsByThreadId($threadId, $additionalClause){
-	
-	    $stmt = "
-	    SELECT 
-          `comments`.`id` AS `id`
+	function getCommentsByThreadId($threadId, $orderBy){
+	    
+	    $this->db->select('`comments`.`id` AS `id`
         , `comments`.`threadId` AS `threadId`
         , `comments`.`comment` AS `comment`
         , `comments`.`createdBy` AS `createdBy`
         , `users`.`username` AS `username`
-        , `comments`.`createdOn` AS `createdOn`
-        FROM `comments`, `users`
-        WHERE `comments`.`threadId` = $threadId
-        and `users`.`id` = `comments`.`createdBy`
-	    ";
-	    
-	    if(isset($additionalClause)){
-	        $stmt .= $additionalClause;
+        , `comments`.`createdOn` AS `createdOn`');
+	    // you don't need to use ` charater in active record.
+	    $this->db->from('comments');
+	    $this->db->join('users', 'users.id = comments.createdBy');
+	    $this->db->where("comments.threadId = $threadId");
+	    if(isset($orderBy)){
+	        $this->db->order_by($orderBy['attr'], $orderBy['order']);
 	    }
 	    
-	    $query = $this->db->query($stmt);
+	    $query = $this->db->get();
 	    if($query->num_rows() > 0){
 	        return $query->result();
 	    }else{

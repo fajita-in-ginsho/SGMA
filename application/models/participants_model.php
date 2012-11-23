@@ -16,6 +16,7 @@ class Participants_Model extends My_IDModel {
 	 * 
 	 */
 	function getByTournamentId($tournamentId){
+	    /*
 		$stmt = "
 		select 
 			p.userId as `userId`
@@ -27,8 +28,14 @@ class Participants_Model extends My_IDModel {
 			p.userId = u.id and
 			p.tournamentId = $tournamentId
 		;";
+        */
 		
-		$query = $this->db->query($stmt);
+		$this->db->select('p.userId as `userId`
+		                 , u.username as `username`');
+		$this->db->from('participants as p');
+		$this->db->join('users as u', 'p.userId = u.id');
+		$this->db->where("p.tournamentId = $tournamentId");
+		$query = $this->db->get();
 			   
 		$participants = array();
 		if($query->num_rows() > 0){
