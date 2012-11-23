@@ -24,7 +24,7 @@ class Tournament_Model extends My_IDModel {
 		}
 	}
 	
-	// return array of tournamets in which the give user participates.
+
 	function refresh(){
 	    
 		$this->db->select('

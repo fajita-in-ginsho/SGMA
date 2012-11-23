@@ -8,13 +8,7 @@ class Tournamenttype_Model extends My_IDModel {
 	}
 
 	function getByName($name){
-	    /*
-	    $stmt = "
-	    SELECT * FROM `$this->table`
-	    WHERE `name` = '$name'
-	    ;
-	    ";
-	    */
+	    
 	    $this->db->select('*');
 	    $this->db->from($this->table);
 	    $this->db->where("name = '$name'");

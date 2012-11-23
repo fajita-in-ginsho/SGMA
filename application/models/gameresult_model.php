@@ -14,13 +14,7 @@ class GameResult_Model extends My_IDModel {
 	
 	
 	function getIdByDescription($description){
-	    /*
-	    $stmt = "
-	    SELECT `id` FROM `gameresult`
-	    WHERE `gameresult`.`description` = '$description'
-	    ";
-	    $query = $this->db->query($stmt);
-	    */
+	    
 	    $this->db->select('id');
 	    $this->db->from($this->table);
 	    $this->db->where("description = '$description'");
@@ -49,13 +43,7 @@ class GameResult_Model extends My_IDModel {
 	}
     
 	function getById($id){
-	    /*
-	    $stmt = "
-	    SELECT * FROM `gameresult`
-	    WHERE `gameresult`.`id` = $id
-	    ";
-	    $query = $this->db->query($stmt);
-	    */
+	    
 	    $this->db->select('*');
 	    $this->db->from($this->table);
 	    $this->db->where("id = $id");

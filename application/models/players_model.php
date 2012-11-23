@@ -16,22 +16,6 @@ class Players_Model extends My_IDModel {
 	 */
 	function getByGameId($gameId){
 	    
-	    /*
-	    $stmt = "
-	    SELECT 
-        `players`.`gameId` AS `gameId`
-        , `players`.`userId` AS `userId`
-        , `users`.`username` AS `username`
-        , `players`.`gameResultId` AS `gameResultId`
-        , `gameresult`.`description` AS `gameResult`
-        FROM `players`
-        , `users`
-        , `gameresult`
-        WHERE players.gameId = $gameId
-        AND `users`.id = `players`.`userId`
-        AND `gameresult`.id = `players`.`gameResultId`
-        ";
-	    */
 	    $this->db->select('`players`.`gameId` AS `gameId`
         , `players`.`userId` AS `userId`
         , `users`.`username` AS `username`
@@ -76,16 +60,7 @@ class Players_Model extends My_IDModel {
 	}
 	
 	private function updateGameResultOfAUser($gameId, $userId, $gameResultId){
-	    /*
-	    $stmt = "
-	    UPDATE `players` AS ply SET
-	    ply.gameResultId = $gameResultId
-	    WHERE ply.gameId = $gameId
-	    AND ply.userId = $userId
-	    ";
-	    // write query such as update returns TRUE on success, FALSE if fails.
-	    return $this->db->query($stmt);
-	    */
+	    
 	    $data = array('gameResultId' =>$gameResultId);
 	    $this->db->where('gameId', $gameId);
 	    $this->db->where('userId', $userId);
@@ -94,14 +69,7 @@ class Players_Model extends My_IDModel {
 	}
     
 	function getOpponentUserId($gameId, $userId){
-	    /*
-	    $stmt = "
-	    SELECT 
-        *
-        FROM `players`
-        WHERE `players`.`gameId` = $gameId
-        ";
-	    */
+	    
 	    $this->db->select('*');
 	    $this->db->from('players');
 	    $this->db->where("players.gameId = $gameId");
@@ -121,37 +89,7 @@ class Players_Model extends My_IDModel {
 	function getGamesByUserId($userId, $whereClause){
 	    // WORKAROUND: if name are same in multi tables, it overwrite the value with the last attribute.
 	    // therefore, it explicitly specify the name with AS clause.
-	    /*
-	    $stmt = "
-	    SELECT 
-          p.gameId AS `p_gameId`
-        , p.userId AS `p_userId`
-        , p.gameResultId AS `p_gameResultId`
-        , g.id AS `g_id`
-        , g.name AS `g_name`
-        , g.tournamentId AS `g_tournamentId`
-        , g.gameTypeId AS `g_gameTypeId`
-        , g.`date` AS `g_date`
-        , g.`threadId` AS `g_threadId`
-        , g.`gameInfoId` AS `g_gameInfoId`
-        , r.`id` AS `r_id`
-        , r.`description` AS `r_description`
-        , t.`id` AS `t_id`
-        , t.`name` AS `t_name`
-        , t.`tournamentTypeId` AS `t_tournamentTypeId`
-        , t.`cupId` AS `t_cupId`
-        , t.`createdBy` AS `t_createdBy`
-        , t.`createdOn` AS `t_createdOn`
-         FROM `players` AS p
-        , `games` AS g
-        , `gameresult` AS r
-        , `tournaments` AS t
-        WHERE p.userId = $userId
-        AND g.id = p.gameId
-        AND r.id = p.gameResultId
-        AND t.id = g.tournamentId 
-	    ";
-	    */
+	    
 	    $this->db->select('
 	      p.gameId AS `p_gameId`
         , p.userId AS `p_userId`
