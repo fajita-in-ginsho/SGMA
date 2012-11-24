@@ -142,7 +142,7 @@ function onClickLogout(){
 
 	    url:"http://localhost/index.php/login/logout/", 
 	    handleAs: "text",
-	    postData : arguments,
+	    context : arguments,
 	    load : function(result){
 	    },
 	    error : function (error){
@@ -256,8 +256,7 @@ function onClickThreadComment(event){
 			    }
 			    
 		    },
-		    error : function (error){
-		    	alert(data);
+		    error : function (data){
 		    }
 		});
 	}

@@ -49,7 +49,7 @@ class Thread extends My_UserSessionController{
 	function addComment($threadId){
 	    // this is necessary when using non-ajax., wait, this is not needed. delete later.
 	    $retrieved_threadId = urldecode($this->uri->segment(3));
-	     
+
 	    $is_ajax_request = false;
 	    if(isset($_POST['ajax']) && $_POST['ajax']){
 	        $is_ajax_request = true;

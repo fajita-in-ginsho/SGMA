@@ -293,7 +293,15 @@ $config['global_xss_filtering'] = FALSE;
 | 'csrf_cookie_name' = The cookie name
 | 'csrf_expire' = The number in seconds the token should expire.
 */
-$config['csrf_protection'] = TRUE;
+
+/*
+ * make csrf_protection TRUE caused an security error.
+ * 
+ * Makoto reseached and reached https://github.com/EllisLab/CodeIgniter/commit/d33f91708f73735231f458090a478f1204480c30
+ * This means it could be codeigniter bug. the patch should be pulled to our version of codeigniter.
+ * however, not yet tested. for the time being, I disable this fucntion. 
+ */
+$config['csrf_protection'] = FALSE;
 $config['csrf_token_name'] = 'csrf_test_name';
 $config['csrf_cookie_name'] = 'csrf_cookie_name';
 $config['csrf_expire'] = 7200;
