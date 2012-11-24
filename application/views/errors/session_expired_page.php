@@ -1,6 +1,7 @@
 <?php 
-echo 'You don\'t have permission to this page!<br>';
-echo anchor('login/index', 'Login');
+$this->lang->load('error');
+echo $this->lang->line('error_no_permission_page');
+    echo anchor('login/index', 'Login');
 die();
 ?>
 

@@ -9,10 +9,13 @@ var tournaments = eval(<?php echo $tournaments_json; ?>);
 echo '<h1>Welcom to SGMA, ' . html_escape($username) . ' !!</h1>'; 
 echo anchor('login/logout', 'Logout');
 
-echo '<br>';
-echo anchor('tournament/createForm', 'Create a new Tournament');
-echo '<br>';
-echo anchor('cup/createForm', 'Create a new Cup');
+if($hasAdminRight == true){
+    echo '<br>';
+    echo anchor('tournament/createForm', 'Create a new Tournament');
+    echo '<br>';
+    echo anchor('cup/createForm', 'Create a new Cup');
+}
+
 ?>
 
 
@@ -61,7 +64,8 @@ I got to move the following elements to *_tornament_form.php
 so that those elements are to created on deamnd. not statically as
 it is created in home_page.php 
  -->
-
+ <?php $this->load->view("tournament_elements"); ?>
+<!-- 
 <div id="tournament_area" class="claro" >
     <div id="tournament"></div>
     <div id="participants"></div>
@@ -78,11 +82,14 @@ it is created in home_page.php
     
     <div dojoType="dojox.widget.Toaster" id="toast" positionDirection="tl-down"></div>
     
+    
+    <div id="game_dialog" dojoType="dijit.Dialog"></div>
+    <div id="user_dialog" dojoType="dijit.Dialog"></div>
     <div id="game_result_dialog" dojoType="dijit.Dialog"></div>
     <div id="thread_dialog" dojoType="dijit.Dialog"></div>
     <div id="thread_change_date_dialog" dojoType="dijit.Dialog"></div>
 </div>
-
+ -->
 
 
 <!-- 

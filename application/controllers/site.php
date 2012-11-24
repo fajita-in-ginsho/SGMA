@@ -1,17 +1,22 @@
 <?php 
+require_once(APPPATH .'/core/my_usersessioncontroller.php');
 
-class Site extends CI_Controller{
+class Site extends My_UserSessionController{
 
 	function __construct(){
 		parent::__construct();
-		$this->isLoggedIn();
 	}
 	
 	function home(){
 		$data['main_content'] = 'home_page';
 		$data['title'] = 'Home';
 		$data['username'] = $this->session->userdata('username');
-		$userId = $this->users_model->getIdByUsername($this->session->userdata('username'));
+		$userId = $this->users_model->getIdByUsername($data['username']);
+		if(!isset($userId)){
+		    error_log("could not retrieve userId for {$data['username']}");
+		    return;
+		}
+		$data['hasAdminRight'] = $this->users_model->hasAdminRight($userId);
 		$data['tournaments'] = $this->tournaments_model->getByUserId($userId);
 		$data['tournaments_json'] = json_encode($data['tournaments']);
 		$this->load->view('includes/template', $data);
@@ -31,16 +36,6 @@ class Site extends CI_Controller{
 		$this->load->view('includes/template', $data);
 	}
 	
-	function isLoggedIn(){
-		$is_logged_in = $this->session->userdata('is_logged_in');
-		if(isset($is_logged_in) && $is_logged_in == true){
-			
-		}else{
-			$data['main_content'] = 'errors/session_expired_page';
-			$data['title'] = 'Expired!';
-			$this->load->view('includes/template', $data);
-		}
-	}
 }
 
 

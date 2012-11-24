@@ -7,12 +7,13 @@ class Tournament extends My_UserSessionController{
 
 	function __construct(){
 		parent::__construct();
-		$this->isLoggedIn();
 	}
 	
 	function open(){
+	    
 		$cup_name = urldecode($this->uri->segment(3));
 		$tournament_name = urldecode($this->uri->segment(4));
+		$my_uri = $this->uri->uri_string();
 		
 		// get tournament id
 		$tournament_id = $this->tournaments_model->getIdByNames(

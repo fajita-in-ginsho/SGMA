@@ -19,7 +19,7 @@ function onClickGameResult(event, gameId){
 	if(gameId != -1){
 		dojo.xhrGet({
 
-		    url:"../game/result/" + gameId, 
+		    url:"http://localhost/index.php/game/result/" + gameId, 
 		    handleAs: "text",
 		    content : arguments,  
 		    load : function(data){
@@ -69,7 +69,7 @@ function onClickHistory(event, threadId){
 	
 	dojo.xhrPost({
 
-	    url:"../thread/open/" + threadId, 
+	    url:"http://localhost/index.php/thread/open/" + threadId, 
 	    handleAs: "text",
 	    postData : arguments,
 	    load : function(result){
@@ -106,6 +106,54 @@ function onClickKifu(event, kifuId){
 	
 }
 
+function onClickLogin(){
+	var arguments = {
+	   	  "ajax" : "true"
+	};
+	
+	// TODO:
+	// dojo.xhrPost didn't work, but haven't figured out why.
+	dojo.xhrGet({
+
+	    url:"http://localhost/index.php/login/index/", 
+	    handleAs: "text",
+	    content : arguments,
+	    load : function(result){
+		    
+	    	var dialog = dijit.byId("login_dialog");
+	    	dialog.set('title', "Login");
+	    	dialog.set('content', result);
+	    	dialog.set('style', "width : 200px");
+	    	dialog.show();
+		    
+	    },
+	    error : function (error){
+	    	alert(data);
+	    }
+	});
+}
+
+function onClickLogout(){
+	var arguments = {
+		   	  "ajax" : true
+	};
+		
+	dojo.xhrPost({
+
+	    url:"http://localhost/index.php/login/logout/", 
+	    handleAs: "text",
+	    postData : arguments,
+	    load : function(result){
+	    },
+	    error : function (error){
+	    	alert(data);
+	    }
+	});
+	
+	var dialog = dijit.byId("game_dialog");
+	dialog.hide();
+}
+
 function onResultSubmit(event, gameId){
 	if(gameId == -1){
 		var myDialog = new dijit.Dialog({
@@ -128,11 +176,11 @@ function onResultSubmit(event, gameId){
 		};
 		dojo.xhrGet({
 
-		    url:"../game/inputResult/" + gameId, 
+		    url:"http://localhost/index.php/game/inputResult/" + gameId, 
 		    handleAs: "text",
 		    content : arguments,  
 		    load : function(result){
-			    debugger;
+			    
 			    // it says, boolean_result, however, boolean is converted to 0 or 1 during serialization. i guess.
 			    if(result == 1){
 			    	console.log("return successfully : " + result);
@@ -177,7 +225,7 @@ function onClickThreadComment(event){
 		};
 		dojo.xhrPost({
 
-		    url:"../thread/addComment/" + arguments["threadId"], 
+		    url:"http://localhost/index.php/thread/addComment/" + arguments["threadId"], 
 		    handleAs: "json",
 		    content : arguments,  
 		    load : function(result){
@@ -229,7 +277,7 @@ function onClickChangeDate(event){
 	
 	dojo.xhrGet({
 
-	    url: "../thread/changeDateForm",
+	    url: "http://localhost/index.php/thread/changeDateForm",
 	    //postData : arguments,
 	    content : arguments,
 	    handleAs: "text",
@@ -324,7 +372,7 @@ function onSubmitChangeDate(event){
 	//window.open("../thread/requestChangeDate/" + "true/" + gameId + "/" + date_json);
 	dojo.xhrGet({
 
-	    url:"../thread/requestChangeDate/", 
+	    url:"http://localhost/index.php/thread/requestChangeDate/", 
 	    handleAs: "text",
 	    content : arguments,
 	    //content : arguments,  

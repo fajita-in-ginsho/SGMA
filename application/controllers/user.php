@@ -6,7 +6,6 @@ class User extends My_UserSessionController{
 
 	function __construct(){
 		parent::__construct();
-		$this->isLoggedIn();
 	}
 	
 	function open($username){
@@ -28,9 +27,9 @@ class User extends My_UserSessionController{
 	    $data['user'] = $this->users_model->getById($userId);
 	    
 	    $data['no_games_past'] = 3;
-	    $data['games_past'] = $this->players_model->getGamesByUserId($userId, "AND r.description != 'Not Yet Played'");
+	    $data['games_past'] = $this->players_model->getGamesByUserId($userId, "r.description != 'Not Yet Played'");
 	    $data['no_games_future'] = 3;
-	    $data['games_future'] = $this->players_model->getGamesByUserId($userId, "and r.description = 'Not Yet Played'");
+	    $data['games_future'] = $this->players_model->getGamesByUserId($userId, "r.description = 'Not Yet Played'");
 	    
 	    $data['main_content'] = 'user_form';
 	    $data['title'] = "About " . $data['user']->username;

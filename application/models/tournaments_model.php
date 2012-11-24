@@ -35,8 +35,7 @@ class Tournaments_Model extends My_IDModel {
 		if($query->num_rows() == 1){
 			$id = (int)$query->row()->id;
 		}else{
-			log_message('info', $stmt);
-			show_error($stmt);
+			error_log($this->db->last_query());
 		}
 		return $id;
 	}

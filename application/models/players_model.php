@@ -121,8 +121,6 @@ class Players_Model extends My_IDModel {
 	    }
 	    
 	    $query = $this->db->get();
-	    //error_log("stmt = $stmt");
-	    $query = $this->db->query($stmt);
 	    if($query->num_rows() > 0){
 	        return $query->result();
 	    }

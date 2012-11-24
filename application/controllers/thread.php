@@ -8,7 +8,7 @@ class Thread extends My_UserSessionController{
 
 	function __construct(){
 		parent::__construct();
-		$this->isLoggedIn();
+		$this->redirectExpirePageIfNotLoggedIn();
 	}
 	
 	function open($threadId){

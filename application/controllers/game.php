@@ -6,7 +6,6 @@ class Game extends My_UserSessionController{
 
 	function __construct(){
 		parent::__construct();
-		$this->isLoggedIn();
 	}
 	
 	function open($gameId){
@@ -36,6 +35,7 @@ class Game extends My_UserSessionController{
 	    $data['players'] = $players;
 	    $data['tournament'] = $tournament;
 	    $data['copyright'] = false; // see footer.php
+	    $data['isLoggedIn'] = $this->isLoggedIn();
 	    // in this case, return text.html response in both ajax and non-ajax request.
 	    if($is_ajax_request){
 	        $data['isAjax'] = "true";  // MEMO: passing boolean could not be retrieved in javascript side.
@@ -70,7 +70,7 @@ class Game extends My_UserSessionController{
 	     /* || $this->organizers_model->isAuthorized($this->session->userdata('userId'), $tournamentId)*/ ){
 	     
 	    }else{
-	        echo "you don't have permission to change the result of this game!";
+	        echo "<p>you don't have permission to change the result of this game!</p>";
 	        return;
 	    }
 	    

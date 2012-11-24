@@ -33,6 +33,20 @@ class Users_Model extends My_IDModel {
 		}
 	}	
 	
+	function hasAdminRight($userId){
+	    $isAdmin = false;
+	    $this->db->select('role.name as role');
+	    $this->db->from('users');
+	    $this->db->join('role', 'users.roleId = role.id');
+	    $this->db->where("users.id = $userId");
+	    $query = $this->db->get();
+	    if($query->num_rows() == 1){
+	        if($query->row(0)->role == "System" || $query->row(0)->role == "Admin"){
+	            $isAdmin = true;
+	        }
+	    }
+	    return $isAdmin;
+	}
 }
 
 ?>

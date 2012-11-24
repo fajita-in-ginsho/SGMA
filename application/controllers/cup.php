@@ -7,7 +7,6 @@ class Cup extends My_UserSessionController{
 
 	function __construct(){
 		parent::__construct();
-		$this->isLoggedIn();
 	}
 	
 	function createForm(){

@@ -1,6 +1,6 @@
 
 dojo.addOnLoad(function (){
-    //debugger;
+
 	//createTournamentElements();
 	
 	connectOnGridClick();
