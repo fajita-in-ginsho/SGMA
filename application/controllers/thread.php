@@ -8,25 +8,21 @@ class Thread extends My_UserSessionController{
 
 	function __construct(){
 		parent::__construct();
-		$this->redirectExpirePageIfNotLoggedIn();
+		$this->redirectNeedToLoginPageIfNotLoggedIn();
 	}
 	
 	function open($threadId){
-	    // this is necessary when using non-ajax., wait, this is not needed. delete later.
-	    $retrieved_threadId = urldecode($this->uri->segment(3)); 
-	    
+
 	    $is_ajax_request = false;
-	    if(isset($_POST['ajax']) && $_POST['ajax']){
-	        if(isset($_POST['threadId'])){
-	            $threadId = $_POST['gameId'];
-	        }
-	        $is_ajax_request = true;
-	    }
-	    if(isset($_POST['username_of_selected_row'])){
-	        $data['username_of_selected_row'] = $_POST['username_of_selected_row']; 
-	    }
-	    if(isset($_POST['username_of_selected_column'])){
+	    if(count($_POST) > 0){
+	        $is_ajax_request = ($_POST['ajax'] === 'true');
+	        $threadId = $_POST['threadId'];
+	        $data['username_of_selected_row'] = $_POST['username_of_selected_row'];
 	        $data['username_of_selected_column'] = $_POST['username_of_selected_column'];
+	    }
+	    
+	    if(!$is_ajax_request){
+	        $threadId = urldecode($this->uri->segment(3));
 	    }
 	    
 	    $data['main_content'] = 'thread_form';
@@ -47,23 +43,20 @@ class Thread extends My_UserSessionController{
 	
 	
 	function addComment($threadId){
-	    // this is necessary when using non-ajax., wait, this is not needed. delete later.
-	    $retrieved_threadId = urldecode($this->uri->segment(3));
-
+	    
 	    $is_ajax_request = false;
-	    if(isset($_POST['ajax']) && $_POST['ajax']){
-	        $is_ajax_request = true;
-	    }
-	    if(isset($_POST['threadId'])){
+	    if(count($_POST) > 0){
+	        $is_ajax_request = ($_POST['ajax'] === 'true');
 	        $threadId = $_POST['threadId'];
-	    }
-	    if(isset($_POST['comment'])){
 	        $data['comment'] = $_POST['comment'];
 	        $result['comment'] = $data['comment'];
-	    }
-	    if(isset($_POST['gameId'])){
 	        $data['gameId'] = $_POST['gameId'];
 	    }
+	     
+	    if(!$is_ajax_request){
+	        $threadId = urldecode($this->uri->segment(3));
+	    }
+	    
 	    
 	    // if threadId is -1 , create one and get the threadId.
 	    if($threadId == -1){
@@ -104,15 +97,13 @@ class Thread extends My_UserSessionController{
 	}
 	
 	function changeDateForm(){
-	     
+
 	    $is_ajax_request = false;
-	    if(isset($_GET['ajax']) && $_GET['ajax']){
-	        $is_ajax_request = true;
-	    }
-	    if(isset($_GET['gameId'])){
+	    if(count($_GET) > 0){
+	        $is_ajax_request = ($_GET['ajax'] === 'true');
 	        $data['gameId'] = $_GET['gameId'];
 	    }
-	     
+	    
 	    $data['main_content'] = 'thread_change_date_form';
 	    $data['title'] = 'Change Date Form';
 	    $data['copyright'] = false; // see footer.php
@@ -131,29 +122,20 @@ class Thread extends My_UserSessionController{
 	}
 	
 	function requestChangeDate(){
-	
-	    $is_ajax_request = false;
-	    if(isset($_GET['ajax']) && $_GET['ajax']){
-	        $is_ajax_request = true;
-	    }else{
-	        $data['ajax'] = urldecode($this->uri->segment(3));
-	        $data['gameId'] = urldecode($this->uri->segment(4));
-	        $data['datetime'] = urldecode($this->uri->segment(5));
-	        $data['datetime'] = ConvJsToPhp::jsDateToPhp(json_decode($_GET['datetime']));
-	    }
+	    // TODO: interantinalize lanuage
+	    $is_ajax_request = (isset($_GET['ajax']) && $_GET['ajax'] === 'true');
 	    
-	    if(isset($_GET['gameId'])){
+	    if($is_ajax_request){
 	        $data['gameId'] = $_GET['gameId'];
-	    }
-	    
-	    if(isset($_GET['datetime'])){
 	        $data['datetime'] = ConvJsToPhp::jsDateToPhp(json_decode($_GET['datetime']));
 	        $requesting_date = $data['datetime'];
-	    }
-	    
-	    if(isset($_GET['threadId'])){
 	        $data['threadId'] = $_GET['threadId'];
+	    }else{
+	        $data['gameId'] = urldecode($this->uri->segment(3));
+	        $data['datetime'] = urldecode($this->uri->segment(4));
+	        $data['threadId'] = urldecode($this->uri->segment(5));
 	    }
+	    $data['gameId'] = $_GET['gameId'];
 	    
 	    $game = $this->games_model->getById($data['gameId']);
 	    //$data['current_date'] = $this->games_model->getDate($data['gameId']);

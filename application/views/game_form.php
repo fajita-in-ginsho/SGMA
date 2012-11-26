@@ -41,23 +41,23 @@
 	
 	<button 
 	<?php if(!$isLoggedIn){echo "disabled";} ?> 
-	dojoType="dijit.form.Button" type="button" onClick="onClickGameResult(event, <?php echo html_escape($game->gameId);?>);">
+	dojoType="dijit.form.Button" type="button" onClick="onClickGameResult(<?php echo html_escape($game->gameId);?>);">
     Input Result
     </button>
     
     <button
-    dojoType="dijit.form.Button" type="button" onClick="onClickHistory(event, <?php echo html_escape($game->threadId); ?>);">
+    dojoType="dijit.form.Button" type="button" onClick="onClickHistory(<?php echo html_escape($game->threadId); ?>);">
     History
     </button>
     
     <button
     <?php if(!$isLoggedIn){echo "disabled";} ?>  
-    dojoType="dijit.form.Button" type="button" onClick="onClickChangeDate(event);">
+    dojoType="dijit.form.Button" type="button" onClick="onClickChangeDate();">
     Change Date
     </button>
     
     <button 
-    dojoType="dijit.form.Button" type="button" onClick="onClickKifu(event, <?php echo html_escape($game->kifuId); ?>);">
+    dojoType="dijit.form.Button" type="button" onClick="onClickKifu(<?php echo html_escape($game->kifuId); ?>);">
     Kifu
     </button>
     

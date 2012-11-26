@@ -25,7 +25,7 @@ function onChangePoints(points){
 	    load : function(data){
 	    },
 	    error : function (error){
-	    	alert(data);
+	    	console.log(error);
 	    }
 	});
 }
@@ -63,13 +63,14 @@ function onGridClickOnGame(event, item, gameId){
 		    content : arguments,  
 		    load : function(data){
 		    	var dialog = dijit.byId("game_dialog");
-		    	dialog.set('title', "Game Information");
+		    	dialog.set('title', dojo.attr(dojo.byId('game_infomation_title'), 'title'));
 		    	dialog.set('content', data);
 		    	dialog.set('style', "width : 300px");
 		    	dialog.show();
 		    },
 		    error : function (error){
-		    	alert(data);
+		    	console.log(error);
+		    	console.error(new Error().stack);
 		    }
 		});
 	}else{
@@ -96,13 +97,14 @@ function onGridClickOnUsername(event, item){
 	    content : arguments,  
 	    load : function(data){
 	    	var dialog = dijit.byId("user_dialog");
-	    	dialog.set('title', "User Information");
+	    	dialog.set('title', dojo.attr(dojo.byId('user_infomation_title'), 'title'));
 	    	dialog.set('content', data);
 	    	dialog.set('style', "width : 300px");
 	    	dialog.show();
 	    },
 	    error : function (error){
-	    	alert(data);
+	    	console.log(error);
+	    	console.error(new Error().stack);
 	    }
 	});
 		
@@ -140,39 +142,6 @@ function onGridClick(event){
 
 
 
-function createTournamentElements(){
-	/*
-     * instead of the static elements declared in home_page.php.
-     * declare following elements here dynamically in order to make this page callable from 
-     * a static html page.
-     * <div id="tournament"></div>
-		<div id="participants"></div>
-		<div id="games"></div>
-    	<div id="tournametChart" dojoType="dojox.grid.DataGrid"></div>
-	    <div id="cupIdOfCurrentDisplayedChart" title=""></div>
-	    <div id="cupNameOfCurrentDisplayedChart" title=""></div>
-	    <div id="tournamentIdOfCurrentDisplayedChart" title=""></div>
-	    <div id="tournamentNameOfCurrentDisplayedChart" title=""></div>
-		<div dojoType="dojox.widget.Toaster" id="toast" positionDirection="tl-down"></div>
-
-     */
-	// TODO: if not exist, create one. called from showChart. 
-	dojo.create("div", {id:"tournament"}, dojo.byId("tournament_area"), "first");
-	dojo.create("div", {id:"participants"}, dojo.byId("tournament"));
-	dojo.create("div", {id:"games"}, dojo.byId("tournament"));
-	dojo.create("dojox.grid.DataGrid", {id:"tournametChart"}, dojo.byId("tournament"));
-	dojo.create("div", {id:"cupIdOfCurrentDisplayedChart"}, dojo.byId("tournament"));
-	dojo.create("div", {id:"cupNameOfCurrentDisplayedChart"}, dojo.byId("tournament"));
-	dojo.create("div", {id:"tournamentIdOfCurrentDisplayedChart"}, dojo.byId("tournament"));
-	dojo.create("div", {id:"tournamentNameOfCurrentDisplayedChart"}, dojo.byId("tournament"));
-	
-	dojo.create("div", {id:"username_of_selected_row"}, dojo.byId("tournament"));
-	dojo.create("div", {id:"username_of_selected_column"}, dojo.byId("tournament"));
-    
-	dojo.create("dojox.widget.Toaster", {id:"toast"}, dojo.byId("tournament"));
-	
-}
-
 function getChart(cup, tournament){
 	
 	//var baseurl = "<?php echo base_url() ?>";
@@ -194,7 +163,8 @@ function getChart(cup, tournament){
 	    	showChart(data);
 	    },
 	    error: function(error) {
-	      console.warn(new Error().stack);
+	    	console.log(error);
+	    	console.error(new Error().stack);
 	    }
 	});
 }

@@ -6,42 +6,27 @@ var tournaments = eval(<?php echo $tournaments_json; ?>);
 
 
 <?php
-echo '<h1>Welcom to SGMA, ' . html_escape($username) . ' !!</h1>'; 
-echo anchor('login/logout', 'Logout');
+echo '<h1>' . $this->lang->line('home_welcom_message') . html_escape($username)  . $this->lang->line('home_welcom_message_ending') . '</h1>'; 
+echo anchor('login/logout', $this->lang->line('home_button_loout'));
 
 if($hasAdminRight == true){
     echo '<br>';
-    echo anchor('tournament/createForm', 'Create a new Tournament');
+    echo anchor('tournament/createForm', $this->lang->line('home_button_create_tournament'));
     echo '<br>';
-    echo anchor('cup/createForm', 'Create a new Cup');
+    echo anchor('cup/createForm', $this->lang->line('home_button_create_cup'));
 }
-
 ?>
 
 
 
 <div align="left" id="tournament_list">
 <?php
-echo '<h2><p>Tournaments I\'m in!</p></h2>';
+echo '<h2><p>' . $this->lang->line('home_tournament_list') . '</p></h2>';
 
 if(isset($tournaments)){
     
 	echo '<ul type="">';
-	/*
-	foreach($tournaments as $q_result){
-		echo '<li>' . 
-		anchor("tournament/open/$q_result->cup/$q_result->tournament"
-				, $q_result->cup . $q_result->tournament) .
-		 '</li>';
-	}
-	*/
-	/*
-	foreach($tournaments as $q_result){
-	    echo '<li><div id="' . $q_result->cup .$q_result->tournament .'">' .
-	       	    $q_result->cup . ' ' .$q_result->tournament .
-	    '</div></li>';
-	}
-	*/
+	
 	foreach($tournaments as $q_result){
 	    echo '<li><input type="button" id="';
 	    echo html_escape($q_result->cup) . html_escape($q_result->tournament) . '"';
@@ -52,52 +37,13 @@ if(isset($tournaments)){
 	echo '</ul>';
 	
 }else{
-	echo '<p>I\'m not currently in any tournament.</p>';
+	echo '<p>' .$this->lang->line('home_no_tournament_message') . '</p>';
 }
 ?>
 </div>
 
-
-<!--
-TODO
-I got to move the following elements to *_tornament_form.php
-so that those elements are to created on deamnd. not statically as
-it is created in home_page.php 
- -->
  <?php $this->load->view("tournament_elements"); ?>
-<!-- 
-<div id="tournament_area" class="claro" >
-    <div id="tournament"></div>
-    <div id="participants"></div>
-    <div id="games"></div>
-    <div id="tournametChart" dojoType="dojox.grid.DataGrid"></div>
-    
-    <div id="cupIdOfCurrentDisplayedChart" title=""></div>
-    <div id="cupNameOfCurrentDisplayedChart" title=""></div>
-    <div id="tournamentIdOfCurrentDisplayedChart" title=""></div>
-    <div id="tournamentNameOfCurrentDisplayedChart" title=""></div>
-    
-    <div id="username_of_selected_row"></div>
-    <div id="username_of_selected_column"></div>
-    
-    <div dojoType="dojox.widget.Toaster" id="toast" positionDirection="tl-down"></div>
-    
-    
-    <div id="game_dialog" dojoType="dijit.Dialog"></div>
-    <div id="user_dialog" dojoType="dijit.Dialog"></div>
-    <div id="game_result_dialog" dojoType="dijit.Dialog"></div>
-    <div id="thread_dialog" dojoType="dijit.Dialog"></div>
-    <div id="thread_change_date_dialog" dojoType="dijit.Dialog"></div>
-</div>
- -->
 
-
-<!-- 
-<div id="tournament_chart"></div>
-<div style="width: 600px; height: 200px">
-<table class="claro" dojoType="dojox.grid.DataGrid" id="myDataGrid">
-</table>
- -->
 
 
 

@@ -8,12 +8,13 @@ class Site extends My_UserSessionController{
 	}
 	
 	function home(){
+	    $this->redirectNeedToLoginPageIfNotLoggedIn();
 		$data['main_content'] = 'home_page';
 		$data['title'] = 'Home';
 		$data['username'] = $this->session->userdata('username');
 		$userId = $this->users_model->getIdByUsername($data['username']);
 		if(!isset($userId)){
-		    error_log("could not retrieve userId for {$data['username']}");
+		    $this->loadNeedToLoginPage();
 		    return;
 		}
 		$data['hasAdminRight'] = $this->users_model->hasAdminRight($userId);

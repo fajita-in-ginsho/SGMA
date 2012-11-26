@@ -11,26 +11,22 @@ class Tournament extends My_UserSessionController{
 	
 	function open(){
 	    
-		$cup_name = urldecode($this->uri->segment(3));
-		$tournament_name = urldecode($this->uri->segment(4));
-		$my_uri = $this->uri->uri_string();
-		
+	    $is_ajax_request = (isset($_GET['ajax']) && $_GET['ajax'] === 'true');
+	     
+	    if($is_ajax_request){
+	        $cup_name = $_GET['cup'];
+	        $tournament_name = $_GET['tournament'];
+	    }else{
+	        $cup_name = urldecode($this->uri->segment(3));
+		    $tournament_name = urldecode($this->uri->segment(4));
+	    }
+	    
 		// get tournament id
 		$tournament_id = $this->tournaments_model->getIdByNames(
 			$cup_name, $tournament_name
 		);
 		
-		$is_ajax_request = false;
-		if(isset($_GET['ajax']) && $_GET['ajax']){
-		    if(isset($_GET['cup'])){
-		        $cup_name = $_GET['cup'];
-		    }
-		    if(isset($_GET['tournament'])){
-		        $tournament_name = $_GET['tournament'];
-		    }
-		    
-		    $is_ajax_request = true;
-		}
+		
 		
 		if(isset($tournament_id) && $tournament_id != -1){
 			
@@ -129,20 +125,18 @@ class Tournament extends My_UserSessionController{
 	}
 	
 	function update(){
-	    $is_ajax_request = false;
-	    if(isset($_POST['ajax']) && $_POST['ajax']){
-	        if(isset($_POST['tournamentId'])){
-	            $tournamentId = $_POST['tournamentId'];
-	        }
-	        if(isset($_POST['field'])){
-	            $field = $_POST['field'];
-	        }
-	        if(isset($_POST['value'])){
-	            $field = $_POST['value'];
-	        }
-	        $is_ajax_request = true;
+	    
+	    $is_ajax_request = (isset($_POST['ajax']) && $_POST['ajax'] === 'true');
+	    
+	    if($is_ajax_request){
+	        $tournamentId = $_POST['tournamentId'];
+	        $field = $_POST['field'];
+	        $field = $_POST['value'];
+	    }else{
+	        
 	    }
 	    
+	    // TODO:
 	}
 }
 

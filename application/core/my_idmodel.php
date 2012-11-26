@@ -20,26 +20,22 @@ class My_IDModel extends My_CI_Model {
 	
 	function getById($id){
 	    if(!isset($id)) return;
+
+	    $this->db->select('*');
+	    $this->db->from($this->table);
+	    $this->db->where("id = $id");
+	    $query = $this->db->get();
 	    
-	    $stmt = "
-	    SELECT * FROM `$this->table`
-	    WHERE `id` = $id
-	    ;
-	    ";
-	     
-	    $query = $this->db->query($stmt);
 	    if($query->num_rows() == 1){
 	        return $query->row();
 	    }
 	}
 	
 	function getAll(){
-	    $stmt = "
-	    SELECT * FROM `$this->table`
-	    ;
-	    ";
-	
-	    $query = $this->db->query($stmt);
+	    
+	    $this->db->select('*');
+	    $this->db->from($this->table);
+	    $query = $this->db->get();
 	    if($query->num_rows() > 0){
 	        return $query->result();
 	    }

@@ -18,3 +18,10 @@ function showMessage(message, title, style){
 	});
 	myDialog.show();	
 }
+
+
+function open_in_new_tab(url)
+{
+    window.open(url, '_blank');
+    window.focus();
+}

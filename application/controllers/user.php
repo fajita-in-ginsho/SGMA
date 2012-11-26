@@ -9,18 +9,11 @@ class User extends My_UserSessionController{
 	}
 	
 	function open($username){
-	    $retrieved_username = urldecode($this->uri->segment(3));
-	    //echo "get the $gameId information and returned!";
-	    
-	    $is_ajax_request = false;
-	    if(isset($_GET['ajax']) && $_GET['ajax']){
-	        $is_ajax_request = true;
-	    }else{
-	        $is_ajax_request = false;
-	    }
-	    
-	    if(isset($_GET['username'])){
+	    $is_ajax_request = (isset($_GET['ajax']) && $_GET['ajax'] === 'true');
+	    if($is_ajax_request){
 	        $data['username'] = $_GET['username'];
+	    }else{
+	        $data['username'] = urldecode($this->uri->segment(3));
 	    }
 	    
 	    $userId = $this->users_model->getIdByUsername($username);

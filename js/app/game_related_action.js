@@ -1,5 +1,5 @@
 
-function onClickGameResult(event, gameId){
+function onClickGameResult(gameId){
 	var username_of_selected_row = dojo.byId('username_of_selected_row');
 	var username_of_selected_column = dojo.byId('username_of_selected_column');
 	
@@ -15,31 +15,32 @@ function onClickGameResult(event, gameId){
 		// if main username is unknown, enter form will be ambigous. so return.
 		return;
 	}
-
+	
 	if(gameId != -1){
+		
 		dojo.xhrGet({
-
 		    url:"http://localhost/index.php/game/result/" + gameId, 
 		    handleAs: "text",
 		    content : arguments,  
 		    load : function(data){
 			    
 		    	var dialog = dijit.byId("game_result_dialog");
-		    	dialog.set('title', "Game Result");
+		    	dialog.set('title', dojo.attr(dojo.byId('game_result_title'), 'title'));
 		    	dialog.set('content', data);
 		    	dialog.set('style', "width : 400px");
 		    	dialog.show();
-		    	/*
-		    	myDialog = new dijit.Dialog({
-			        title: "Game Information",
-			        content: data,
-			        style: "width: 300px"
-			    });
-			    myDialog.show();
-			    */
+		    	
 		    },
 		    error : function (error){
-		    	alert(data);
+		    	// MEMO:
+		    	// I tried to get title and html in a xhrGet by return them in json.
+		    	// but, I kept gettring syntax error. couldn't figure how to encode
+		    	// html in server side in order to dodge the error. finally, I decided
+		    	// to get title in a seperate xhrGet. 
+		    	// eventually, I incorporate the title in the div, the retrieve it
+		    	// on demand.
+		    	console.log(error);
+		    	console.error(new Error().stack);
 		    }
 		});
 	}else{
@@ -53,7 +54,7 @@ function onClickGameResult(event, gameId){
 	
 }
 
-function onClickHistory(event, threadId){
+function onClickHistory(threadId){
 	var arguments = {
 	    "threadId" : threadId
    	  , "ajax" : true
@@ -75,45 +76,61 @@ function onClickHistory(event, threadId){
 	    load : function(result){
 		    
 	    	var dialog = dijit.byId("thread_dialog");
-	    	dialog.set('title', "Thread History");
+	    	dialog.set('title', dojo.attr(dojo.byId('thread_history_title'), 'title'));
 	    	dialog.set('content', result);
 	    	dialog.set('style', "width : 500px");
 	    	dialog.show();
 		    
 	    },
 	    error : function (error){
-	    	alert(data);
+	    	console.log(error);
+	    	console.error(new Error().stack);
 	    }
 	});
 }
 
-function onClickKifu(event, kifuId){
-	if(kifuId == -1){
-		var myDialog = new dijit.Dialog({
-		    title: "Message",
-		    content: "kifu is not available.",
-		    style: "width:200px;"
-		});
-		myDialog.show();
-	}else{
-		var myDialog = new dijit.Dialog({
-		    title: "Message",
-		    content: "get the url by ajax and jump to kifu page",
-		    style: "width:200px;"
-		});
-		myDialog.show();
-	}
+function onClickKifu(kifuId){
+	var arguments = {
+	    "ajax" : "true"
+	  , "kifuId" : kifuId
+	};
+	// TODO:
+	// dojo.xhrPost didn't work, but haven't figured out why.
+	dojo.xhrPost({
+
+	    url: dojo.attr(dojo.byId('site_url'), 'title') + "/kifu/url/", 
+	    handleAs: "json",
+	    content : arguments,
+	    load : function(data){
+	    	
+		    if(data.success == "true"){
+		    	//document.location = data['url'];
+		    	// TODO: open in a new tab as default behavor.
+		    	open_in_new_tab(data.url);
+		    }else{
+		    	var dialog = dijit.byId("message_dialog");
+		    	dialog.set('title', dojo.attr(dojo.byId('message_title'), 'title'));
+		    	dialog.set('content', data['content']);
+		    	dialog.set('style', "width : 200px");
+		    	dialog.show();
+		    }
+	    },
+	    error : function (error){
+	    	console.log(error);
+	    	console.error(new Error().stack);
+	    }
+	});
 	
 }
 
 function onClickLogin(){
 	var arguments = {
-	   	  "ajax" : "true"
+	    "ajax" : true
 	};
 	
-	// TODO:
-	// dojo.xhrPost didn't work, but haven't figured out why.
-	dojo.xhrGet({
+	// MEMO:
+	// dojo.xhrPost didn't work, but haven't figured out why. => because of csrf_protection.
+	dojo.xhrPost({
 
 	    url:"http://localhost/index.php/login/index/", 
 	    handleAs: "text",
@@ -121,14 +138,15 @@ function onClickLogin(){
 	    load : function(result){
 		    
 	    	var dialog = dijit.byId("login_dialog");
-	    	dialog.set('title', "Login");
+	    	dialog.set('title', dojo.attr(dojo.byId('login_title'), 'title'));
 	    	dialog.set('content', result);
 	    	dialog.set('style', "width : 200px");
 	    	dialog.show();
 		    
 	    },
 	    error : function (error){
-	    	alert(data);
+	    	console.log(error);
+	    	console.error(new Error().stack);
 	    }
 	});
 }
@@ -146,7 +164,8 @@ function onClickLogout(){
 	    load : function(result){
 	    },
 	    error : function (error){
-	    	alert(data);
+	    	console.log(error);
+	    	console.error(new Error().stack);
 	    }
 	});
 	
@@ -154,7 +173,8 @@ function onClickLogout(){
 	dialog.hide();
 }
 
-function onResultSubmit(event, gameId){
+
+function onResultSubmit(gameId){
 	if(gameId == -1){
 		var myDialog = new dijit.Dialog({
 		    title: "Message",
@@ -167,23 +187,31 @@ function onResultSubmit(event, gameId){
 		var gameResultDescription = combobox.get("value");
 		var username_of_selected_row = dojo.byId("username_of_selected_row");
 		var username_of_selected_column = dojo.byId("username_of_selected_column");
+		var isResultChanged = (gameResultDescription != combobox.attr('_resetValue'));
+		
+		var textbox = dijit.byId("kifu_url_textbox");
+		var kifuURL = textbox.get("value");
+		var isURLChanged = ((typeof(kifuURL) !== "undefined") && (kifuURL != textbox.attr('_resetValue')));
+		
 		var arguments = {
 			"gameId" : gameId
 		  , "ajax" : true
 		  , "username_of_selected_row" : username_of_selected_row.title
 		  , "username_of_selected_column" : username_of_selected_column.title
+		  , "isResultChanged" : isResultChanged
 		  , "gameResultDescription" : gameResultDescription
+		  , "isURLChanged" : isURLChanged
+		  , "kifuURL" : kifuURL
 		};
 		dojo.xhrGet({
 
 		    url:"http://localhost/index.php/game/inputResult/" + gameId, 
-		    handleAs: "text",
+		    handleAs: "json",
 		    content : arguments,  
-		    load : function(result){
-			    
+		    load : function(data){
+			    debugger;
 			    // it says, boolean_result, however, boolean is converted to 0 or 1 during serialization. i guess.
-			    if(result == 1){
-			    	console.log("return successfully : " + result);
+			    if(data.success == 'true'){
 			    	// chart update.
 					var params = {
 			    	    "cup" : dojo.attr(dojo.byId('cupNameOfCurrentDisplayedChart'), 'title')
@@ -192,20 +220,18 @@ function onResultSubmit(event, gameId){
 			    	//dojo.hitch(params, getChart)();
 					getChart(params.cup, params.tournament);
 			    }else{
-			    	console.log("error detected!");
+			    	console.log("error: data.success is =>" + data.success);
 			    }
-			    
 		    },
 		    error : function (error){
-		    	alert(data);
+		    	console.log(error);
+		    	console.error(new Error().stack);
 		    }
 		});
-		
 	}
 	// close result input dialog.
 	var dialog = dijit.byId("game_result_dialog");
 	dialog.hide();
-	
 }
 
 
@@ -256,7 +282,9 @@ function onClickThreadComment(event){
 			    }
 			    
 		    },
-		    error : function (data){
+		    error : function (error){
+		    	console.log(error);
+		    	console.error(new Error().stack);
 		    }
 		});
 	}
@@ -283,14 +311,15 @@ function onClickChangeDate(event){
 	    load : function(form){
 		    
 	    	var dialog = dijit.byId("thread_change_date_dialog");
-	    	dialog.set('title', "Chnage Date");
+	    	dialog.set('title', dojo.attr(dojo.byId('change_date_title'), 'title'));
 	    	dialog.set('content', form);
 	    	dialog.set('style', "width : 300px");
 	    	dialog.show();
 		    
 	    },
 	    error : function (error){
-	    	alert(data);
+	    	console.log(error);
+	    	console.error(new Error().stack);
 	    }
 	});
 }
@@ -380,7 +409,8 @@ function onSubmitChangeDate(event){
 	    	
 	    },
 	    error : function (error){
-	    	alert(data);
+	    	console.log(error);
+	    	console.error(new Error().stack);
 	    }
 	});
 	

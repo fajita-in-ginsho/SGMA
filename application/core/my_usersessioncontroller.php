@@ -5,14 +5,22 @@ class My_UserSessionController extends CI_Controller {
 	
     function __construct(){
 		parent::__construct();
+		$this->lang->load('tournament');
+		$this->lang->load('error');
+		$this->lang->load('home');
 	}
 	
-	function redirectExpirePageIfNotLoggedIn(){
+	function redirectNeedToLoginPageIfNotLoggedIn(){
 		if(!$this->isLoggedIn()){
-			$data['main_content'] = 'errors/session_expired_page';
-			$data['title'] = 'Expired!';
-			$this->load->view('includes/template', $data);
+			$this->loadNeedToLoginPage();
 		}
+	}
+	
+	function loadNeedToLoginPage(){
+	    $this->lang->load('error');
+	    $data['main_content'] = 'errors/session_expired_page';
+	    $data['title'] = $this->lang->line('error_no_permission_page_title');
+	    $this->load->view('includes/template', $data);
 	}
 	
 	function isLoggedIn(){

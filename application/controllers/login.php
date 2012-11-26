@@ -9,7 +9,7 @@ class Login extends CI_Controller {
 	function index($retry=false){
 	    
 	    $is_ajax_request = false;
-	    if(isset($_GET['ajax']) && $_GET['ajax'] == "true"){
+	    if(isset($_GET['ajax']) && $_GET['ajax'] === "true"){
 	        $is_ajax_request = true;
 	    }
 	    

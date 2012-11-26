@@ -120,6 +120,8 @@ $autoload['model'] = array(
       ,	'comments_model'
       ,	'cups_model'
       ,	'tournamenttype_model'
+      , 'gameinfoshogi_model'
+      , 'kifu_model'
 );
 
 
