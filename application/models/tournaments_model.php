@@ -42,7 +42,8 @@ class Tournaments_Model extends My_IDModel {
 	
 	function getById($id){
 	    
-		$this->db->select('t.*
+		$this->db->select('
+		  t.*
 		, type.name as `type`
 		, c.id as `cup_id`
 		, c.name as `cup_name`');
@@ -60,6 +61,10 @@ class Tournaments_Model extends My_IDModel {
 			show_error($stmt);
 		}
 		return $result;
+	}
+	
+	function getAdminById($id){
+	    
 	}
 		
 }

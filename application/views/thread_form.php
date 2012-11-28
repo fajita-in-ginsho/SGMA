@@ -3,7 +3,11 @@
 
 	<textarea id="comment_area" dojoType="dijit.form.Textarea" type="button" style="width:100%; min-height:40px;"></textarea>
 	<p>
-    <button dojoType="dijit.form.Button" type="button" onClick="onClickThreadComment(event);">Comment</button>
+	
+    <button dojoType="dijit.form.Button" type="button" onClick="onClickThreadComment();">
+    <?php echo $this->lang->line('tournament_button_comment'); ?>
+    </button>
+    
     <p>
 	<div id="threads">
 	<?php

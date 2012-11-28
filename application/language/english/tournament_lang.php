@@ -21,4 +21,22 @@ $lang['tournament_warning_title'] = "Warning";
 $lang['tournament_error_title'] = "Error";
 
 
+$lang['tournament_comment_change_date_beginning'] = "I changed the date of the game";
+$lang['tournament_comment_change_date_from'] = "from";
+$lang['tournament_comment_change_date_to'] = "to";
+$lang['tournament_comment_change_date_mail_error'] = "Error detected while sending email to following username.";
+
+
+$lang['tournament_button_input_result'] = "Input Result";
+$lang['tournament_button_comment'] = "Comment";
+$lang['tournament_button_history'] = "History";
+
+$lang['tournament_button_change_date'] = "Change Date";
+$lang['tournament_button_kifu'] = "Kifu";
+$lang['tournament_button_login'] = "Login";
+$lang['tournament_button_logout'] = "Logout";
+
+
+
+
 

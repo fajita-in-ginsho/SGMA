@@ -5,9 +5,11 @@ class My_UserSessionController extends CI_Controller {
 	
     function __construct(){
 		parent::__construct();
+		$this->lang->load('main');
 		$this->lang->load('tournament');
 		$this->lang->load('error');
 		$this->lang->load('home');
+		$this->lang->load('app_email');
 	}
 	
 	function redirectNeedToLoginPageIfNotLoggedIn(){

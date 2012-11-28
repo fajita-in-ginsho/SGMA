@@ -22,9 +22,9 @@
     data-dojo-props="onValueSelected:onChangeCalendar, onChnage:onChangeCalendar"/>
     
       
-	<button dojoType="dijit.form.Button" type="button" onClick="onSubmitChangeDate(event);">OK</button>
-	<button dojoType="dijit.form.Button" type="button" onClick="onCancelChangeDate(event);">Cancel</button>
-	<button dojoType="dijit.form.Button" type="button" onClick="onResetChangeDate(event);">Reset</button>
+	<button dojoType="dijit.form.Button" type="button" onClick="onSubmitChangeDate();">OK</button>
+	<button dojoType="dijit.form.Button" type="button" onClick="onCancelChangeDate();">Cancel</button>
+	<button dojoType="dijit.form.Button" type="button" onClick="onResetChangeDate();">Reset</button>
     
     
     <br>

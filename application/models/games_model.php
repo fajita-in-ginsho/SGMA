@@ -69,8 +69,7 @@ class Games_Model extends My_IDModel {
 	    You can call the select method with FALSE as the last parameter, like this
 	    That will prevent CI to add the `
 	    */
-	    $this->db->select('
-	      g.id AS `gameId`
+	    $this->db->select('g.id AS `id`
         , g.tournamentId AS `tournamentId`
         , g.name AS `name`
         , g.date AS `date`

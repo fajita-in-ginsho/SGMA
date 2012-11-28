@@ -26,7 +26,7 @@
 	
     <button dojoType="dijit.form.Button" 
             type="button"
-            onClick="onResultSubmit(<?php echo html_escape($game->gameId);?>);"
+            onClick="onResultSubmit(<?php echo html_escape($game->id);?>);"
     >OK</button>
 	
 </div>

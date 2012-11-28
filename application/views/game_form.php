@@ -34,43 +34,44 @@
 	<div id="kifuId" title="<?php echo html_escape($game->kifuId); ?>"><p>kifuId : <?php echo html_escape($game->kifuId); ?></p></div>
 	<div id="threadId" title="<?php echo html_escape($game->threadId); ?>"><p>threadId : <?php echo html_escape($game->threadId); ?></p></div>
 	<div id="tournament_name" title="<?php echo html_escape($tournament->name); ?>"><p>tournament : <?php echo html_escape($tournament->name); ?></p></div>
-	<div id="gameId" title="<?php echo html_escape($game->gameId); ?>"><p><?php echo html_escape($game->gameId); ?></p></div>
+	<div id="gameId" title="<?php echo html_escape($game->id); ?>"><p><?php echo html_escape($game->id); ?></p></div>
 	<div id="game_date" title="<?php echo html_escape($game->date); ?>"><p>date: <?php echo html_escape($game->date); ?></p></div>
     <div id="isAjax" title="<?php echo html_escape($isAjax); ?>"><p>Ajax : <?php echo html_escape($isAjax); ?></p></div>
     
 	
 	<button 
 	<?php if(!$isLoggedIn){echo "disabled";} ?> 
-	dojoType="dijit.form.Button" type="button" onClick="onClickGameResult(<?php echo html_escape($game->gameId);?>);">
-    Input Result
+	dojoType="dijit.form.Button" type="button" onClick="onClickGameResult(<?php echo html_escape($game->id);?>);">
+    <?php echo $this->lang->line('tournament_button_input_result'); ?>
     </button>
     
     <button
     dojoType="dijit.form.Button" type="button" onClick="onClickHistory(<?php echo html_escape($game->threadId); ?>);">
-    History
+    <?php echo $this->lang->line('tournament_button_history'); ?>
     </button>
     
     <button
     <?php if(!$isLoggedIn){echo "disabled";} ?>  
     dojoType="dijit.form.Button" type="button" onClick="onClickChangeDate();">
-    Change Date
+    <?php echo $this->lang->line('tournament_button_change_date'); ?>
+    
     </button>
     
     <button 
     dojoType="dijit.form.Button" type="button" onClick="onClickKifu(<?php echo html_escape($game->kifuId); ?>);">
-    Kifu
+    <?php echo $this->lang->line('tournament_button_kifu'); ?>
     </button>
     
     <button
     <?php if($isLoggedIn){echo "style=\"visibility:hidden;\"";} ?> 
     dojoType="dijit.form.Button" type="button" onClick="onClickLogin();">
-    Login
+    <?php echo $this->lang->line('tournament_button_login'); ?>
     </button>
     
     <button
     <?php if(!$isLoggedIn){echo "style=\"visibility:hidden;\"";} ?> 
     dojoType="dijit.form.Button" type="button" onClick="onClickLogout();">
-    Logout
+    <?php echo $this->lang->line('tournament_button_logout'); ?>
     </button>
     
     <br>

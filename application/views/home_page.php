@@ -37,7 +37,7 @@ if(isset($tournaments)){
 	echo '</ul>';
 	
 }else{
-	echo '<p>' .$this->lang->line('home_no_tournament_message') . '</p>';
+	echo '<p>' . $this->lang->line('home_no_tournament_message') . '</p>';
 }
 ?>
 </div>

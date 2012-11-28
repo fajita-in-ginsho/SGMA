@@ -61,18 +61,12 @@ function onClickHistory(threadId){
 	};
 	arguments['username_of_selected_row'] = dojo.byId('username_of_selected_row').title;
 	arguments['username_of_selected_column'] = dojo.byId('username_of_selected_column').title;
-		
-	if(threadId == -1){
-		
-	}else{
-		
-	}
 	
 	dojo.xhrPost({
-
+		
 	    url:"http://localhost/index.php/thread/open/" + threadId, 
 	    handleAs: "text",
-	    postData : arguments,
+	    content : arguments,
 	    load : function(result){
 		    
 	    	var dialog = dijit.byId("thread_dialog");
@@ -235,9 +229,7 @@ function onResultSubmit(gameId){
 }
 
 
-function onClickThreadComment(event){
-	// TODO: new line char is inclided in innerHTML. put it in tilte instead.
-	// just like , arguments['username_of_selected_row'] = username_of_selected_row.title;
+function onClickThreadComment(){
 	
 	var textarea = dijit.byId("comment_area");
 	var comment = textarea.get("value");
@@ -329,7 +321,7 @@ function onChangeCalendar(value){
 	requesting_change_date.innerHTML = dojo.date.locale.format(value, {formatLength: 'full', selector:'date'});
 }
 
-function onSubmitChangeDate(event){
+function onSubmitChangeDate(){
 	/*
 	 * send to server side the date, requestor and opponent.
 	 * send email to the opponent and admin
@@ -397,7 +389,6 @@ function onSubmitChangeDate(event){
 	};
 	
 	
-	//window.open("../thread/requestChangeDate/" + "true/" + gameId + "/" + date_json);
 	dojo.xhrGet({
 
 	    url:"http://localhost/index.php/thread/requestChangeDate/", 
@@ -405,8 +396,6 @@ function onSubmitChangeDate(event){
 	    content : arguments,
 	    //content : arguments,  
 	    load : function(result){
-		    // write the returned text in comment.
-	    	
 	    },
 	    error : function (error){
 	    	console.log(error);
@@ -419,12 +408,12 @@ function onSubmitChangeDate(event){
 
 
 
-function onResetChangeDate(event){
+function onResetChangeDate(){
 	dijit.byId("requesting_date").reset();
 	dijit.byId("requesting_time").reset();
 }
 
 
-function onCancelChangeDate(event){
+function onCancelChangeDate(){
 	dijit.byId("thread_change_date_dialog").hide();
 }
