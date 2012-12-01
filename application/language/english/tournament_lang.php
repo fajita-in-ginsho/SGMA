@@ -41,6 +41,10 @@ $lang['tournament_column_win'] = "Win";
 $lang['tournament_column_lose'] = "Lose";
 $lang['tournament_column_draw'] = "Draw";
 $lang['tournament_column_rest'] = "Rest";
+$lang['tournament_column_score'] = "Score";
+$lang['tournament_column_order'] = "Order";
+$lang['tournament_column_country'] = "Country";
+$lang['tournament_column_timezone'] = "Timezone";
 
 
 

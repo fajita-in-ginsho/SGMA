@@ -27,4 +27,14 @@ function countInQueryResult($query_obj, $key, $val){
     }
     return $count;
 }
+
+function sumInQueryResult($query_obj, $key){
+    $sum = 0;
+    foreach($query_obj as $row){
+        $sum += (int)$row->$key;
+    }
+    return $sum;
+}
+
+
 ?>

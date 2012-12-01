@@ -1,6 +1,7 @@
 <?php
 require_once(APPPATH .'/core/my_idmodel.php');
 require_once(APPPATH .'helpers/active_record_helper.php');
+require_once(APPPATH .'helpers/standard_helper.php');
 
 
 class Tournament_Group_Chart_Model extends My_IDModel {
@@ -22,14 +23,16 @@ class Tournament_Group_Chart_Model extends My_IDModel {
 	function __construct($tournamentId){
 	    
 	    $this->tournamentId = $tournamentId;
-	    $this->db_columns = $this->tournament_columns_model->getColumnsByTournamentId($tournamentId);
-	    if(!isset($this->db_columns)){
-	        $this->db_columns = $this->tournament_columns_model->getColumnsByTournamentId(Tournament_Columns_Model::$DEFALT_ID);
-	    }
-		$this->participants = $this->participants_model->getByTournamentId($tournamentId);
+	    $this->participants = $this->participants_model->getByTournamentId($tournamentId);
 		$this->height = $this->header_height;
 		$notAvailablePath = $this->gameresult_model->getPathByDescription(GameResult_Model::$NOT_AVAILABLE);
 		
+		// filling $this->columns which are coverted to structure of grid in client side.
+		// get info about which column should be created from database, the info includes name, field, width, formatter and editable attributres.
+		$this->db_columns = $this->tournament_columns_model->getColumnsByTournamentId($tournamentId);
+		if(!isset($this->db_columns)){
+		    $this->db_columns = $this->tournament_columns_model->getColumnsByTournamentId(Tournament_Columns_Model::$DEFALT_ID);
+		}
 		foreach($this->db_columns as $col){
 		    if($col->field == 'participants'){
 		        foreach($this->participants as $participant){
@@ -39,6 +42,7 @@ class Tournament_Group_Chart_Model extends My_IDModel {
 		            if(isset($col->width)) $column_info['width'] = $col->width;
 		            if(isset($col->formatter)) $column_info['formatter'] = $col->formatter;
 		            if(isset($col->editable)) $column_info['editable'] = ((bool)$col->editable?"true":"false");
+		            if(isset($col->style)) $column_info['style'] = $col->style;
 		            $this->columns[]= $column_info;
 		        }        
 		    }else{
@@ -48,14 +52,14 @@ class Tournament_Group_Chart_Model extends My_IDModel {
 		        if(isset($col->width)) $column_info['width'] = $col->width;
 		        if(isset($col->formatter)) $column_info['formatter'] = $col->formatter; 
 		        if(isset($col->editable)) $column_info['editable'] = ((bool)$col->editable?"true":"false");
+		        if(isset($col->style)) $column_info['style'] = $col->style;
 		        $this->columns[]= $column_info;
 		    }
-		    
 		}
 		
 		// get total width
 		$this->width = $this->parse_column_totol_width();
-		// ----------------------------
+		
 		
 		
 		// creating rows info
@@ -80,6 +84,8 @@ class Tournament_Group_Chart_Model extends My_IDModel {
 				$row["lose"] = countInQueryResult($chart_data, "result_description", "Lose");
 				$row["draw"] = countInQueryResult($chart_data, "result_description", "Draw");
 				$row["rest"] = $total_num_games - ($row["win"] + $row["lose"]);
+				$row["score"] = sumInQueryResult($chart_data, "score");
+				$row["order"] = 0;
 
 				foreach($this->participants as $column_user){
 				    if($row_user->username == $column_user->username){
@@ -96,6 +102,49 @@ class Tournament_Group_Chart_Model extends My_IDModel {
 			array_push($this->rows, $row);
 			$this->height += $this->single_row_height;
 		}
+		
+		$this->parse_order();
+	}
+	
+	function parse_order(){
+	    $copied_rows = $this->rows;
+	    // sort by score.
+	    usort($copied_rows, array($this, 'cmp_by_score_desc'));
+	    $cur_score = -1;
+	    $order = 0;
+	    $increment = 1;
+	    foreach($copied_rows as &$row){
+	        if($cur_score == $row["score"]){
+	            $increment++;
+	        }else{
+	            $order += $increment;
+	            $increment = 1;
+	        }
+	        $row["order"] = $order;
+	        $cur_score = $row["score"]; 
+	    }
+	    
+	    foreach($this->rows as &$row){
+	        $tmp = searchFromArrayOfArray($copied_rows, 'username', $row['username'], 'order');
+	        if(isset($tmp)){
+	            $row['order'] = $tmp;
+	        }
+	    }
+	}
+	
+	private function cmp_by_score_desc($row_a, $row_b){
+	    // if $a is larger than $b, return positive int.
+	    // else if equal return 0
+	    // else return negative int.
+	    // score would be sorted as 10, 9, 7, 3, 1, 1 0 after sorting with desc.
+	    $key = 'score';
+	    if($row_a[$key] < $row_b[$key]){
+	        return 1;
+	    }else if($row_a[$key] == $row_b[$key]){
+	        return 0;
+	    }else{
+	        return -1;
+	    }
 	}
 	
 	function parse_column_totol_width(){
