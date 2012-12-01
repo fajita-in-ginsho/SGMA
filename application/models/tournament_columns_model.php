@@ -5,6 +5,8 @@ require_once(APPPATH . 'core/my_ci_model.php');
 
 class Tournament_Columns_Model extends My_CI_Model {
 	
+    public static $DEFALT_ID = -1;
+    
 	function __construct(){
 		parent::__construct('tournament_columns');
 		

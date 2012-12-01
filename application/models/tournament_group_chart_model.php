@@ -12,50 +12,47 @@ class Tournament_Group_Chart_Model extends My_IDModel {
 	public $width;
 	public $height;
 	
+	private $db_columns;
 	private $header_height = 30;
 	private $single_row_height = 50;
 	private $base_width= 120;
 	private $single_column_width = 50;
 	private $additionalColumns;
 	
-	function __construct($tournamentId, $additionalColumnsInFront, $additionalColumnsInBack){
+	function __construct($tournamentId){
 	    
-	    $this->additionalColumns = $additionalColumnsInFront + $additionalColumnsInBack;
 	    $this->tournamentId = $tournamentId;
+	    $this->db_columns = $this->tournament_columns_model->getColumnsByTournamentId($tournamentId);
+	    if(!isset($this->db_columns)){
+	        $this->db_columns = $this->tournament_columns_model->getColumnsByTournamentId(Tournament_Columns_Model::$DEFALT_ID);
+	    }
 		$this->participants = $this->participants_model->getByTournamentId($tournamentId);
 		$this->height = $this->header_height;
 		$notAvailablePath = $this->gameresult_model->getPathByDescription(GameResult_Model::$NOT_AVAILABLE);
 		
-		// ----------------------------
-		// creating columns 
-		// ----------------------------
-		// TODO: get_game_result_for
-		
-		$this->columns[] =  array("name"=>$this->lang->line('tournament_column_username'), "field"=>"username", "width"=>"80px");
-		$this->columns[] =  array("name"=>$this->lang->line('tournament_column_win'), "field"=>"win", "width"=>"30px");
-		$this->columns[] =  array("name"=>$this->lang->line('tournament_column_lose'), "field"=>"lose", "width"=>"30px");
-		$this->columns[] =  array("name"=>$this->lang->line('tournament_column_draw'), "field"=>"draw", "width"=>"30px");
-		$this->columns[] =  array("name"=>$this->lang->line('tournament_column_rest'), "field"=>"rest", "width"=>"30px");
-		
-		foreach($additionalColumnsInFront as $additionalColmn){
-		    // $additional colum has to be either in users or participants table.
-		    // therefore, translation can be prepared in launguage folder.
-		    $this->columns[] =  array("name"=>$this->lang->line('tournament_column_' . $additionalColmn), "field"=>$additionalColmn);
-		}
-		
-		foreach($this->participants as $participant){
-			$this->columns[] = array("name"=> $participant->username, "field"=>$participant->username
-			              , "width"=>"50px", "formatter"=>"imageFormatter");
-		}
-		
-		foreach($additionalColumnsInBack as $additionalColmn){
-		    if($additionalColmn == "note"){
-		        $this->columns[] =  array("name"=>$this->lang->line('tournament_column_' . $additionalColmn), "field"=>$additionalColmn
-		                , "width"=>"120px", "editable"=>"true", "formatter"=>"onChangeNote");
+		foreach($this->db_columns as $col){
+		    if($col->field == 'participants'){
+		        foreach($this->participants as $participant){
+		            $column_info = array();
+		            $column_info['field'] = $participant->username;
+		            $column_info['name'] = $participant->username;
+		            if(isset($col->width)) $column_info['width'] = $col->width;
+		            if(isset($col->formatter)) $column_info['formatter'] = $col->formatter;
+		            if(isset($col->editable)) $column_info['editable'] = ((bool)$col->editable?"true":"false");
+		            $this->columns[]= $column_info;
+		        }        
 		    }else{
-		        $this->columns[] =  array("name"=>$this->lang->line('tournament_column_' . $additionalColmn), "field"=>$additionalColmn);
+		        $column_info = array();
+		        $column_info['field'] = $col->field;
+		        $column_info['name'] = $this->lang->line($col->name);
+		        if(isset($col->width)) $column_info['width'] = $col->width;
+		        if(isset($col->formatter)) $column_info['formatter'] = $col->formatter; 
+		        if(isset($col->editable)) $column_info['editable'] = ((bool)$col->editable?"true":"false");
+		        $this->columns[]= $column_info;
 		    }
+		    
 		}
+		
 		// get total width
 		$this->width = $this->parse_column_totol_width();
 		// ----------------------------
@@ -102,6 +99,7 @@ class Tournament_Group_Chart_Model extends My_IDModel {
 	}
 	
 	function parse_column_totol_width(){
+	    // TODO: it only can take pixel, but other unit...
 	    $w = $this->base_width;
 	    foreach($this->columns as $column){
 	        if(isset($column['width'])){
@@ -115,19 +113,6 @@ class Tournament_Group_Chart_Model extends My_IDModel {
 	
 	function get_game_result_for($username){
 	    
-	    $additionalColumnFragments = array();
-	    foreach($this->additionalColumns as $additionalColumn){
-	        if($this->users_model->hasAttribute($additionalColumn)){
-	            $additionalColumnFragments[] = "you.$additionalColumn as $additionalColumn";
-	        }else if($this->participants_model->hasAttribute($additionalColumn)){
-	            $additionalColumnFragments[] = "p_you.$additionalColumn as $additionalColumn";
-	        }
-	    }
-	    $additionalColumnClause = "";
-	    if(count($additionalColumnFragments) > 0){
-	        $additionalColumnClause = ", " . implode(", ", $additionalColumnFragments);
-	    }
-	    
 	    // $tournamentId_resultscore is used to get resultscore join
 	    $tournamentId_resultscore = -1; // default
 	    $resultscore = $this->resultscore_model->getByTournamentId($this->tournamentId);
@@ -135,17 +120,19 @@ class Tournament_Group_Chart_Model extends My_IDModel {
 	        $tournamentId_resultscore = $this->tournamentId;
 	    }
 	    
-	    $this->db->select(
-	        "you.username AS username
-            , c.short_name AS country
-            , tm.timezone_location AS timezone
-            , opp.username AS opponent_username
-            , g.id AS gameId
-            , r.path AS result_path
-            , r.description AS result_description
-            , rs.score AS score
-            , p_you.note AS note" . $additionalColumnClause
-	    , false);
+	    foreach($this->db_columns as $col){
+	        if(isset($col->sql)){
+	            $this->db->select($col->sql);
+	        }
+	    }
+	    
+	    $this->db->select("opp.username AS opponent_username");
+        $this->db->select("g.id AS gameId");
+        $this->db->select("r.path AS result_path");
+        $this->db->select("r.description AS result_description");
+        $this->db->select("rs.score AS score");
+        $this->db->select("p_you.note AS note");
+        
 	    $this->db->from('tournaments AS t');
 	    $this->db->join('participants AS p_you', 'p_you.tournamentId = t.id');
 	    $this->db->join('users AS you', "p_you.userId = you.id AND you.username = '$username'");
