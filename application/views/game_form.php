@@ -54,7 +54,6 @@
     <?php if(!$isLoggedIn){echo "disabled";} ?>  
     dojoType="dijit.form.Button" type="button" onClick="onClickChangeDate();">
     <?php echo $this->lang->line('tournament_button_change_date'); ?>
-    
     </button>
     
     <button 

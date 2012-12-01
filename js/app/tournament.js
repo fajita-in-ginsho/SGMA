@@ -19,7 +19,7 @@ function onChangePoints(points){
 	
 	dojo.xhrPost({
 		
-	    url:"http://localhost/index.php/tournament/update/",
+		url: dojo.attr(dojo.byId('site_url'), 'title') + "/tournament/update/",
 	    handleAs: "text",
 	    postData : arguments,  
 	    load : function(data){
@@ -58,7 +58,7 @@ function onGridClickOnGame(event, item, gameId){
 		
 		dojo.xhrGet({
 
-		    url:"http://localhost/index.php/game/open/" + gameId, 
+			url: dojo.attr(dojo.byId('site_url'), 'title') + "/game/open/" + gameId, 
 		    handleAs: "text",
 		    content : arguments,  
 		    load : function(data){
@@ -92,7 +92,7 @@ function onGridClickOnUsername(event, item){
 	
 	dojo.xhrGet({
 
-	    url:"http://localhost/index.php/user/open/" + arguments['username'], 
+		url: dojo.attr(dojo.byId('site_url'), 'title') + "/user/open/" + arguments['username'], 
 	    handleAs: "text",
 	    content : arguments,  
 	    load : function(data){
@@ -144,21 +144,17 @@ function onGridClick(event){
 
 function getChart(cup, tournament){
 	
-	//var baseurl = "<?php echo base_url() ?>";
-    //console.log("div.name = " + div.name);
-    //console.log("url = " + "../tournament/open/" + tournaments[key].cup + '/' + tournaments[key].tournament);
-    //console.log("site url : " + "<?php echo site_url(); ?>");
+	var arguments = {
+	    "cup" : cup
+  	  , "tournament" : tournament
+  	  , "ajax" : true
+    }; 
 	
 	dojo.xhrGet({
 
-	    url:"http://localhost/index.php/tournament/open/" + cup + "/" + tournament,
+		url: dojo.attr(dojo.byId('site_url'), 'title') + "/tournament/open/" + cup + "/" + tournament,
 	    handleAs: "json",
-	    content : {
-    	    "cup" : cup
-    	  , "tournament" : tournament
-    	  , "ajax" : true
-	    },
-	    
+	    content : arguments,
 	    load: function(data){
 	    	showChart(data);
 	    },
@@ -191,8 +187,6 @@ function showChart(data){
   	  identifier: 'username', 
 	      items : itemdata 
 	  }});
-    
-    //createTournamentElements();
     
     dojo.attr(dojo.byId('cupIdOfCurrentDisplayedChart'), 'title', data.tournament.cup_id);
     dojo.attr(dojo.byId('cupNameOfCurrentDisplayedChart'), 'title', data.tournament.cup_name);

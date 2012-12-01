@@ -122,6 +122,9 @@ $autoload['model'] = array(
       ,	'tournamenttype_model'
       , 'gameinfoshogi_model'
       , 'kifu_model'
+      , 'resultscore_model'
+      , 'tournament_columns_model'
+      , 'columns_model'
 );
 
 

@@ -18,4 +18,13 @@ function searchFromQueryResult($query_obj, $key, $val, $return_key){
 	}
 }
 
+function countInQueryResult($query_obj, $key, $val){
+    $count = 0;
+    foreach($query_obj as $row){
+        if($row->$key == $val){
+            $count++;
+        }
+    }
+    return $count;
+}
 ?>

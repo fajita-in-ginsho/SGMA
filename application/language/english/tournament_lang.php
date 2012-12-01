@@ -36,6 +36,11 @@ $lang['tournament_button_kifu'] = "Kifu";
 $lang['tournament_button_login'] = "Login";
 $lang['tournament_button_logout'] = "Logout";
 
+$lang['tournament_column_username'] = "User Name";
+$lang['tournament_column_win'] = "Win";
+$lang['tournament_column_lose'] = "Lose";
+$lang['tournament_column_draw'] = "Draw";
+$lang['tournament_column_rest'] = "Rest";
 
 
 

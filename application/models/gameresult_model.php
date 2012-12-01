@@ -2,11 +2,13 @@
 
 class GameResult_Model extends My_IDModel {
 	
-    private static $WIN = "Won";
-    private static $LOSE = "Lost";
-    private static $DRAW = "Draw";
-    private static $DEFAULT_WIN = "Default Win";
-    private static $NOT_YET_PLAYED = "Not Yet Played";
+    public static $WIN = "Won";
+    public static $LOSE = "Lost";
+    public static $DRAW = "Draw";
+    public static $DEFAULT_WIN = "Default Win";
+    public static $NOT_YET_PLAYED = "Not Yet Played";
+    public static $NOT_AVAILABLE = "Not Available";
+    public static $UNKNOWN = "Unknown";
     
 	function __construct(){
 		parent::__construct('gameresult');
@@ -26,6 +28,7 @@ class GameResult_Model extends My_IDModel {
 	}
 	
 	function getOpponentResultId($gameResultId){
+	    $opponentGameResultId = $gameResultId;
 	    $gameResult = $this->getById($gameResultId);
 	    
 	    switch($gameResult->description){
@@ -33,15 +36,26 @@ class GameResult_Model extends My_IDModel {
 	        case self::$LOSE : $opponentGameResultDescription = self::$WIN; break;
 	        case self::$DRAW : $opponentGameResultDescription = self::$DRAW; break;
 	        case self::$DEFAULT_WIN : $opponentGameResultDescription = self::$LOSE; break;
-	        case self::$NOT_YET_PLAYED : $opponentGameResultDescription = self::$NOT_YET_PLAYED; break;
+	        default: $opponentGameResultDescription = $gameResult->description; break;
 	    }
 	    
 	    if(isset($opponentGameResultDescription)){
 	        $opponentGameResultId = $this->getIdByDescription($opponentGameResultDescription);
-	        return $opponentGameResultId;
 	    }
+	    return $opponentGameResultId;
 	}
     
+	function getPathByDescription($description){
+	    $this->db->select('path');
+	    $this->db->from($this->table);
+	    $this->db->where("description = '$description'");
+	    $query = $this->db->get();
+	    
+	    if($query->num_rows() == 1){
+	        return $query->row()->path;
+	    }
+	}
+	
 	function getById($id){
 	    
 	    $this->db->select('*');

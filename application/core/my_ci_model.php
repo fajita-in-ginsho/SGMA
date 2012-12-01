@@ -15,16 +15,36 @@ class My_CI_Model extends CI_Model {
 	}
 	
 	function getAll(){
-		$q = $this->db->get($this->table);
-		$data = array();
-		if($q->num_rows() > 0){
-			foreach($q->result() as $row){
-				array_push($data, $row);
-			}
-			return $data;
+		$query = $this->db->get($this->table);
+		if($query->num_rows() > 0){
+			return $query->result();
 		}
 	}
-
+	
+	/*
+	function getAll(){
+	     
+	    $this->db->select('*');
+	    $this->db->from($this->table);
+	    $query = $this->db->get();
+	    if($query->num_rows() > 0){
+	        return $query->result();
+	    }
+	}
+    */
+	
+	function hasAttribute($attribute){
+	    $this->db->select('*');
+	    $this->db->from('information_schema.COLUMNS');
+	    $this->db->where("TABLE_SCHEMA = '$this->db->database'");
+	    $this->db->where("TABLE_NAME = '$this->table'");
+	    $this->db->where("COLUMN_NAME = '$attribute'");
+	    $query = $this->db->get();
+	    if($query->num_rows() > 0){
+	        return true;
+	    }
+	    return false;
+	}
 }
 
 ?>

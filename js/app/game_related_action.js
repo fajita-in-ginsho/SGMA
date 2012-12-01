@@ -19,7 +19,7 @@ function onClickGameResult(gameId){
 	if(gameId != -1){
 		
 		dojo.xhrGet({
-		    url:"http://localhost/index.php/game/result/" + gameId, 
+			url: dojo.attr(dojo.byId('site_url'), 'title') + "/game/result/" + gameId, 
 		    handleAs: "text",
 		    content : arguments,  
 		    load : function(data){
@@ -64,7 +64,7 @@ function onClickHistory(threadId){
 	
 	dojo.xhrPost({
 		
-	    url:"http://localhost/index.php/thread/open/" + threadId, 
+		url: dojo.attr(dojo.byId('site_url'), 'title') + "/thread/open/" + threadId, 
 	    handleAs: "text",
 	    content : arguments,
 	    load : function(result){
@@ -126,7 +126,7 @@ function onClickLogin(){
 	// dojo.xhrPost didn't work, but haven't figured out why. => because of csrf_protection.
 	dojo.xhrPost({
 
-	    url:"http://localhost/index.php/login/index/", 
+		url: dojo.attr(dojo.byId('site_url'), 'title') + "/login/index/", 
 	    handleAs: "text",
 	    content : arguments,
 	    load : function(result){
@@ -152,7 +152,7 @@ function onClickLogout(){
 		
 	dojo.xhrPost({
 
-	    url:"http://localhost/index.php/login/logout/", 
+		url: dojo.attr(dojo.byId('site_url'), 'title') + "/login/logout/", 
 	    handleAs: "text",
 	    context : arguments,
 	    load : function(result){
@@ -199,7 +199,7 @@ function onResultSubmit(gameId){
 		};
 		dojo.xhrGet({
 
-		    url:"http://localhost/index.php/game/inputResult/" + gameId, 
+			url: dojo.attr(dojo.byId('site_url'), 'title') + "/game/inputResult/" + gameId, 
 		    handleAs: "json",
 		    content : arguments,  
 		    load : function(data){
@@ -243,7 +243,7 @@ function onClickThreadComment(){
 		};
 		dojo.xhrPost({
 
-		    url:"http://localhost/index.php/thread/addComment/" + arguments["threadId"], 
+			url: dojo.attr(dojo.byId('site_url'), 'title') + "/thread/addComment/" + arguments["threadId"], 
 		    handleAs: "json",
 		    content : arguments,  
 		    load : function(result){
@@ -296,7 +296,7 @@ function onClickChangeDate(event){
 	
 	dojo.xhrGet({
 
-	    url: "http://localhost/index.php/thread/changeDateForm",
+		url: dojo.attr(dojo.byId('site_url'), 'title') + "/thread/changeDateForm",
 	    //postData : arguments,
 	    content : arguments,
 	    handleAs: "text",
@@ -391,7 +391,7 @@ function onSubmitChangeDate(){
 	
 	dojo.xhrGet({
 
-	    url:"http://localhost/index.php/thread/requestChangeDate/", 
+		url: dojo.attr(dojo.byId('site_url'), 'title') + "/thread/requestChangeDate/", 
 	    handleAs: "text",
 	    content : arguments,
 	    //content : arguments,  

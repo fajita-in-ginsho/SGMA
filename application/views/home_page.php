@@ -28,11 +28,12 @@ if(isset($tournaments)){
 	echo '<ul type="">';
 	
 	foreach($tournaments as $q_result){
-	    echo '<li><input type="button" id="';
+	    echo '<li><button type="button" dojoType="dijit.form.Button" id="';
 	    echo html_escape($q_result->cup) . html_escape($q_result->tournament) . '"';
-	    echo 'value="' . html_escape($q_result->cup) . ' ' . html_escape($q_result->tournament) . '"';
 	    echo 'name="' . html_escape($q_result->cup) . '/' . html_escape($q_result->tournament) . '"';
-	    echo '></input></li>';
+	    echo '>';
+	    echo html_escape($q_result->cup) . ' ' . html_escape($q_result->tournament);
+	    echo '</button></li>';
 	}
 	echo '</ul>';
 	

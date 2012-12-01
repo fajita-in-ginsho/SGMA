@@ -11,11 +11,23 @@ class Tournament extends My_UserSessionController{
 	
 	function open(){
 	    
+	    // additional columns
+	    // attribute you can add has to be either users or paticipants.
+	    
 	    $is_ajax_request = (isset($_GET['ajax']) && $_GET['ajax'] === 'true');
-	     
+
+	    $additionalColumnsInFront = array();
+	    $additionalColumnsInBack = array();
+	    
 	    if($is_ajax_request){
 	        $cup_name = $_GET['cup'];
 	        $tournament_name = $_GET['tournament'];
+            if(isset($_GET['additionalColumnsInFront'])){
+                $additionalColumnsInFront = split('~', $_GET['additionalColumnsInFront']);
+            }
+            if(isset($_GET['additionalColumnsInBack'])){
+                $additionalColumnsInBack = split('~', $_GET['additionalColumnsInBack']);
+            }
 	    }else{
 	        $cup_name = urldecode($this->uri->segment(3));
 		    $tournament_name = urldecode($this->uri->segment(4));
@@ -26,34 +38,21 @@ class Tournament extends My_UserSessionController{
 			$cup_name, $tournament_name
 		);
 		
-		
-		
 		if(isset($tournament_id) && $tournament_id != -1){
 			
 			$data['tournament'] = $this->tournaments_model->getById($tournament_id);
-			$data['participants'] = $this->participants_model->getByTournamentId($tournament_id);
 			$data['games'] = $this->games_model->getByTournamentId($tournament_id);
-			
-			$additionalColmns = array(
-			    array("name"=>"Additional", "field"=>"additional", "width"=>"80px")
-			);
-			$chart = new Tournament_Group_Chart_Model($tournament_id, $data['participants'], $additionalColmns);
-			$data['chart'] = $chart;
-			$data['chart_json_file'] = 'tournament_view.json';
-            $response['json'] = json_encode($data);
+			$data['chart'] = new Tournament_Group_Chart_Model($tournament_id, $additionalColumnsInFront, $additionalColumnsInBack);
+            $data['json_data'] = json_encode($data);
 			if($is_ajax_request){
 			    if($data['tournament']->type == "Group"){
-			        $this->load->view('tournaments/gruop_tournament_form_json', $response);
+			        $this->load->view('tournaments/gruop_tournament_form_json', $data);
 			    }else if($data['tournament']->type == "Knock-out"){
-			        $this->load->view('tournaments/gruop_tournament_form_json', $response);
+			        $this->load->view('tournaments/gruop_tournament_form_json', $data);
 			    }else{
-			        $this->load->view('tournaments/gruop_tournament_form_json', $response);
+			        $this->load->view('tournaments/gruop_tournament_form_json', $data);
 			    }
 			}else{
-			    $fp = fopen('tournament_view.json', 'w');
-			    fwrite($fp, json_encode($data));
-			    fclose($fp);
-			    	
 			    // ajax が有効であればこのページの特定の場所に、そうでなければ新しいページに
 			    if($data['tournament']->type == "Group"){
 			        $data['main_content'] = 'tournaments/gruop_tournament_form';
