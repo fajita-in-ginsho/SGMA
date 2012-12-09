@@ -1,6 +1,7 @@
 
 <?php 
 require_once(APPPATH .'/core/my_usersessioncontroller.php');
+require_once(APPPATH .'/models/gameinfo_model.php');
 
 class Game extends My_UserSessionController{
 
@@ -26,6 +27,10 @@ class Game extends My_UserSessionController{
 	        $data['username_of_selected_column'] = $_GET['username_of_selected_column'];
 	    }
 	    $game = $this->games_model->getById($gameId);
+	    $gameinfoObj = new Gameinfo_Model($gameId);
+	    $gameinfo = $gameinfoObj->getById($game->gameInfoId);
+	    $kifu = $this->kifu_model->getById($gameinfo->kifuId);
+	    $kifuId = (isset($kifu)) ? $kifu->id : -1;
 	    $players = $this->players_model->getByGameId($gameId);
 	    $tournament = $this->tournaments_model->getById($game->tournamentId);
 	    
@@ -34,6 +39,7 @@ class Game extends My_UserSessionController{
 	    $data['game'] = $game;
 	    $data['players'] = $players;
 	    $data['tournament'] = $tournament;
+	    $data['kifuId'] = $kifuId;
 	    $data['copyright'] = false; // see footer.php
 	    $data['isLoggedIn'] = $this->isLoggedIn();
 	    // in this case, return text.html response in both ajax and non-ajax request.
@@ -81,7 +87,7 @@ class Game extends My_UserSessionController{
             $data['players'] = $players;
             $data['tournament'] = $tournament;
             $data['copyright'] = false; // see footer.php
-            $data['kifu_url'] = $this->gameinfoshogi_model->getURL($gameId);
+            $data['kifu_url'] = $this->gameinfoshogi_model->getURL($game->gameInfoId);
             // in this case, return text.html response in both ajax and non-ajax request.
             if($is_ajax_request){
                 $data['isAjax'] = "true";  // MEMO: passing boolean could not be retrieved in javascript side.

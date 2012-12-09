@@ -36,6 +36,7 @@ $lang['tournament_button_kifu'] = "Kifu";
 $lang['tournament_button_login'] = "Login";
 $lang['tournament_button_logout'] = "Logout";
 
+
 $lang['tournament_column_username'] = "User Name";
 $lang['tournament_column_win'] = "Win";
 $lang['tournament_column_lose'] = "Lose";
@@ -45,7 +46,40 @@ $lang['tournament_column_score'] = "Score";
 $lang['tournament_column_order'] = "Order";
 $lang['tournament_column_country'] = "Country";
 $lang['tournament_column_timezone'] = "Timezone";
+$lang['tournament_column_note'] = "Note";
+$lang['tournament_column_participants'] = "Participants";
 
 
+
+$lang['tournament_title_create_tournament'] = "Create Tournament";
+
+$lang['tournament_form_create_tournament_name'] = "Tournament Name";
+$lang['tournament_form_button_submit'] = "Submit";
+$lang['tournament_form_create_header1'] = "Create a new Tournament";
+
+
+$lang['tournament_label_cup_name_textbox'] = "Cup Name : ";
+$lang['tournament_form_create_cup_header1'] = "Create a new Cup";
+$lang['tournament_label_game_types_dropdown'] = "Game Type : ";
+
+$lang['tournament_label_tournament_name_textbox'] = "Tournament Name : ";
+$lang['tournament_label_cup_names_dropdown'] = "Cup : ";
+$lang['tournament_label_tournament_types_dropdown'] = "Tournament Type : ";
+$lang['tournament_label_choose_columns'] = "Check columns to be displayed in the tournament chart : ";
+$lang['tournament_label_choose_participants'] = "Multi select usernames for this tournament : ";
+
+$lang['tournament_title_create_cup'] = "Create Cup";
+
+$lang['tournament_login_form_header1'] = "Login, SGMA member! ";
+
+$lang['tournament_label_username'] = "Username : ";
+$lang['tournament_label_password'] = "Password : ";
+
+$lang['tournament_anchor_create_account'] = "Create Account";
+
+$lang['tournament_label_game_name'] = "Game Name : ";
+$lang['tournament_label_player_name'] = "Player : ";
+
+$lang['tournament_text_mandatory_column'] = "(mandatory column)";
 
 

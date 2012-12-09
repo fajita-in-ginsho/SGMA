@@ -1,12 +1,11 @@
 
 <div id="game_form">
 
-	<h2>game : <?php echo html_escape($game->name); ?></h2>
+	<h2><?php echo $this->lang->line('tournament_label_game_name'); ?><?php echo html_escape($game->name); ?></h2>
 	<div id="players">
 	<?php
 	    foreach($players as $player){
-	        echo "
-	        player : " . html_escape($player->username) . "<br>
+	        echo $this->lang->line('tournament_label_game_name') . html_escape($player->username) . "<br>
 	        ";
 	    } 
 	?>
@@ -31,7 +30,7 @@
 	    }
 	?>
 	</div>
-	<div id="kifuId" title="<?php echo html_escape($game->kifuId); ?>"><p>kifuId : <?php echo html_escape($game->kifuId); ?></p></div>
+	<div id="kifuId" title="<?php echo html_escape($kifuId); ?>"><p>kifuId : <?php echo html_escape($kifuId); ?></p></div>
 	<div id="threadId" title="<?php echo html_escape($game->threadId); ?>"><p>threadId : <?php echo html_escape($game->threadId); ?></p></div>
 	<div id="tournament_name" title="<?php echo html_escape($tournament->name); ?>"><p>tournament : <?php echo html_escape($tournament->name); ?></p></div>
 	<div id="gameId" title="<?php echo html_escape($game->id); ?>"><p><?php echo html_escape($game->id); ?></p></div>
@@ -57,7 +56,7 @@
     </button>
     
     <button 
-    dojoType="dijit.form.Button" type="button" onClick="onClickKifu(<?php echo html_escape($game->kifuId); ?>);">
+    dojoType="dijit.form.Button" type="button" onClick="onClickKifu(<?php echo html_escape($kifuId); ?>);">
     <?php echo $this->lang->line('tournament_button_kifu'); ?>
     </button>
     

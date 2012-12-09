@@ -25,7 +25,7 @@ class Kifu extends My_UserSessionController{
 	    $kifu = $this->kifu_model->getById($kifuId);
 	    if(isset($kifu)){
 	        $data['success'] = 'true';
-	        $data['url'] = $kifu->URL;
+	        $data['url'] = $kifu->url;
 	    }else{
 	        $data['success'] = 'false';
 	        $data['content'] = $this->lang->line('error_kifu_url_not_available');

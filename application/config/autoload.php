@@ -125,6 +125,7 @@ $autoload['model'] = array(
       , 'resultscore_model'
       , 'tournament_columns_model'
       , 'columns_model'
+      , 'gametype_model'
 );
 
 

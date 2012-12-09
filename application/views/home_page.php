@@ -14,6 +14,21 @@ if($hasAdminRight == true){
     echo anchor('tournament/createForm', $this->lang->line('home_button_create_tournament'));
     echo '<br>';
     echo anchor('cup/createForm', $this->lang->line('home_button_create_cup'));
+    /*
+    // TODO: let administrator choose to notify email as he changes info.
+    echo '<br>';
+    $data = array(
+            'name'        => 'email_notification',
+            'id'          => 'email_notification',
+            'value'       => $this->lang->line('home_checkbox_email_notification'),
+            'checked'     => TRUE,
+            'style'       => 'margin:10px',
+            'dojoType'       => 'dijit.form.CheckBox',
+            'onClick'       => 'onCheckBoxEmailNotification(event)'
+    );
+    echo form_checkbox($data);
+    echo form_label($this->lang->line('home_checkbox_email_notification'), $data['name']);
+    */
 }
 ?>
 

@@ -22,7 +22,31 @@ class Tournament_Columns_Model extends My_CI_Model {
 	        return $query->result();
 	    }
 	}
+    
+	function replaceSetOfColumns($tournament_id, $column_fileds){
+	    $this->db->where('tournamentId', $tournament_id);
+	    $this->db->delete('tournament_columns');
+	    
+	    // TODO: add manadatory field to $column_fileds
+	    
+	    foreach($column_fileds as $field){
+	        $column = $this->columns_model->getByField($field);
+	        if(isset($column)){
 
+	            $data = array(
+	                'tournamentId' => $tournament_id
+	              , 'columnId' => $column->id
+	            );
+	            $ret = $this->insert($data);
+	            if($ret == false){
+	                return false;
+	            }
+	        }else{
+	            return false;
+	        }
+	    }
+	    return true;
+	}
 }
 
 ?>

@@ -1,8 +1,6 @@
 
 dojo.addOnLoad(function (){
 
-	//createTournamentElements();
-	
 	connectOnGridClick();
 	
     // tournaments is defined in home_page.php
@@ -20,3 +18,8 @@ dojo.addOnLoad(function (){
         dojo.connect(div, "onclick", params, dojo.partial(getChart, params.cup, params.tournament));
     }
 });
+
+
+function onCheckBoxEmailNotification(event){
+	
+}

@@ -23,7 +23,7 @@ class Games_Model extends My_IDModel {
                 		 , gameinfoshogi.kifuId as `kifuId`');
 
 		$this->db->from('games');
-		$this->db->join('gameinfoshogi', 'games.id = gameinfoshogi.gameId');
+		$this->db->join('gameinfoshogi', 'games.gameInfoId = gameinfoshogi.id');
 		$this->db->where("games.tournamentId = $tournamentId");
 		$query = $this->db->get();
 		
@@ -63,29 +63,6 @@ class Games_Model extends My_IDModel {
 		return $games;
 	}
 	
-	// return object
-	function getById($gameId){
-	    /*
-	    You can call the select method with FALSE as the last parameter, like this
-	    That will prevent CI to add the `
-	    */
-	    $this->db->select('g.id AS `id`
-        , g.tournamentId AS `tournamentId`
-        , g.name AS `name`
-        , g.date AS `date`
-        , g.threadId AS `threadId`
-        , IF(info.kifuId IS NULL, -1, info.kifuId) AS kifuId'
-	    , false);
-	    $this->db->from('games AS g');
-	    $this->db->join('gameinfoshogi AS info', 'g.id = info.gameId', 'LEFT');
-	    $this->db->where("g.id = $gameId");
-	    $query = $this->db->get();
-	    
-	    if($query->num_rows() == 1){
-	        return $query->row();
-	    }
-	}
-    
 	/*
 	 * updateFor
 	 * update the context given by the $update_context for the give gameId in games table.
@@ -116,6 +93,77 @@ class Games_Model extends My_IDModel {
 	    }
 	}
 	
+	function autoGenerateGames($tournament_id){
+	    $tournament = $this->tournaments_model->getById($tournament_id);
+	    $participants = $this->participants_model->getByTournamentId($tournament_id);
+	    $gametype = $this->gametype_model->getById($tournament->gameTypeId);
+        $defaultGameResultId = $this->gameresult_model->getIdByDescription(GameResult_Model::$NOT_YET_PLAYED);
+	    
+	    $entire_entries = array();
+	    foreach($participants as $userA){
+	        foreach($participants as $userB){
+                if($userA == $userB){
+                    break;
+                }else{
+                    $entire_entries[] = array($userA, $userB);
+                }
+	        }    
+	    }
+	    //$num_games = (count($participants) * (count($participants) -1)) / 2;
+	    $num_games = count($entire_entries);
+	    
+	    foreach($entire_entries as $entry){
+	    
+	        // thread
+	        $data = array(
+                  'name'    => ''
+                , "createdBy" => $this->session->userdata('userId')
+                , "createdOn" => date( 'Y-m-d H:i:s' )
+	        );
+	        $threadId = $this->thread_model->insert($data);
+	        
+	        // kifu
+	        $data = array(
+                 "url" => ""
+               , "kifuText" => ""
+	        );
+	        $kifuId = $this->kifu_model->insert($data);
+	        
+	        // gameinfo
+	        $gameinfo_id = -1;
+	        if($gametype->name == Gametype_Model::$TYPE_SHOGI){
+	            $data = array(
+                   'kifuId' => $kifuId
+	            );
+	            $gameinfo_id = $this->gameinfoshogi_model->insert($data);
+	        }else{
+	            // TODO
+	            error_log("this game type is not yet supported!");
+	        }
+	        
+	        // game
+	        $data = array(
+	                'name'    => '',
+	                'tournamentId'    => $tournament->id,
+	                'gameTypeId'    => $tournament->gameTypeId, 
+	                'date' => date( 'Y-m-d H:i:s' ),
+	                'threadId' => $threadId,
+	                'gameInfoId' => $gameinfo_id,
+	        );
+	        $gameId = $this->insert($data);
+	        
+	        // players
+	        foreach($entry as $user){
+	            $data = array(
+	                'gameId'    => $gameId
+	              , 'userId'    => $user->userId
+	              , 'gameResultId' => $defaultGameResultId
+	            );
+	            $playerId = $this->players_model->insert($data);
+	        }
+	    }
+	}
+
 }
 
 ?>

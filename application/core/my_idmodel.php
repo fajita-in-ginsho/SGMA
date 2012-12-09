@@ -9,13 +9,17 @@ class My_IDModel extends My_CI_Model {
 	
 	function insert($data)
 	{
-		$this->db->insert($this->table, $data);
-		return $this->db->insert_id();
+        $ret = $this->db->insert($this->table, $data);
+        if($ret){
+            return $this->db->insert_id();
+        }
 	}
 	
 	function replace($data){
-		$this->db->replace($this->table, $data);
-		return $this->db->result_id;
+		$ret = $this->db->replace($this->table, $data);
+		if($ret){
+		    return $this->db->result_id;
+		}
 	}
 	
 	function getById($id){

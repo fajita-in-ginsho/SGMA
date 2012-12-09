@@ -18,7 +18,6 @@ class Tournament_Group_Chart_Model extends My_IDModel {
 	private $single_row_height = 50;
 	private $base_width= 120;
 	private $single_column_width = 50;
-	private $additionalColumns;
 	
 	function __construct($tournamentId){
 	    
@@ -191,8 +190,8 @@ class Tournament_Group_Chart_Model extends My_IDModel {
 	    $this->db->join('players AS ply_you', 'ply_you.gameId = g.id AND ply_you.userId = you.id');
 	    $this->db->join('players AS ply_opp', 'ply_opp.gameId = g.id AND ply_opp.userId = opp.id');
 	    $this->db->join('gameresult AS r', 'ply_opp.gameResultId = r.id');
-	    $this->db->join('country AS c', 'c.country_id = you.nationalityId');
-	    $this->db->join('timezones AS tm', 'tm.id = you.timezoneId');
+	    $this->db->join('country AS c', 'c.country_id = you.nationalityId', 'left');
+	    $this->db->join('timezones AS tm', 'tm.id = you.timezoneId', 'left');
 	    // hacky way to prevent automatic backticks
 	    $this->db->_protect_identifiers = false;
 	    $this->db->join('resultscore AS rs', "rs.tournamentId = {$tournamentId_resultscore} AND rs.gameresultId = r.id");
@@ -202,9 +201,14 @@ class Tournament_Group_Chart_Model extends My_IDModel {
 	    $this->db->order_by('username');
 	    
 	    $query = $this->db->get();
+	    // DEBUGGING
+	    //$stmt = $this->db->_compile_select();
+	    //$stmt = $this->db->last_query();
+	    //error_log("makoto->" . $stmt);
 	    if($query->num_rows() > 0){
 	        return $query->result();
 	    }
+	    
 	}
 }
 

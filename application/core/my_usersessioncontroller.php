@@ -18,8 +18,21 @@ class My_UserSessionController extends CI_Controller {
 		}
 	}
 	
+	function loadErrorPage($error_message){
+	    $data['main_content'] = 'errors/error_message';
+	    $data['title'] = $this->lang->line('error_title_message');
+	    $data['copyright'] = true;
+	    $data['error_message'] = $error_message;
+	    $this->load->view('includes/template', $data);
+	}
+	
 	function loadNeedToLoginPage(){
-	    $this->lang->load('error');
+	    $data['main_content'] = 'errors/need_login';
+	    $data['title'] = $this->lang->line('error_need_to_login');
+	    $this->load->view('includes/template', $data);
+	}
+	
+	function loadSessionExpiredPage(){
 	    $data['main_content'] = 'errors/session_expired_page';
 	    $data['title'] = $this->lang->line('error_no_permission_page_title');
 	    $this->load->view('includes/template', $data);

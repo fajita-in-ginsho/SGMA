@@ -14,6 +14,15 @@ class My_CI_Model extends CI_Model {
 		return $this->table;
 	}
 	
+	function insert($data)
+	{
+	    return $this->db->insert($this->table, $data);
+	}
+	
+	function replace($data){
+	    return $this->db->replace($this->table, $data);
+	}
+	
 	function getAll(){
 		$query = $this->db->get($this->table);
 		if($query->num_rows() > 0){
@@ -45,6 +54,8 @@ class My_CI_Model extends CI_Model {
 	    }
 	    return false;
 	}
+	
+	
 }
 
 ?>

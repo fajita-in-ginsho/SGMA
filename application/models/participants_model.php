@@ -30,7 +30,30 @@ class Participants_Model extends My_IDModel {
 		}
 		return $participants;
 	}
-
+    
+	
+	function replaceParticipants($tournament_id, $usernames){
+	    $this->db->where('tournamentId', $tournament_id);
+	    $this->db->delete('participants');
+	     
+	    foreach($usernames as $username){
+	        $userId = $this->users_model->getIdByUsername($username);
+	        if(isset($userId)){
+	
+	            $data = array(
+	                      'tournamentId' => $tournament_id
+	                    , 'userId' => $userId
+	            );
+	            $insertedId = $this->insert($data);
+	            if(!isset($insertedId)){
+	                return false;
+	            }
+	        }else{
+	            return false;
+	        }
+	    }
+	    return true;
+	}
 }
 
 ?>

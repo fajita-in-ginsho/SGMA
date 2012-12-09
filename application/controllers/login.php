@@ -1,6 +1,7 @@
 <?php
+require_once(APPPATH .'/core/my_usersessioncontroller.php');
 
-class Login extends CI_Controller {
+class Login extends My_UserSessionController {
 	
 	function __construct(){
 		parent::__construct();
