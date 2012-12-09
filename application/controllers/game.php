@@ -78,13 +78,30 @@ class Game extends My_UserSessionController{
 	     /* || $this->organizers_model->isAuthorized($this->session->userdata('userId'), $tournamentId)*/ ){
 	         
             $game = $this->games_model->getById($gameId);
-            $players = $this->players_model->getByGameId($gameId);
+            //$players = $this->players_model->getByGameId($gameId);
             $tournament = $this->tournaments_model->getById($game->tournamentId);
+            $row_user = $this->users_model->getById($data['userId_of_selected_row']);
+            $row_user_player = $this->players_model->getByGameIdAndUserId($gameId, $data['userId_of_selected_row']);
+            $row_result = $this->gameresult_model->getById($row_user_player->gameResultId);
+            
+            $data['selected'] = $this->lang->line('tournament_not_yet_played');
+            $gameResultDescriptions = array(
+                $this->lang->line('tournament_win') => $this->lang->line('tournament_win'),
+                $this->lang->line('tournament_lose') => $this->lang->line('tournament_lose'),
+                $this->lang->line('tournament_draw') => $this->lang->line('tournament_draw'),
+                $this->lang->line('tournament_default_win') => $this->lang->line('tournament_default_win'),
+                $this->lang->line('tournament_default_lose') => $this->lang->line('tournament_default_lose'),
+                $this->lang->line('tournament_not_yet_played') => $this->lang->line('tournament_not_yet_played')
+            );
+            if(isset($row_result)){
+                $data['selected'] = $row_result->description;
+            }
             
             $data['main_content'] = 'game_result_form';
             $data['title'] = 'Game Result';
             $data['game'] = $game;
-            $data['players'] = $players;
+            $data['gameResultDescriptions'] = $gameResultDescriptions;
+            //$data['players'] = $players;
             $data['tournament'] = $tournament;
             $data['copyright'] = false; // see footer.php
             $data['kifu_url'] = $this->gameinfoshogi_model->getURL($game->gameInfoId);
@@ -133,7 +150,8 @@ class Game extends My_UserSessionController{
 	    }
 	    
 	    if(isset($_GET['isURLChanged']) && $_GET['isURLChanged'] == "true"){
-	        $isUpdateURL = $this->gameinfoshogi_model->updateURL($gameId, $_GET['kifuURL']);
+	        $game = $this->games_model->getById($gameId);
+	        $isUpdateURL = $this->gameinfoshogi_model->updateURL($game->gameInfoId, $_GET['kifuURL']);
 	    }
 
 	    $data['success'] = ($isUpdateResult && $isUpdateURL) ? 'true' : 'false';

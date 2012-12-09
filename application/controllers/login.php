@@ -9,10 +9,7 @@ class Login extends My_UserSessionController {
 	
 	function index($retry=false){
 	    
-	    $is_ajax_request = false;
-	    if(isset($_GET['ajax']) && $_GET['ajax'] === "true"){
-	        $is_ajax_request = true;
-	    }
+	    $is_ajax_request = (isset($_POST['ajax']) && $_POST['ajax'] === 'true');
 	    
 		$data['main_content'] = 'login_form';
 		$data['title'] = 'Login';

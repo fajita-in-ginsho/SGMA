@@ -10,7 +10,7 @@
 | TRUE if it is debug mode. FALSE for production mode.
 |
 */
-$config['debug_mode'] = FALSE;
+$config['debug_mode'] = TRUE;
 
 /* End of file project.php */
 /* Location: ./application/config/project.php */

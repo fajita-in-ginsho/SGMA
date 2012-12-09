@@ -1,8 +1,9 @@
 <?php 
-$lang['tournament_won'] = "Won";
-$lang['tournament_lost'] = "Lost";
+$lang['tournament_win'] = "Win";
+$lang['tournament_lose'] = "Lose";
 $lang['tournament_draw'] = "Draw";
-$lang['tournament_default_win'] = "Default WIN";
+$lang['tournament_default_win'] = "Default Win";
+$lang['tournament_default_lose'] = "Default Lose";
 $lang['tournament_not_yet_played'] = "Not Yet Played";
 
 $lang['tournament_win_against_phrase'] = " against ";

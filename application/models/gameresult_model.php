@@ -2,10 +2,11 @@
 
 class GameResult_Model extends My_IDModel {
 	
-    public static $WIN = "Won";
-    public static $LOSE = "Lost";
+    public static $WIN = "Win";
+    public static $LOSE = "Lose";
     public static $DRAW = "Draw";
     public static $DEFAULT_WIN = "Default Win";
+    public static $DEFAULT_LOSE = "Default Lose";
     public static $NOT_YET_PLAYED = "Not Yet Played";
     public static $NOT_AVAILABLE = "Not Available";
     public static $UNKNOWN = "Unknown";
@@ -36,6 +37,7 @@ class GameResult_Model extends My_IDModel {
 	        case self::$LOSE : $opponentGameResultDescription = self::$WIN; break;
 	        case self::$DRAW : $opponentGameResultDescription = self::$DRAW; break;
 	        case self::$DEFAULT_WIN : $opponentGameResultDescription = self::$LOSE; break;
+	        case self::$DEFAULT_LOSE : $opponentGameResultDescription = self::$WIN; break;
 	        default: $opponentGameResultDescription = $gameResult->description; break;
 	    }
 	    
@@ -56,17 +58,7 @@ class GameResult_Model extends My_IDModel {
 	    }
 	}
 	
-	function getById($id){
-	    
-	    $this->db->select('*');
-	    $this->db->from($this->table);
-	    $this->db->where("id = $id");
-	    $query = $this->db->get();
-	    
-	    if($query->num_rows() == 1){
-	        return $query->row();
-	    }
-	}
+
 }
 
 ?>

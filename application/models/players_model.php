@@ -33,6 +33,18 @@ class Players_Model extends My_IDModel {
 	    }
 	}
 	
+	function getByGameIdAndUserId($gameId, $userId){
+	     
+	    $this->db->select('*');
+	    $this->db->from('players');
+	    $this->db->where("gameId = $gameId");
+	    $this->db->where("userId = $userId");
+	    $query = $this->db->get();
+	    if($query->num_rows() == 1){
+	        return $query->row();
+	    }
+	}
+	
 	
 	/*
 	 * function : updateGameResult

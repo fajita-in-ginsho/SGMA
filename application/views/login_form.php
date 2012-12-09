@@ -34,7 +34,7 @@ if($retry){
 <input id="username_textbox" 
        name="username"
        dojoType="dijit.form.TextBox" type="text" style="width:120px;"
-       value="admin"
+       value="kunio"
 ></input>
 </p>
 
@@ -43,7 +43,7 @@ if($retry){
 <input id="password_textbox" 
        name="password"
        dojoType="dijit.form.TextBox" type="text" style="width:120px;"
-       value="admin"
+       value="kunio"
 ></input>
 </p>
 <?php

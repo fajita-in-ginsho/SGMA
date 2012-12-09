@@ -189,7 +189,7 @@ class Tournament_Group_Chart_Model extends My_IDModel {
 	    $this->db->join('games AS g', 'g.tournamentId = t.id');
 	    $this->db->join('players AS ply_you', 'ply_you.gameId = g.id AND ply_you.userId = you.id');
 	    $this->db->join('players AS ply_opp', 'ply_opp.gameId = g.id AND ply_opp.userId = opp.id');
-	    $this->db->join('gameresult AS r', 'ply_opp.gameResultId = r.id');
+	    $this->db->join('gameresult AS r', 'ply_you.gameResultId = r.id');
 	    $this->db->join('country AS c', 'c.country_id = you.nationalityId', 'left');
 	    $this->db->join('timezones AS tm', 'tm.id = you.timezoneId', 'left');
 	    // hacky way to prevent automatic backticks
@@ -203,8 +203,8 @@ class Tournament_Group_Chart_Model extends My_IDModel {
 	    $query = $this->db->get();
 	    // DEBUGGING
 	    //$stmt = $this->db->_compile_select();
-	    //$stmt = $this->db->last_query();
-	    //error_log("makoto->" . $stmt);
+	    $stmt = $this->db->last_query();
+	    error_log("get_game_result_for " .$username . "=>" . $stmt);
 	    if($query->num_rows() > 0){
 	        return $query->result();
 	    }

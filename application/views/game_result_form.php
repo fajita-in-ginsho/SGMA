@@ -7,13 +7,9 @@
 	<!-- player -->
 	<?php echo html_escape($username_of_selected_row); ?>
 	
-	<select dojoType="dijit.form.ComboBox" id="game_result_combobox">
-	    <option><?php echo $this->lang->line('tournament_won'); ?></option>
-	    <option><?php echo $this->lang->line('tournament_lost'); ?></option>
-	    <option><?php echo $this->lang->line('tournament_draw'); ?></option>
-	    <option><?php echo $this->lang->line('tournament_default_win'); ?></option>
-	    <option><?php echo $this->lang->line('tournament_not_yet_played'); ?></option>
-	</select>
+	
+	<?php echo form_dropdown('game_result_combobox', html_escape($gameResultDescriptions), $selected, 'id="game_result_combobox" dojoType="dijit.form.ComboBox"'); ?>
+	
 	
 	<?php echo $this->lang->line('tournament_win_against_phrase'); ?>
 	<!-- opponent -->
