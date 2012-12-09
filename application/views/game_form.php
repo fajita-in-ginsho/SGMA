@@ -5,38 +5,48 @@
 	<div id="players">
 	<?php
 	    foreach($players as $player){
-	        echo $this->lang->line('tournament_label_game_name') . html_escape($player->username) . "<br>
+	        echo $this->lang->line('tournament_label_player_name') . html_escape($player->username) . "<br>
 	        ";
 	    } 
 	?>
 	</div>
-	<div id="username_of_selected_row" title="<?php echo html_escape($username_of_selected_row); ?>">
-	<?php
-	    echo "username_of_selected_row : ";
-	    if(isset($username_of_selected_row)){
-	        echo html_escape($username_of_selected_row);
-	    }else{
-	        echo html_escape("unknown");
-	    }
-	?>
-	</div>
+	
+	
+	<div id="tournament_name" title="<?php echo html_escape($tournament->name); ?>">tournament : <?php echo html_escape($tournament->name); ?></div>
+	<div id="game_date" title="<?php echo html_escape($game->date); ?>">date: <?php echo html_escape($game->date); ?></div>
+	
+	
 	<div id="username_of_selected_column" title="<?php echo html_escape($username_of_selected_column); ?>">
 	<?php
-	    echo "username_of_selected_column : ";
-	    if(isset($username_of_selected_column)){
-	        echo html_escape ($username_of_selected_column);
-	    }else{
-	        echo html_escape ("unknown");
+	    if($this->config->item('debug_mode')){
+	        echo "username_of_selected_column : ";
+	        if(isset($username_of_selected_column)){
+	            echo html_escape ($username_of_selected_column);
+	        }else{
+	            echo html_escape ("unknown");
+	        }    
 	    }
 	?>
 	</div>
-	<div id="kifuId" title="<?php echo html_escape($kifuId); ?>"><p>kifuId : <?php echo html_escape($kifuId); ?></p></div>
-	<div id="threadId" title="<?php echo html_escape($game->threadId); ?>"><p>threadId : <?php echo html_escape($game->threadId); ?></p></div>
-	<div id="tournament_name" title="<?php echo html_escape($tournament->name); ?>"><p>tournament : <?php echo html_escape($tournament->name); ?></p></div>
-	<div id="gameId" title="<?php echo html_escape($game->id); ?>"><p><?php echo html_escape($game->id); ?></p></div>
-	<div id="game_date" title="<?php echo html_escape($game->date); ?>"><p>date: <?php echo html_escape($game->date); ?></p></div>
-    <div id="isAjax" title="<?php echo html_escape($isAjax); ?>"><p>Ajax : <?php echo html_escape($isAjax); ?></p></div>
-    
+	
+	<div id="username_of_selected_row" title="<?php echo html_escape($username_of_selected_row); ?>">
+	<?php
+	    if($this->config->item('debug_mode')){
+    	    echo "username_of_selected_row : ";
+    	    if(isset($username_of_selected_row)){
+    	        echo html_escape($username_of_selected_row);
+    	    }else{
+    	        echo html_escape("unknown");
+    	    }
+	    }
+	?>
+	</div>
+	
+	<div id="kifuId" title="<?php echo html_escape($kifuId); ?>"><?php if($this->config->item('debug_mode')){  echo 'kifuId : ' . html_escape($kifuId);	}?></div>
+	<div id="threadId" title="<?php echo html_escape($game->threadId); ?>"><?php if($this->config->item('debug_mode')){  echo 'threadId : ' . html_escape($game->threadId); }?></div>
+	<div id="gameId" title="<?php echo html_escape($game->id); ?>"><?php if($this->config->item('debug_mode')){  echo 'gameId : ' . html_escape($game->id); }?></div>
+	<div id="isAjax" title="<?php echo html_escape($isAjax); ?>"><?php if($this->config->item('debug_mode')){ echo 'Ajax : ' . html_escape($isAjax); }?></div>
+	
 	
 	<button 
 	<?php if(!$isLoggedIn){echo "disabled";} ?> 
@@ -72,9 +82,7 @@
     <?php echo $this->lang->line('tournament_button_logout'); ?>
     </button>
     
-    <br>
-    <br>
-	
+    
 </div>
 
 

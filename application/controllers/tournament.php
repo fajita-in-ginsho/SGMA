@@ -73,10 +73,16 @@ class Tournament extends My_UserSessionController{
 	     * if this is choosed, add gameType dropdown to choose.
 	     */
 	    //$data['cup_names']["-"] = "-";
-	    
-	    foreach($cups as $cup){
-	        $data['cup_names'][$cup->name] = $cup->name;
+	    $data['cup_names'] = array();
+	    if(isset($cups)){
+	        foreach($cups as $cup){
+	            $data['cup_names'][$cup->name] = $cup->name;
+	        }    
+	    }else{
+	        $this->loadErrorPage($this->lang->line('error_on_create_cup_no_cups_available'));
+	        return;
 	    }
+	    
 	    
 	    $tournamentTypes = $this->tournamenttype_model->getAll();
 	    foreach($tournamentTypes as $tournamentType){

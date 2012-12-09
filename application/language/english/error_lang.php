@@ -32,7 +32,7 @@ $lang['error_message_fail_creating_cup_name_empty'] = "Cup Name is empty!";
 
 $lang['error_message_fail_creating_cup_name_already_exist'] = "Cup Name already exists!";
 
-
+$lang['error_on_create_cup_no_cups_available'] = "There's no cups avaialble to select!";
 
 
 

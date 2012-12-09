@@ -30,7 +30,7 @@ CREATE TABLE `columns` (
   `editable` tinyint(1) NOT NULL DEFAULT '0',
   `style` varchar(256) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 
 /*Table structure for table `comments` */
 
@@ -43,7 +43,7 @@ CREATE TABLE `comments` (
   `createdOn` datetime NOT NULL,
   `comment` text NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=69 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 
 /*Table structure for table `country` */
 
@@ -60,7 +60,7 @@ CREATE TABLE `country` (
   `calling_code` varchar(8) DEFAULT NULL,
   `cctld` varchar(5) DEFAULT NULL,
   PRIMARY KEY (`country_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=251 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARSET=latin1;
 
 /*Table structure for table `cups` */
 
@@ -73,7 +73,7 @@ CREATE TABLE `cups` (
   `createdBy` int(11) NOT NULL DEFAULT '-1',
   `createdOn` datetime NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 
 /*Table structure for table `gameinfoshogi` */
 
@@ -83,7 +83,7 @@ CREATE TABLE `gameinfoshogi` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `kifuId` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=194 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 
 /*Table structure for table `gameresult` */
 
@@ -109,7 +109,7 @@ CREATE TABLE `games` (
   `threadId` int(11) NOT NULL,
   `gameInfoId` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=202 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 
 /*Table structure for table `gametype` */
 
@@ -130,7 +130,7 @@ CREATE TABLE `kifu` (
   `url` text NOT NULL,
   `kifuText` text NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=195 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 
 /*Table structure for table `organizers` */
 
@@ -194,7 +194,7 @@ CREATE TABLE `thread` (
   `createdBy` int(11) NOT NULL,
   `createdOn` datetime NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=220 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 
 /*Table structure for table `timezones` */
 
@@ -206,7 +206,7 @@ CREATE TABLE `timezones` (
   `gmt` varchar(11) NOT NULL DEFAULT '',
   `offset` tinyint(2) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=143 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 
 /*Table structure for table `tournament_columns` */
 
@@ -232,7 +232,7 @@ CREATE TABLE `tournaments` (
   `createdOn` datetime NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `unique_attrs` (`name`,`cupId`)
-) ENGINE=InnoDB AUTO_INCREMENT=52 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 
 /*Table structure for table `tournamenttype` */
 
@@ -271,7 +271,7 @@ CREATE TABLE `users` (
   `nationalityId` int(11) NOT NULL DEFAULT '-1',
   `timezoneId` int(11) NOT NULL DEFAULT '-1',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 
 /*Table structure for table `user_role` */
 
