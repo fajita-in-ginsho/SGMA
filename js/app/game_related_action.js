@@ -97,7 +97,7 @@ function onClickKifu(kifuId){
 	    content : arguments,
 	    load : function(data){
 	    	
-		    if(data.success == "true"){
+		    if(data.success == "true" && data.url != ""){
 		    	//document.location = data['url'];
 		    	// TODO: open in a new tab as default behavor.
 		    	open_in_new_tab(data.url);

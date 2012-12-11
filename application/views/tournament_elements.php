@@ -31,7 +31,7 @@
     <div id="change_date_title" title="<?php echo $this->lang->line('tournament_change_date_title');?>"></div>
     <div id="game_infomation_title" title="<?php echo $this->lang->line('tournament_game_infomation_title');?>"></div>
     <div id="user_infomation_title" title="<?php echo $this->lang->line('tournament_user_infomation_title');?>"></div>
-    <div id="message_title" title="<?php echo $this->lang->line('tournament_message_title_title');?>"></div>
+    <div id="message_title" title="<?php echo $this->lang->line('tournament_message_title');?>"></div>
 
     
     <div id="base_url" title="<?php echo base_url() ?>"></div>

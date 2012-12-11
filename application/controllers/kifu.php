@@ -23,7 +23,7 @@ class Kifu extends My_UserSessionController{
 	    }
         
 	    $kifu = $this->kifu_model->getById($kifuId);
-	    if(isset($kifu)){
+	    if(isset($kifu) && $kifu->url != ""){
 	        $data['success'] = 'true';
 	        $data['url'] = $kifu->url;
 	    }else{
