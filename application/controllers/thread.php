@@ -85,27 +85,23 @@ class Thread extends My_UserSessionController{
 	            $data['result'] = true;
 	            
 	            // send emails to notify related peoples.
-	            ///*
+	            
 	            $game = $this->games_model->getById($data['gameId']);
 	            $mailers = $this->get_mailers($game);
 	            foreach($mailers['receivers'] as $user_receiver){
 	                if($this->mail_add_comment($mailers['sender'], $user_receiver, $data['comment']) == false){
 	                    // email error.
-	                    $comment = "
-    	                    $this->lang->line('app_email_fail_to_send')
-    	                    $user_receiver->username ( $user_receiver->email_address )
-	                    ";
+	                    $comment = $this->lang->line('app_email_fail_to_send');
+	                    $comment .= "{$user_receiver->username} ( $user_receiver->email_address )";
 	                    $this->comments_model->add($data['threadId'], $comment, $this->users_model->getIdByUsername("admin"));
 	                }
 	            }
-	            //*/
 	        } else{
 	            $data['result'] = false;
 	        }
 	    }else{
 	        $data['result'] = false;
 	    }
-	     
 	    
 	    $json_result = json_encode($data);
 	    echo $json_result;
