@@ -165,11 +165,9 @@ class Thread extends My_UserSessionController{
 	        if($this->mail_change_date($mailers['sender'], $user_receiver, $data['current_date'], $data['datetime']) == false){
 	            
 	            // mail error.
-	            $comment = "
-    	            $this->lang->line('tournament_comment_change_date_mail_error')
-    	            $user_receiver->username ( $user_receiver->email_address )
-	            ";
-	            $this->comments_model->add($threadId, $comment, $this->users_model->getIdByUsername("admin"));
+	            $comment = $this->lang->line('tournament_comment_change_date_mail_error');
+    	        $comment .= "{$user_receiver->username} ( {$user_receiver->email_address} )";
+	            $this->comments_model->add($data['threadId'], $comment, $this->users_model->getIdByUsername("admin"));
 	        }
 	    }
 	    
@@ -217,7 +215,7 @@ class Thread extends My_UserSessionController{
 	    return array('sender' => $user_me, 'receivers' => $users_obj);
 	}
 	
-	function mail_change_date($user_sender, $user_receiver, $current_date, $current_date){
+	function mail_change_date($user_sender, $user_receiver, $current_date, $requesting_date){
 	     
 	    $to = $user_receiver->email_address;
 	    $from = $user_sender->email_address;

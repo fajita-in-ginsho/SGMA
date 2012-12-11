@@ -203,8 +203,8 @@ class Tournament_Group_Chart_Model extends My_IDModel {
 	    $query = $this->db->get();
 	    // DEBUGGING
 	    //$stmt = $this->db->_compile_select();
-	    $stmt = $this->db->last_query();
-	    error_log("get_game_result_for " .$username . "=>" . $stmt);
+	    //$stmt = $this->db->last_query();
+	    //error_log("get_game_result_for " .$username . "=>" . $stmt);
 	    if($query->num_rows() > 0){
 	        return $query->result();
 	    }

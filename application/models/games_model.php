@@ -77,6 +77,7 @@ class Games_Model extends My_IDModel {
 	function updateForId($gameId, $update_context){
 	    $this->db->where('id', $gameId);
 	    $succeeded = $this->db->update($this->table, $update_context);
+	    $stmt = $this->db->last_query();
 	    return $succeeded;
 	}
 	
