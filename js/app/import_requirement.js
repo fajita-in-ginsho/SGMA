@@ -14,4 +14,5 @@ dojo.require("dijit.form.DateTextBox");
 dojo.require("dijit.form.TimeTextBox");
 dojo.require("dijit.form.MultiSelect");
 dojo.require("dojox.widget.Toaster");
+dojo.require("dojo.cookie");
 

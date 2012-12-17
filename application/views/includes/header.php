@@ -7,11 +7,8 @@
 <title>
 <?php if(isset($title)){echo html_escape($title);} else { echo "untitled";} ?>
 </title>
-<link rel="stylesheet" href="<?php echo base_url(); ?>css/style.css"
-    type="text/css" 
-    media="screen" 
-    charset="utf-8" />
-
+<link rel="stylesheet" href="<?php echo base_url(); ?>css/style.css" type="text/css" media="screen" charset="utf-8" />
+<link rel="stylesheet" href="<?php echo base_url(); ?>css/tournament.css" type="text/css" media="screen" charset="utf-8" />
 <!-- uncompressed version for debugging -->
 <!-- 
 <script src="http://ajax.googleapis.com/ajax/libs/dojo/1.7.2/dojo/dojo.js.uncompressed.js" djConfig="parseOnLoad:true"></script>

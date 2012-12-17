@@ -61,6 +61,7 @@ function onClickHistory(threadId){
 	};
 	arguments['username_of_selected_row'] = dojo.byId('username_of_selected_row').title;
 	arguments['username_of_selected_column'] = dojo.byId('username_of_selected_column').title;
+	arguments[dojo.attr(dojo.byId('csrf_token_hidden_input'), 'name')] = getCsrfToken();
 	
 	dojo.xhrPost({
 		
@@ -83,13 +84,38 @@ function onClickHistory(threadId){
 	});
 }
 
+function getCsrfToken(){
+	
+	
+	var csrfHiddenInput = dojo.byId('csrf_token_hidden_input');
+	var csrfName = dojo.attr(csrfHiddenInput, 'name');
+	if(typeof(csrfName) === "undefined"){
+		return;
+	}
+	
+	var token = "";
+	
+	token = dojo.attr(csrfHiddenInput, 'value');
+	
+	// if cookie is available, you can get it from cookie, 
+	// however, since I couldn't get it. I use hidden input.
+	// token = dojo.cookie(csrfName);
+	return token;
+}
+
 function onClickKifu(kifuId){
+	
 	var arguments = {
 	    "ajax" : "true"
 	  , "kifuId" : kifuId
 	};
-	// TODO:
+	
+	arguments[dojo.attr(dojo.byId('csrf_token_hidden_input'), 'name')] = getCsrfToken();
+	
+	
+	// TODO: DONE
 	// dojo.xhrPost didn't work, but haven't figured out why.
+	// A. it was because of the csrf protection
 	dojo.xhrPost({
 
 	    url: dojo.attr(dojo.byId('site_url'), 'title') + "/kifu/url/", 
@@ -122,8 +148,9 @@ function onClickLogin(){
 	    "ajax" : true
 	};
 	
-	// MEMO:
-	// dojo.xhrPost didn't work, but haven't figured out why. => because of csrf_protection.
+	arguments[dojo.attr(dojo.byId('csrf_token_hidden_input'), 'name')] = getCsrfToken();
+	
+	
 	dojo.xhrPost({
 
 		url: dojo.attr(dojo.byId('site_url'), 'title') + "/login/index/", 
@@ -149,7 +176,9 @@ function onClickLogout(){
 	var arguments = {
 		   	  "ajax" : true
 	};
-		
+	
+	arguments[dojo.attr(dojo.byId('csrf_token_hidden_input'), 'name')] = getCsrfToken();
+	
 	dojo.xhrPost({
 
 		url: dojo.attr(dojo.byId('site_url'), 'title') + "/login/logout/", 
@@ -241,6 +270,9 @@ function onClickThreadComment(){
 		  , "comment" : comment
 		  , "threadId" : dojo.attr(dojo.byId("threadId"), 'title') 
 		};
+		
+		arguments[dojo.attr(dojo.byId('csrf_token_hidden_input'), 'name')] = getCsrfToken();
+		
 		dojo.xhrPost({
 
 			url: dojo.attr(dojo.byId('site_url'), 'title') + "/thread/addComment/" + arguments["threadId"], 

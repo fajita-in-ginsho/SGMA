@@ -82,6 +82,10 @@
     <?php echo $this->lang->line('tournament_button_logout'); ?>
     </button>
     
+    <!--
+    http://aymsystems.com/ajax-csrf-protection-codeigniter-20 
+     -->
+    <input type="hidden" id="csrf_token_hidden_input" name="<?php echo $this->security->get_csrf_token_name(); ?>" value="<?php echo $this->security->get_csrf_hash()?>" /> 
     
 </div>
 
