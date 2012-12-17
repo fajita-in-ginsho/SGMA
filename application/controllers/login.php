@@ -74,7 +74,7 @@ class Login extends My_UserSessionController {
 			  , 'middle_name' => $this->input->post('middle_name')
 			  , 'last_name' => $this->input->post('last_name')
 			  , 'username' => $this->input->post('username')
-			  , 'password' => $this->input->post('password')
+			  , 'password' => md5($this->input->post('password'))
 			  , 'email_address' => $this->input->post('email_address')
 			  , 'createdOn' => $now
 			  , 'modifiedOn' => $now
