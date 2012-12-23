@@ -18,10 +18,13 @@ class Site extends My_UserSessionController{
 		    return;
 		}
 		$data['hasAdminRight'] = $this->users_model->hasAdminRight($userId);
-		$data['tournaments'] = $this->tournaments_model->getByParticipantUserId($userId);
-		if(!isset($data['tournaments'])) $data['tournaments'] = array();
 		
-		//$data['tournaments_json'] = json_encode($data['tournaments']);
+		$data['participating_tournaments'] = $this->tournaments_model->getByParticipantUserId($userId);
+		if(!isset($data['participating_tournaments'])) $data['participating_tournaments'] = array();
+		
+		$data['administrable_tournaments'] = $this->tournaments_model->getByAdministratorUserId($userId);
+		if(!isset($data['administrable_tournaments'])) $data['administrable_tournaments'] = array();
+		
 		$this->load->view('includes/template', $data);
 	}
 	

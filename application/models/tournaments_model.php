@@ -20,7 +20,21 @@ class Tournaments_Model extends My_IDModel {
 			return $query->result();
 		}
 	}
-
+    
+	function getByAdministratorUserId($administratorUserId){
+	
+	    $this->db->select('t.name as `tournament`
+	            , c.name as `cup`');
+	    $this->db->from('tournaments as t');
+	    $this->db->join('cups as c', 't.cupId = c.id');
+	    $this->db->where("t.createdBy = $administratorUserId");
+	    $query = $this->db->get();
+	    if($query->num_rows() > 0){
+	        return $query->result();
+	    }
+	}
+	
+	
 	function getIdByNames($cup_name, $tournament_name){
 		$id = -1;
 		
