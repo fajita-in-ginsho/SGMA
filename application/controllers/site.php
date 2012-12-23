@@ -18,8 +18,10 @@ class Site extends My_UserSessionController{
 		    return;
 		}
 		$data['hasAdminRight'] = $this->users_model->hasAdminRight($userId);
-		$data['tournaments'] = $this->tournaments_model->getByUserId($userId);
-		$data['tournaments_json'] = json_encode($data['tournaments']);
+		$data['tournaments'] = $this->tournaments_model->getByParticipantUserId($userId);
+		if(!isset($data['tournaments'])) $data['tournaments'] = array();
+		
+		//$data['tournaments_json'] = json_encode($data['tournaments']);
 		$this->load->view('includes/template', $data);
 	}
 	

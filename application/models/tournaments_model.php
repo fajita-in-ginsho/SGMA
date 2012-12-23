@@ -7,20 +7,18 @@ class Tournaments_Model extends My_IDModel {
 	}
 	
 
-	function getByUserId($userId){
-		$tournaments = array();
+	function getByParticipantUserId($participantUserId){
 		
-		$this->db->select('t.name as `tournament`
+	    $this->db->select('t.name as `tournament`
 		                 , c.name as `cup`');
 		$this->db->from('participants as p');
 		$this->db->join('tournaments as t', 'p.tournamentId = t.id');
 		$this->db->join('cups as c', 't.cupId = c.id');
-		$this->db->where("p.userId = $userId");
+		$this->db->where("p.userId = $participantUserId");
 		$query = $this->db->get();
 		if($query->num_rows() > 0){
-			$tournaments = $query->result();
+			return $query->result();
 		}
-		return $tournaments;
 	}
 
 	function getIdByNames($cup_name, $tournament_name){

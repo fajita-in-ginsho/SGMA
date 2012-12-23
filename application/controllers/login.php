@@ -65,7 +65,7 @@ class Login extends My_UserSessionController {
 		if($this->form_validation->run()==FALSE){
 			$data['main_content'] = 'signup_form';
 			$data['title'] = 'Sign up';
-			$this->load->view('signup_form');
+			$this->load->view('includes/template', $data);
 		}else{
 			// insert data in users table.
 			$now = date( 'Y-m-d H:i:s' );

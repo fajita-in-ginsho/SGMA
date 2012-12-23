@@ -1,6 +1,6 @@
 <script type="text/javascript" src="<?php echo base_url(); ?>js/app/game_related_action.js"></script>
 <script type="text/javascript">
-var tournaments = eval(<?php echo $tournaments_json; ?>);
+var tournaments = eval(<?php echo json_encode($tournaments); ?>);
 </script>
 <script type="text/javascript" src="<?php echo base_url(); ?>js/app/home_action.js"></script>
 

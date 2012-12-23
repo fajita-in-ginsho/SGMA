@@ -42,7 +42,7 @@ if($retry){
 <label for="password_textbox" style="font-weight: bold;"><?php echo $this->lang->line('tournament_label_password'); ?></label>
 <input id="password_textbox" 
        name="password"
-       dojoType="dijit.form.TextBox" type="text" style="width:120px;"
+       dojoType="dijit.form.TextBox" type="password" style="width:120px;"
        value="kunio"
 ></input>
 </p>
