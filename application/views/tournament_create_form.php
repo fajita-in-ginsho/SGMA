@@ -52,8 +52,23 @@
 	    } 
 	?>
 	</select>
+	<p>
 	
 	<p>
+	<label for="default_game_date" style="font-weight: bold;"><?php echo $this->lang->line('tournament_label_default_game_date'); ?></label><br>
+	<input 
+	id="default_game_date"
+	name="default_game_date" 
+	data-dojo-type="dijit.form.DateTextBox" 
+	/>
+	
+	<input
+    id="default_game_time"
+    name="default_game_time" 
+    data-dojo-type="dijit.form.TimeTextBox"
+    />
+    </p>
+	
 	<button id="tournament_create_submit" type="submit"
 	        name="tournament_create_submit" dojoType="dijit.form.Button" 
     >

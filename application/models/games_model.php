@@ -94,7 +94,7 @@ class Games_Model extends My_IDModel {
 	    }
 	}
 	
-	function autoGenerateGames($tournament_id){
+	function autoGenerateGames($tournament_id, $defaultGameDate, $defaultGameTime){
 	    $tournament = $this->tournaments_model->getById($tournament_id);
 	    $participants = $this->participants_model->getByTournamentId($tournament_id);
 	    $gametype = $this->gametype_model->getById($tournament->gameTypeId);
@@ -151,6 +151,14 @@ class Games_Model extends My_IDModel {
 	                'threadId' => $threadId,
 	                'gameInfoId' => $gameinfo_id,
 	        );
+	        
+	        if(isset($defaultGameDate)){
+	            $data['date'] = $defaultGameDate;
+	            if(isset($defaultGameTime)){
+	                $data['date'] .= $defaultGameTime;
+	            }
+	        }
+	         
 	        $gameId = $this->insert($data);
 	        
 	        // players

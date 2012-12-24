@@ -68,6 +68,7 @@ $lang['tournament_label_cup_names_dropdown'] = "Cup : ";
 $lang['tournament_label_tournament_types_dropdown'] = "Tournament Type : ";
 $lang['tournament_label_choose_columns'] = "Check columns to be displayed in the tournament chart : ";
 $lang['tournament_label_choose_participants'] = "Multi select usernames for this tournament : ";
+$lang['tournament_label_default_game_date'] = "Default Game Date and Time: ";
 
 $lang['tournament_title_create_cup'] = "Create Cup";
 
@@ -82,5 +83,7 @@ $lang['tournament_label_game_name'] = "Game Name : ";
 $lang['tournament_label_player_name'] = "Player : ";
 
 $lang['tournament_text_mandatory_column'] = "(mandatory column)";
+
+
 
 

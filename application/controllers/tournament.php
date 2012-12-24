@@ -141,6 +141,8 @@ class Tournament extends My_UserSessionController{
 	    $cup = $this->cups_model->getByName($cup_name);
 	    $tournament_type = $this->tournamenttype_model->getByName($tournament_type);
 	    $usernames = $this->input->post('participants');
+	    $defaultGameDate = $this->input->post('default_game_date');
+	    $defaultGameTime = $this->input->post('default_game_time');
 	     
 	    if(!isset($tournament_type)){
 	        $data['error_message'] = $this->lang->line('error_tournament_type_invalid');
@@ -194,7 +196,7 @@ class Tournament extends My_UserSessionController{
         
         // generate games for this tournament according to the participants automatically.
         // TODO: gameTypeId should inhrite from cup, tournmaent , then game..
-        $this->games_model->autoGenerateGames($tournament_id);
+        $this->games_model->autoGenerateGames($tournament_id, $defaultGameDate, $defaultGameTime);
         
         return true;
 	} 
