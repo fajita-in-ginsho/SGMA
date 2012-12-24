@@ -207,13 +207,30 @@ class Tournament extends My_UserSessionController{
 	    
 	    if($is_ajax_request){
 	        $tournamentId = $_POST['tournamentId'];
+	        $username = $_POST['username'];
+	        $userId = $this->users_model->getIdByUsername($username);
 	        $field = $_POST['field'];
-	        $field = $_POST['value'];
+	        $value = $_POST['value'];
 	    }else{
 	        
 	    }
 	    
+	    if($field == "note"){
+	        $context = array(
+	            "note" => $value
+	        );
+	        $succeeded = $this->participants_model->update($tournamentId, $userId, $context);
+	        if($succeeded == true){
+	            $ret = json_encode(array('success' => 'true'));
+	            echo $ret;
+	            return;
+	        }
+	    }
+	    $ret = json_encode(array('success' => 'false'));
+        echo $ret;
+        return;
 	}
+	
 }
 
 ?>	

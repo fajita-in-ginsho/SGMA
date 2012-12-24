@@ -35,7 +35,7 @@ if($hasAdminRight == true){
 
 echo '<div class="home_list_header"><p>' . $this->lang->line('home_administrable_tournaments_list') . '</p></div>';
 
-if(isset($administrable_tournaments)){
+if(isset($administrable_tournaments) && count($administrable_tournaments) > 0){
 
     echo '<ul type="">';
 
@@ -61,7 +61,7 @@ if(isset($administrable_tournaments)){
 
 echo '<div class="home_list_header"><p>' . $this->lang->line('home_participating_tournaments_list') . '</p></div>';
 
-if(isset($participating_tournaments)){
+if(isset($participating_tournaments) && count($participating_tournaments) > 0){
     
 	echo '<ul type="">';
 	
@@ -88,7 +88,8 @@ if(isset($participating_tournaments)){
 ?>
 </div>
 
- <?php $this->load->view("tournament_elements"); ?>
+<input type="hidden" id="csrf_token_hidden_input" name="<?php echo $this->security->get_csrf_token_name(); ?>" value="<?php echo $this->security->get_csrf_hash()?>" />
+<?php $this->load->view("tournament_elements"); ?>
 
 
 

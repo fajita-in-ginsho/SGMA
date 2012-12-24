@@ -31,8 +31,42 @@ function onChangePoints(points){
 }
 
 
-function onChangeNotes(notes){
-	console.log(notes);
+function onChangeNote(note){
+	var grid = dijit.byId("tournametChart");
+	var index = grid.selection.selectedIndex;
+	if(index == -1) return;
+	var item = grid.getItem(index);
+	if(typeof(item) === "undefined") return;
+	debugger;
+	console.log(note);
+	
+	var arguments = {
+	    "ajax" : "true"
+	  , "tournamentId" : dojo.attr(dojo.byId('tournamentIdOfCurrentDisplayedChart'), 'title')
+	  , "username" : item.username[0]
+	  , "field" : "note"
+	  , "value" : note
+ 	};
+	arguments[dojo.attr(dojo.byId('csrf_token_hidden_input'), 'name')] = getCsrfToken();
+	
+	dojo.xhrPost({
+
+	    url: dojo.attr(dojo.byId('site_url'), 'title') + "/tournament/update/", 
+	    handleAs: "json",
+	    content : arguments,
+	    load : function(data){
+	    	debugger;
+		    if(data.success == "true"){
+		    	//var store = grid.store;
+		    	//store.setValue(item, 'note', note);
+		    	//grid.update();
+		    }
+	    },
+	    error : function (error){
+	    	console.log(error);
+	    	console.error(new Error().stack);
+	    }
+	});
 }
 
 
@@ -136,6 +170,8 @@ function onGridClick(event){
 		onGridClickOnGame(event, item, gameId);
 	}else if(columnName == "username"){
 		onGridClickOnUsername(event, item);
+	}else if(columnName == "note"){
+		
 	}
 	
 }
@@ -182,7 +218,7 @@ function showChart(data){
   		
   	  }
     }
-    
+    debugger;
     var chart = new dojo.data.ItemFileWriteStore( {data :{
   	  identifier: 'username', 
 	      items : itemdata 

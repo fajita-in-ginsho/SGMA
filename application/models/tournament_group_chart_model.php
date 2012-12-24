@@ -179,7 +179,7 @@ class Tournament_Group_Chart_Model extends My_IDModel {
         $this->db->select("r.path AS result_path");
         $this->db->select("r.description AS result_description");
         $this->db->select("rs.score AS score");
-        $this->db->select("p_you.note AS note");
+        //$this->db->select("p_you.note AS note");
         
 	    $this->db->from('tournaments AS t');
 	    $this->db->join('participants AS p_you', 'p_you.tournamentId = t.id');
@@ -203,8 +203,8 @@ class Tournament_Group_Chart_Model extends My_IDModel {
 	    $query = $this->db->get();
 	    // DEBUGGING
 	    //$stmt = $this->db->_compile_select();
-	    //$stmt = $this->db->last_query();
-	    //error_log("get_game_result_for " .$username . "=>" . $stmt);
+	    $stmt = $this->db->last_query();
+	    error_log("get_game_result_for " .$username . "=>" . $stmt);
 	    if($query->num_rows() > 0){
 	        return $query->result();
 	    }

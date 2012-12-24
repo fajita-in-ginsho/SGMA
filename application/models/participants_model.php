@@ -54,6 +54,15 @@ class Participants_Model extends My_IDModel {
 	    }
 	    return true;
 	}
+	
+	function update($tournamentId, $userId, $context){
+	    $this->db->where('tournamentId', $tournamentId);
+	    $this->db->where('userId', $userId);
+	    $succeeded = $this->db->update($this->table, $context);
+	    //$stmt = $this->db->last_query();
+	    return $succeeded;
+	}
+	
 }
 
 ?>
