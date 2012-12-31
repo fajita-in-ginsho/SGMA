@@ -115,7 +115,7 @@ class Game extends My_UserSessionController{
             }
 	     
 	    }else{
-	        echo $this->lang->line('error_no_permission_to_change');
+	        echo $this->lang->line('error_no_permission_to_change_game_result');
 	    }
 	}
 	

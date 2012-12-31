@@ -2,7 +2,8 @@
 SQLyog Community v10.12 
 MySQL - 5.5.16 : Database - sgma
 *********************************************************************
-*/
+*/
+
 
 /*!40101 SET NAMES utf8 */;
 
@@ -150,7 +151,8 @@ DROP TABLE IF EXISTS `participants`;
 CREATE TABLE `participants` (
   `userId` int(11) NOT NULL,
   `tournamentId` int(11) NOT NULL,
-  `note` text NOT NULL,
+  `note` varchar(128) NOT NULL,
+  `displayorder` int(11) NOT NULL,
   PRIMARY KEY (`userId`,`tournamentId`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 

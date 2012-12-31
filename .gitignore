@@ -8,8 +8,8 @@ application/logs/*
 !application/logs/index.html
 !application/logs/.htaccess
 
-/*.bak
-/*.swp
+*.bak
+*.swp
 /whitepaper
 # ignore all config folder and file starting with . except for items listed right below with ! mark.
 /.*

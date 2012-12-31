@@ -214,23 +214,46 @@ class Tournament extends My_UserSessionController{
 	        $field = $_POST['field'];
 	        $value = $_POST['value'];
 	    }else{
-	        
+	        return;
 	    }
 	    
 	    if($field == "note"){
-	        $context = array(
-	            "note" => $value
-	        );
-	        $succeeded = $this->participants_model->update($tournamentId, $userId, $context);
-	        if($succeeded == true){
-	            $ret = json_encode(array('success' => 'true'));
+	        if($this->tournaments_model->doHaveAdministrativeRigth($tournamentId, $this->session->userdata('userId')) 
+	           /*|| $this->session->userdata('userId') == $userId */ ){
+	            $context = array(
+	                "note" => $value
+	            );
+	        }else{
+	            $ret = json_encode(array('success' => 'false', 'message' => $this->lang->line('error_no_permission_to_change_note')));
 	            echo $ret;
 	            return;
 	        }
+	         
+	    }else if($field == "displayorder"){
+	        if($this->tournaments_model->doHaveAdministrativeRigth($tournamentId, $this->session->userdata('userId'))){
+	            $context = array(
+	                    "displayorder" => $value
+	            );
+	        }else{
+	            $ret = json_encode(array('success' => 'false', 'message' => $this->lang->line('error_no_permission_to_change_displayorder')));
+	            echo $ret;
+	            return;
+	        }
+	        
 	    }
-	    $ret = json_encode(array('success' => 'false'));
-        echo $ret;
-        return;
+	    
+	    $succeeded = $this->participants_model->update($tournamentId, $userId, $context);
+	    if($succeeded == true){
+	        $ret = json_encode(array('success' => 'true'));
+	        echo $ret;
+	        return;
+	    }else{
+	        $ret = json_encode(array('success' => 'false'));
+	        echo $ret;
+	        return;
+	    }
+	    
+	    
 	}
 	
 }

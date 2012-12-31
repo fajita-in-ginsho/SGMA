@@ -49,6 +49,8 @@ $lang['tournament_column_country'] = "Country";
 $lang['tournament_column_timezone'] = "Timezone";
 $lang['tournament_column_note'] = "Note";
 $lang['tournament_column_participants'] = "Participants";
+$lang['tournament_column_displayorder'] = "#";
+
 
 
 

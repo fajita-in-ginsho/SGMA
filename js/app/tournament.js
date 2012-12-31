@@ -31,21 +31,15 @@ function onChangePoints(points){
 }
 
 
-function onChangeNote(note){
-	var grid = dijit.byId("tournametChart");
-	var index = grid.selection.selectedIndex;
-	if(index == -1) return;
-	var item = grid.getItem(index);
+function onChangeNote(item){
 	if(typeof(item) === "undefined") return;
-	debugger;
-	console.log(note);
 	
 	var arguments = {
 	    "ajax" : "true"
 	  , "tournamentId" : dojo.attr(dojo.byId('tournamentIdOfCurrentDisplayedChart'), 'title')
 	  , "username" : item.username[0]
 	  , "field" : "note"
-	  , "value" : note
+	  , "value" : item.note[0]
  	};
 	arguments[dojo.attr(dojo.byId('csrf_token_hidden_input'), 'name')] = getCsrfToken();
 	
@@ -55,11 +49,16 @@ function onChangeNote(note){
 	    handleAs: "json",
 	    content : arguments,
 	    load : function(data){
-	    	debugger;
-		    if(data.success == "true"){
+	    	
+	    	if(data.success == "true"){
 		    	//var store = grid.store;
 		    	//store.setValue(item, 'note', note);
 		    	//grid.update();
+		    }else if(data.success == "false"){
+		    	var toast = dijit.byId("toast");
+		    	if(typeof toast !== "undefined"){
+		    		toast.setContent(data.message, "MESSAGE", 500);
+		    	}
 		    }
 	    },
 	    error : function (error){
@@ -112,7 +111,7 @@ function onGridClickOnGame(event, item, gameId){
 	}	
 }
 
-function onGridClickOnUsername(event, item){
+function onGridClickOnUsername(item){
 	var arguments = {
 	   	  "ajax" : true
 	};
@@ -141,7 +140,43 @@ function onGridClickOnUsername(event, item){
 	    	console.error(new Error().stack);
 	    }
 	});
-		
+}
+
+function onGridClickOnDisplayorder(item){
+	
+	var arguments = {
+	   	  "ajax" : true
+	   	, "tournamentId" : dojo.attr(dojo.byId('tournamentIdOfCurrentDisplayedChart'), 'title')
+		, "username" : item.username[0]
+	    , "field" : "displayorder"
+		, "value" : item.displayorder[0]
+	};
+	
+	arguments[dojo.attr(dojo.byId('csrf_token_hidden_input'), 'name')] = getCsrfToken();
+	
+	dojo.xhrPost({
+
+	    url: dojo.attr(dojo.byId('site_url'), 'title') + "/tournament/update/", 
+	    handleAs: "json",
+	    content : arguments,
+	    load : function(data){
+	    	
+		    if(data.success == "true"){
+		    	//var store = grid.store;
+		    	//store.setValue(item, 'note', note);
+		    	//grid.update();
+		    }else if(data.success == "false"){
+		    	var toast = dijit.byId("toast");
+		    	if(typeof toast !== "undefined"){
+		    		toast.setContent(data.message, "MESSAGE", 500);
+		    	}
+		    }
+	    },
+	    error : function (error){
+	    	console.log(error);
+	    	console.error(new Error().stack);
+	    }
+	});
 }
 
 function onGridClick(event){
@@ -169,13 +204,29 @@ function onGridClick(event){
 	if(gameId != -1){
 		onGridClickOnGame(event, item, gameId);
 	}else if(columnName == "username"){
-		onGridClickOnUsername(event, item);
-	}else if(columnName == "note"){
-		
+		onGridClickOnUsername(item);
 	}
-	
 }
 
+
+function onGridApplyEdit(value, rowIndex, fieldName){
+	
+	var grid = dijit.byId("tournametChart");
+	var item;
+	debugger;
+	try{
+		item = grid.getItem(rowIndex);
+	}catch(e){
+		// if you edit, textbox event is called. but they should be ignored.
+		return;
+	}
+	
+	if(fieldName == "note"){
+		onChangeNote(item);
+	}else if(fieldName == "displayorder"){
+		onGridClickOnDisplayorder(item);
+	}
+}
 
 
 function getChart(cup, tournament){
@@ -218,7 +269,7 @@ function showChart(data){
   		
   	  }
     }
-    debugger;
+    
     var chart = new dojo.data.ItemFileWriteStore( {data :{
   	  identifier: 'username', 
 	      items : itemdata 
@@ -239,6 +290,8 @@ function showChart(data){
 function connectOnGridClick(){
 	var grid = dijit.byId("tournametChart");
     dojo.connect(grid, "onClick", null, onGridClick);
+    //dojo.connect(grid, "onApplyEdit", onGridApplyEdit);
+    dojo.connect(grid, "onApplyCellEdit", onGridApplyEdit);
 }
 
 

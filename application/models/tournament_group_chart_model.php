@@ -19,10 +19,12 @@ class Tournament_Group_Chart_Model extends My_IDModel {
 	private $base_width= 120;
 	private $single_column_width = 50;
 	
+	private $participantsInNumber = true;
+	
 	function __construct($tournamentId){
 	    
 	    $this->tournamentId = $tournamentId;
-	    $this->participants = $this->participants_model->getByTournamentId($tournamentId);
+	    $this->participants = $this->participants_model->getByTournamentId($tournamentId, 'displayorder asc');
 		$this->height = $this->header_height;
 		$notAvailablePath = $this->gameresult_model->getPathByDescription(GameResult_Model::$NOT_AVAILABLE);
 		
@@ -37,7 +39,10 @@ class Tournament_Group_Chart_Model extends My_IDModel {
 		        foreach($this->participants as $participant){
 		            $column_info = array();
 		            $column_info['field'] = $participant->username;
-		            $column_info['name'] = $participant->username;
+		            
+		            if($this->participantsInNumber) $column_info['name'] = $participant->displayorder;
+		            else $column_info['name'] = $participant->username; 
+		            
 		            if(isset($col->width)) $column_info['width'] = $col->width;
 		            if(isset($col->formatter)) $column_info['formatter'] = $col->formatter;
 		            if(isset($col->editable)) $column_info['editable'] = ((bool)$col->editable?"true":"false");
@@ -92,8 +97,7 @@ class Tournament_Group_Chart_Model extends My_IDModel {
 				    }else{
 				        $result_path = searchFromQueryResult($chart_data, "opponent_username", $column_user->username, "result_path");
 				        $gameId      = searchFromQueryResult($chart_data, "opponent_username", $column_user->username, "gameId");
-				        
-				        $row[$column_user->username] = base_url($result_path);
+                        $row[$column_user->username] = base_url($result_path);
 				        $row[$column_user->username . "_gameId"] = $gameId;
 				    }
 				}

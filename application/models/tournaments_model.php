@@ -23,7 +23,8 @@ class Tournaments_Model extends My_IDModel {
     
 	function getByAdministratorUserId($administratorUserId){
 	
-	    $this->db->select('t.name as `tournament`
+	    $this->db->select(
+	            't.name as `tournament`
 	            , c.name as `cup`');
 	    $this->db->from('tournaments as t');
 	    $this->db->join('cups as c', 't.cupId = c.id');
@@ -34,6 +35,25 @@ class Tournaments_Model extends My_IDModel {
 	    }
 	}
 	
+	function doHaveAdministrativeRigth($tournamentId, $userId){
+	
+	    $this->db->select('t.createdBy as t_createdBy
+	            , c.createdBy as c_createdBy');
+	    $this->db->from('tournaments as t');
+	    $this->db->join('cups as c', 't.cupId = c.id');
+	    $this->db->where("t.id = $tournamentId");
+	    $haveAdminRight = false;
+	    $query = $this->db->get();
+	    if($query->num_rows() == 1){
+	        $result = $query->row();
+	        if($result->t_createdBy == $userId){
+	            $haveAdminRight = true;
+	        }else if($result->c_createdBy == $userId){
+	            $haveAdminRight = true;
+	        }
+	    }
+	    return $haveAdminRight;
+	}
 	
 	function getIdByNames($cup_name, $tournament_name){
 		$id = -1;

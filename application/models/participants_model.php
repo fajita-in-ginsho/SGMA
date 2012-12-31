@@ -11,17 +11,23 @@ class Participants_Model extends My_IDModel {
 	 * 
 	 * description: get all participants participate in the
 	 * given tournament from participants table.
+	 * 
+	 * orderBy : eg. 'title desc'
 	 *   
 	 * return: array of an object
 	 * 
 	 */
-	function getByTournamentId($tournamentId){
+	function getByTournamentId($tournamentId, $orderByClause){
 	    
 		$this->db->select('p.userId as `userId`
-		                 , u.username as `username`');
+		                 , u.username as `username`
+		                 , p.*');
 		$this->db->from('participants as p');
 		$this->db->join('users as u', 'p.userId = u.id');
 		$this->db->where("p.tournamentId = $tournamentId");
+		if(isset($orderByClause)){
+		    $this->db->order_by($orderByClause);
+		}
 		$query = $this->db->get();
 			   
 		$participants = array();

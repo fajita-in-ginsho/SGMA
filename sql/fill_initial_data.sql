@@ -2,7 +2,8 @@
 SQLyog Community v10.12 
 MySQL - 5.5.16 : Database - sgma
 *********************************************************************
-*/
+*/
+
 
 /*!40101 SET NAMES utf8 */;
 
@@ -16,7 +17,7 @@ MySQL - 5.5.16 : Database - sgma
 
 /*Data for the table `columns` */
 
-insert  into `columns`(`id`,`sql`,`isMandatory`,`isDefault`,`name`,`field`,`width`,`formatter`,`editable`,`style`) values (1,'you.username AS username',1,1,'tournament_column_username','username','80px',NULL,0,NULL),(2,NULL,0,1,'tournament_column_win','win','30px',NULL,0,NULL),(3,NULL,0,1,'tournament_column_lose','lose','30px',NULL,0,NULL),(4,NULL,0,1,'tournament_column_draw','draw','30px',NULL,0,NULL),(5,NULL,0,1,'tournament_column_rest','rest','30px',NULL,0,NULL),(6,NULL,0,1,'tournament_column_score','score','30px',NULL,0,NULL),(7,NULL,0,1,'tournament_column_order','order','30px',NULL,0,NULL),(8,NULL,1,1,'tournament_column_participants','participants','50px','imageFormatter',0,NULL),(9,'p_you.note AS note',0,1,'tournament_column_note','note','120px','onChangeNote',1,NULL),(10,'c.short_name AS country',0,0,'tournament_column_country','country','40px',NULL,0,NULL),(11,'tm.timezone_location as timezone',0,0,'tournament_column_timezone','timezone','60px',NULL,0,NULL);
+insert  into `columns`(`id`,`sql`,`isMandatory`,`isDefault`,`name`,`field`,`width`,`formatter`,`editable`,`style`) values (1,'p_you.displayorder as displayorder',1,1,'tournament_column_displayorder','displayorder','30px',NULL,1,NULL),(2,'you.username AS username',1,1,'tournament_column_username','username','80px',NULL,0,NULL),(3,NULL,0,1,'tournament_column_win','win','30px',NULL,0,NULL),(4,NULL,0,1,'tournament_column_lose','lose','30px',NULL,0,NULL),(5,NULL,0,1,'tournament_column_draw','draw','30px',NULL,0,NULL),(6,NULL,0,1,'tournament_column_rest','rest','30px',NULL,0,NULL),(7,NULL,0,1,'tournament_column_score','score','30px',NULL,0,NULL),(8,NULL,0,1,'tournament_column_order','order','30px',NULL,0,NULL),(9,'c.short_name AS country',0,0,'tournament_column_country','country','40px',NULL,0,NULL),(10,'tm.timezone_location as timezone',0,0,'tournament_column_timezone','timezone','60px',NULL,0,NULL),(11,NULL,1,1,'tournament_column_participants','participants','50px','imageFormatter',0,NULL),(12,'p_you.note AS note',0,1,'tournament_column_note','note','120px',NULL,1,NULL);
 
 /*Data for the table `country` */
 
