@@ -3,33 +3,6 @@ function imageFormatter(url){
     return "<img width='40' height='40' src='" + url + "'/>";
 };
 
-function onChangePoints(points){
-	points = parseInt(points);
-	console.log(points);
-	if(points == NaN){
-		return;
-	}
-	
-	var arguments = {
-    	    "tournamentId" : dojo.attr(dojo.byId('tournamentIdOfCurrentDisplayedChart'), 'title')
-    	  , "field" : "points"
-    	  , "value" : points
-	   	  , "ajax" : true
-	};
-	
-	dojo.xhrPost({
-		
-		url: dojo.attr(dojo.byId('site_url'), 'title') + "/tournament/update/",
-	    handleAs: "text",
-	    postData : arguments,  
-	    load : function(data){
-	    },
-	    error : function (error){
-	    	console.log(error);
-	    }
-	});
-}
-
 
 function onChangeNote(item){
 	if(typeof(item) === "undefined") return;
