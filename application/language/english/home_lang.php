@@ -12,5 +12,6 @@ $lang['home_button_loout'] = "Logout";
 $lang['home_button_create_tournament'] = "Create a new Tournament";
 $lang['home_button_create_cup'] = "Create a new Cup";
 
-$lang['home_checkbox_email_notification'] = "Send Email when information is changed.";
+$lang['home_checkbox_email_notification'] = "Send Email when information is changed.
+you may disable as you needs to make changes in sequence as admin and don't want to send emails at every change you make.";
 

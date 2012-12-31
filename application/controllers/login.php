@@ -43,6 +43,18 @@ class Login extends My_UserSessionController {
 		}
 	}
 	
+	function addCookie(){
+        try{
+            $is_ajax_request = (isset($_POST['ajax']) && $_POST['ajax'] === 'true');
+            $this->session->set_userdata($_POST['name'], $_POST['value']);
+            $ret = json_encode(array('success' => 'true'));
+            echo $ret;
+        }catch(Exception $e){
+            $ret = json_encode(array('success' => 'false', 'message' => $this->lang->line('error_during_adding_cookie')));
+            echo $ret;
+        }    
+	}
+	
 	function signup(){
 		$data['main_content'] = "signup_form";
 		$data['title'] = 'Sign up';

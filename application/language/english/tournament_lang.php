@@ -26,6 +26,7 @@ $lang['tournament_comment_change_date_beginning'] = "I changed the date of the g
 $lang['tournament_comment_change_date_from'] = "from";
 $lang['tournament_comment_change_date_to'] = "to";
 $lang['tournament_comment_change_date_mail_error'] = "Error detected while sending email to following username.";
+$lang['error_during_adding_cookie'] = "Error during adding cookie.";
 
 
 $lang['tournament_button_input_result'] = "Input Result";

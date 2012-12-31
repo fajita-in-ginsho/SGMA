@@ -47,6 +47,19 @@ class My_UserSessionController extends CI_Controller {
 	    }
 	    return $is_logged_in;
 	}
+	
+	function isNotifyEmail(){
+	    $isNotify = true;
+	    $email_notification = $this->session->userdata('email_notification');
+	    if($email_notification == false){ // userdata returns false when it doesn't exist.
+	        $isNotify = true;
+	    }else if($email_notification == "true"){
+	        $isNotify = true;
+	    }else if($email_notification == "false"){
+	        $isNotify = false;
+	    }
+	    return $isNotify;
+	}
 
 }
 

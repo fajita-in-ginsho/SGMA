@@ -2,11 +2,12 @@
 
 	<h1><?php echo $this->lang->line('signup_header'); ?></h1>
 	
-	<fieldset>
-	<legend><b><?php echo $this->lang->line('signup_form_personal_information'); ?></b></legend>
 	<?php
 	echo form_open('login/create_member');
 	?>
+	
+	<fieldset>
+	<legend><b><?php echo $this->lang->line('signup_form_personal_information'); ?></b></legend>
 	
 	<p><label for="first_name_textbox" style="font-weight: bold;"><?php echo $this->lang->line('signup_form_textbox_first_name'); ?></label>
 	<input id="first_name_textbox" name="first_name" dojoType="dijit.form.TextBox" type="text" style="width:120px;" value=""></input></p>

@@ -88,14 +88,17 @@ class Thread extends My_UserSessionController{
 	            
 	            $game = $this->games_model->getById($data['gameId']);
 	            $mailers = $this->get_mailers($game);
-	            foreach($mailers['receivers'] as $user_receiver){
-	                if($this->mail_add_comment($mailers['sender'], $user_receiver, $data['comment']) == false){
-	                    // email error.
-	                    $comment = $this->lang->line('app_email_fail_to_send');
-	                    $comment .= "{$user_receiver->username} ( $user_receiver->email_address )";
-	                    $this->comments_model->add($data['threadId'], $comment, $this->users_model->getIdByUsername("admin"));
-	                }
+	            if($this->isNotifyEmail()){
+	                foreach($mailers['receivers'] as $user_receiver){
+	                    if($this->mail_add_comment($mailers['sender'], $user_receiver, $data['comment']) == false){
+	                        // email error.
+	                        $comment = $this->lang->line('app_email_fail_to_send');
+	                        $comment .= "{$user_receiver->username} ( $user_receiver->email_address )";
+	                        $this->comments_model->add($data['threadId'], $comment, $this->users_model->getIdByUsername("admin"));
+	                    }
+	                }    
 	            }
+	            
 	        } else{
 	            $data['result'] = false;
 	        }
@@ -120,7 +123,6 @@ class Thread extends My_UserSessionController{
 	    $data['title'] = 'Change Date Form';
 	    $data['copyright'] = false; // see footer.php
 	    
-	    //TODO: get current game date/time, so that default value can be set.
 	    $data['current_date'] = $this->games_model->getById($data['gameId']);
 	    $data['current_time'] = $data['current_date'];
 	    // in this case, return text.html response in both ajax and non-ajax request.
@@ -161,14 +163,16 @@ class Thread extends My_UserSessionController{
 	    $mailers = $this->get_mailers($game);
 	    
 	    // send emails.
-	    foreach($mailers['receivers'] as $user_receiver){
-	        if($this->mail_change_date($mailers['sender'], $user_receiver, $data['current_date'], $data['datetime']) == false){
-	            
-	            // mail error.
-	            $comment = $this->lang->line('tournament_comment_change_date_mail_error');
-    	        $comment .= "{$user_receiver->username} ( {$user_receiver->email_address} )";
-	            $this->comments_model->add($data['threadId'], $comment, $this->users_model->getIdByUsername("admin"));
-	        }
+	    if($this->isNotifyEmail()){
+	        foreach($mailers['receivers'] as $user_receiver){
+	            if($this->mail_change_date($mailers['sender'], $user_receiver, $data['current_date'], $data['datetime']) == false){
+	                 
+	                // mail error.
+	                $comment = $this->lang->line('tournament_comment_change_date_mail_error');
+	                $comment .= "{$user_receiver->username} ( {$user_receiver->email_address} )";
+	                $this->comments_model->add($data['threadId'], $comment, $this->users_model->getIdByUsername("admin"));
+	            }
+	        }    
 	    }
 	    
 	    $comment = $this->lang->line('tournament_comment_change_date_beginning') .
