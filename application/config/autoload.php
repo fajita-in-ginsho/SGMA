@@ -127,6 +127,7 @@ $autoload['model'] = array(
       , 'columns_model'
       , 'gametype_model'
       , 'role_model'
+      , 'users_unconfirmed_model'
 );
 
 

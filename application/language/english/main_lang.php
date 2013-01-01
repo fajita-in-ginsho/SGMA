@@ -17,4 +17,18 @@ $lang['signup_form_textbox_password'] = 'Password';
 $lang['signup_form_textbox_password_confirm'] = 'Confirm Password';
 
 
+$lang['signup_successfully_title'] = 'Signup Successfully';
+$lang['signup_successfully'] = 'Your account has been created successfully!';
+$lang['signup_temporarily_title'] = 'Signup';
+$lang['signup_temporarily'] = 'Confirmation email is sent to your account. please complete the process by confirming it.';
+$lang['button_login_now'] = 'Login Now';
+$lang['button_go_back_to_login'] = 'Go to Login';
+$lang['button_logout_exclamation'] = 'Logged out!';
+$lang['contact_admin_page_title'] = 'Contact Admin';
+$lang['contact_admin_message'] = 'Please contact administrator.';
+
+
+
+
+
 

@@ -222,8 +222,8 @@ class Thread extends My_UserSessionController{
 	function mail_change_date($user_sender, $user_receiver, $current_date, $requesting_date){
 	     
 	    $to = $user_receiver->email_address;
-	    $from = $user_sender->email_address;
-	    $subject = $this->lang->line('app_email_change_date_subject') . $user_sender->username;
+	    //$from = $user_sender->email_address;
+	    $subject = $this->lang->line('app_email_subject_head') . $this->lang->line('app_email_change_date_subject') . $user_sender->username;
 	    
 	    $message = "
     	    <html><body>
@@ -239,7 +239,7 @@ class Thread extends My_UserSessionController{
 	    ";
 	    
 	    $additional_header = "";
-	    //$additional_header .= "From: " . $from . "\r\n";
+	    $additional_header .= "From: " . $this->config->item('application_email_account') . "\r\n";
 	    $additional_header .= "MIME-Version: 1.0\r\n";
 	    $additional_header .= "Content-Type: text/html; charset=ISO-8859-1\r\n";
 	     
@@ -256,8 +256,8 @@ class Thread extends My_UserSessionController{
 	function mail_add_comment($user_sender, $user_receiver, $comment){
 	    
 	    $to = $user_receiver->email_address;
-	    $from = $user_sender->email_address;
-	    $subject = $this->lang->line('app_email_add_comment_subject') . $user_sender->username;
+	    //$from = $user_sender->email_address;
+	    $subject = $this->lang->line('app_email_subject_head') . $this->lang->line('app_email_add_comment_subject') . $user_sender->username;
 	     
 	    $message = "
     	    <html><body>
@@ -272,7 +272,7 @@ class Thread extends My_UserSessionController{
 	    ";
 	     
 	    $additional_header = "";
-	    //$additional_header .= "From: " . $from . "\r\n";
+	    $additional_header .= "From: " . $this->config->item('application_email_account') . "\r\n";
 	    $additional_header .= "MIME-Version: 1.0\r\n";
 	    $additional_header .= "Content-Type: text/html; charset=ISO-8859-1\r\n";
 	    

@@ -35,6 +35,11 @@ class My_IDModel extends My_CI_Model {
 	    }
 	}
 	
+	function deleteById($id){
+	    $this->db->where('id', $id);
+	    $this->db->delete($this->table);
+	}
+	
 }
 
 ?>
