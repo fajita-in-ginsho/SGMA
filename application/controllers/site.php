@@ -28,20 +28,6 @@ class Site extends My_UserSessionController{
 		$this->load->view('includes/template', $data);
 	}
 	
-	function tournament(){
-		$data['tournament_name'] = $this->uri->segment(3);
-		
-		// get tournament id
-		// get tournament type
-		// TODO: dynamically select a tournament form.
-		// get participants info
-		// get games info.
-		// get columns info
-		$data['main_content'] = 'tournamets/gruop_tournament_form';
-		$data['title'] = $data['tournament_name'];
-		$this->load->view('includes/template', $data);
-	}
-	
 }
 
 

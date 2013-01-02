@@ -34,6 +34,10 @@ class Tournament_Group_Chart_Model extends My_IDModel {
 		if(!isset($this->db_columns)){
 		    $this->db_columns = $this->tournament_columns_model->getColumnsByTournamentId(Tournament_Columns_Model::$DEFALT_ID);
 		}
+		
+		/*
+		  データベースからとってきたコラム情報（$this->db_columns）をjsonデータとしてgrid structureに合う形に$this->columnsに加工する。 
+		*/
 		foreach($this->db_columns as $col){
 		    if($col->field == 'participants'){
 		        foreach($this->participants as $participant){
@@ -109,6 +113,9 @@ class Tournament_Group_Chart_Model extends My_IDModel {
 		$this->parse_order();
 	}
 	
+	/*
+	 * Write order column by refering to score column in entire rows.
+	 */
 	function parse_order(){
 	    $copied_rows = $this->rows;
 	    // sort by score.
@@ -163,6 +170,13 @@ class Tournament_Group_Chart_Model extends My_IDModel {
 	    return $w;
 	}
 	
+	/*
+	 * for the given username, retrieve all players who 's having a game with the given username
+	 * with some attributes to be dispalyed in chart,
+	 * since it is to be retrieved from database, there would be multiple rows in result.
+	 * Ideally, I want to retireve a single row of query result that is match with how tournament group chart
+	 * is appeared in the chart, but it is not possible.
+	 */
 	function get_game_result_for($username){
 	    
 	    // $tournamentId_resultscore is used to get resultscore join

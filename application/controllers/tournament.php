@@ -39,6 +39,7 @@ class Tournament extends My_UserSessionController{
 			    if($data['tournament']->type == "Group"){
 			        $this->load->view('tournaments/gruop_tournament_form_json', $data);
 			    }else if($data['tournament']->type == "Knock-out"){
+			        // TODO: implement knock-out chart.
 			        $this->load->view('tournaments/gruop_tournament_form_json', $data);
 			    }else{
 			        $this->load->view('tournaments/gruop_tournament_form_json', $data);
