@@ -275,6 +275,27 @@ CREATE TABLE `users` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 
+/*Table structure for table `users_unconfirmed` */
+
+DROP TABLE IF EXISTS `users_unconfirmed`;
+
+CREATE TABLE `users_unconfirmed` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `first_name` varchar(45) NOT NULL,
+  `middle_name` varchar(45) NOT NULL,
+  `last_name` varchar(45) NOT NULL,
+  `username` varchar(45) NOT NULL,
+  `password` varchar(32) NOT NULL,
+  `email_address` varchar(128) NOT NULL,
+  `roleId` int(11) NOT NULL DEFAULT '2',
+  `createdOn` datetime NOT NULL,
+  `modifiedOn` datetime NOT NULL,
+  `nationalityId` int(11) NOT NULL DEFAULT '-1',
+  `timezoneId` int(11) NOT NULL DEFAULT '-1',
+  `randomstring` varchar(32) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
+
 /*Table structure for table `user_role` */
 
 DROP TABLE IF EXISTS `user_role`;
