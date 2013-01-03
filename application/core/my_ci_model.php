@@ -30,18 +30,6 @@ class My_CI_Model extends CI_Model {
 		}
 	}
 	
-	/*
-	function getAll(){
-	     
-	    $this->db->select('*');
-	    $this->db->from($this->table);
-	    $query = $this->db->get();
-	    if($query->num_rows() > 0){
-	        return $query->result();
-	    }
-	}
-    */
-	
 	function hasAttribute($attribute){
 	    $this->db->select('*');
 	    $this->db->from('information_schema.COLUMNS');

@@ -94,11 +94,11 @@ class Login extends My_UserSessionController {
 			  , 'email_address' => $this->input->post('email_address')
 			  , 'createdOn' => $now
 			  , 'modifiedOn' => $now
-			  , 'randomstring'=> md5($this->input->post('email_address') . $this->input->post('username')) // make has unique
 			);
 			
 			if($this->config->item('signup_with_confirmation')){
 			    // production mode.
+			    $insert_data_user['randomstring'] = md5($this->input->post('email_address') . $this->input->post('username')); // make has unique
 			    $user_id = $this->users_unconfirmed_model->insert($insert_data_user);
 			    // send confirmation email to the account.
 			    $url = site_url("login/confirm/" . $insert_data_user['randomstring']);
