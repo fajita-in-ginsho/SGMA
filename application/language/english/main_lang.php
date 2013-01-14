@@ -3,6 +3,11 @@ $lang['main_project_name'] = "SGMA";
 
 $lang['signup_title'] = 'Signup';
 $lang['signup_header'] = 'Create an Account';
+
+
+$lang['signup_form_required_symbol_heading'] = 'Entry marked by ';
+$lang['signup_form_required_symbol_tailing'] = ' is required.';
+$lang['signup_form_required_symbol'] = '*';
 $lang['signup_form_personal_information'] = 'Personal Information';
 $lang['signup_form_login_information'] = 'Login Information';
 $lang['signup_form_submit_button'] = 'Signup';

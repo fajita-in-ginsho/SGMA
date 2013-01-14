@@ -67,12 +67,13 @@ class Login extends My_UserSessionController {
 	function create_member(){
 		$this->load->library('form_validation');
 		$this->form_validation->set_rules('username', 'User Name', 'trim|required');
-		$this->form_validation->set_rules('first_name', 'First Name', 'trim|required');
-		$this->form_validation->set_rules('middle_name', 'Middle Name', 'trim');
-		$this->form_validation->set_rules('last_name', 'Last Name', 'trim|required');
 		$this->form_validation->set_rules('email_address', 'Email Address', 'trim|required');
 		$this->form_validation->set_rules('password', 'Password', 'trim|required|min_length[4]|max_length[32]');
 		$this->form_validation->set_rules('password_confirm', 'Password Confirm', 'trim|required|matches[password]');
+		$this->form_validation->set_rules('first_name', 'First Name', 'trim');
+		$this->form_validation->set_rules('middle_name', 'Middle Name', 'trim');
+		$this->form_validation->set_rules('last_name', 'Last Name', 'trim');
+		
 		
 		// TODO: check if username is not already in use.
 		// TODO: check if email_address is not already in use and is valid email account.

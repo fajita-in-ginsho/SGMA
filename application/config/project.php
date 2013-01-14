@@ -26,7 +26,7 @@ $config['debug_mode'] = TRUE;
 | FALSE, signup is validated after your entries are submitted.
 |
 */
-$config['signup_with_confirmation'] = TRUE;
+$config['signup_with_confirmation'] = FALSE;
 
 
 
