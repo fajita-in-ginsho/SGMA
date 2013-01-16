@@ -69,7 +69,7 @@
 <div id="container">
 	<h1>Welcome to CodeIgniter!</h1>
 
-	<h2>SGMA stands for Shogi Game Management Application</h2>
+	<h2>OTMS stands for Online Tournament Management System</h2>
 	<select name="age" id="age">
 	<?php
 	$i = 1;

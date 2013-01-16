@@ -75,7 +75,7 @@ $lang['tournament_label_default_game_date'] = "Default Game Date and Time: ";
 
 $lang['tournament_title_create_cup'] = "Create Cup";
 
-$lang['tournament_login_form_header1'] = "Login, SGMA member! ";
+$lang['tournament_login_form_header1'] = "Login, OTMS member! ";
 
 $lang['tournament_label_username'] = "Username : ";
 $lang['tournament_label_password'] = "Password : ";

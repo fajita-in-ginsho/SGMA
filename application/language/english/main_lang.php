@@ -1,5 +1,5 @@
 <?php 
-$lang['main_project_name'] = "SGMA";
+$lang['main_project_name'] = "OTMS";
 
 $lang['signup_title'] = 'Signup';
 $lang['signup_header'] = 'Create an Account';

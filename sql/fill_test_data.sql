@@ -1,8 +1,8 @@
 /*
 SQLyog Community v10.12 
-MySQL - 5.5.16 : Database - otma
+MySQL - 5.5.16 : Database - otms
 *********************************************************************
-*/
+*/
 
 /*!40101 SET NAMES utf8 */;
 

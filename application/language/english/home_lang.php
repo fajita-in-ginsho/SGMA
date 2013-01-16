@@ -1,5 +1,5 @@
 <?php 
-$lang['home_app_name'] = "SGMA";
+$lang['home_app_name'] = "OTMS";
 $lang['home_welcom_message'] = "Welcom to " . $lang['home_app_name'] . ", ";
 $lang['home_welcom_message_ending'] = " !!!";
 

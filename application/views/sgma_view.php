@@ -1,5 +1,5 @@
 <html>
-<title>SGMA</title>
+<title>Online Tournament Management System</title>
 
 <body>
 <h1>First View <?php echo html_escape($title); ?></h1>

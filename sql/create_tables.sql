@@ -1,6 +1,6 @@
 /*
 SQLyog Community v10.12 
-MySQL - 5.5.16 : Database - sgma
+MySQL - 5.5.16 : Database - otms
 *********************************************************************
 */
 
