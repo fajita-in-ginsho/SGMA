@@ -176,9 +176,9 @@ class Login extends My_UserSessionController {
 	
 	    $message = "
 	    <html><body>
-	    {$this->lang->line('app_email_dear')}&nbsp {$user_info['username']},
+	    {$this->lang->line('app_email_dear')}&nbsp;{$user_info['username']},
 	    <br>
-	    {$this->lang->line('app_email_confirmation_message')}
+	    {$this->lang->line('app_email_confirmation_message')}<br>
 	    <a href=\"{$url}\">{$this->lang->line('app_email_confirmation_link_name')}</a>
 	    <br>
 	    </body></html>
@@ -206,7 +206,7 @@ class Login extends My_UserSessionController {
 	
 	    $message = "
 	    <html><body>
-	    {$this->lang->line('app_email_dear')}&nbsp {$user_info->username},
+	    {$this->lang->line('app_email_dear')}&nbsp;{$user_info->username},
 	    <br>
 	    {$this->lang->line('app_email_signup_confirmed_message')}
 	    <br>
