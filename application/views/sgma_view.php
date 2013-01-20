@@ -3,7 +3,7 @@
 
 <body>
 <h1>First View <?php echo html_escape($title); ?></h1>
-<h2>SGMA main body<?php echo html_escape($heading); ?></h2>
+<h2>OTMS main body<?php echo html_escape($heading); ?></h2>
 
 <ol>
 
