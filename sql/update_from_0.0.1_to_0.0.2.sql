@@ -20,3 +20,19 @@ alter table players add foreign key (userId) references users(id);
 COMMIT;
 
 
+
+-- ----------------------------
+-- Enabled session id storage
+-- http://codeigniter.jp/user_guide_ja/libraries/sessions.html 
+-- ----------------------------
+BEGIN;
+CREATE TABLE IF NOT EXISTS `ci_sessions` (
+	session_id VARCHAR(40) DEFAULT '0' NOT NULL,
+	ip_address VARCHAR(16) DEFAULT '0' NOT NULL,
+	user_agent VARCHAR(120) NOT NULL,
+	last_activity INT(10) UNSIGNED DEFAULT 0 NOT NULL,
+	user_data TEXT NOT NULL,
+	PRIMARY KEY (session_id),
+	KEY `last_activity_idx` (`last_activity`)
+);
+COMMIT;
